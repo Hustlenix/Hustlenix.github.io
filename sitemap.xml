@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://hustlenix.github.io/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://hustlenix.github.io/about.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hustlenix.github.io/contact.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://hustlenix.github.io/privacy.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://hustlenix.github.io/guides/color-theory-for-beginners.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hustlenix.github.io/guides/pigment-mixing-vs-rgb.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hustlenix.github.io/guides/how-to-mix-colors.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hustlenix.github.io/guides/digital-painting-practice.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hustlenix.github.io/Infinite-Colour-Craft/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://hustlenix.github.io/Infinite-Colour-Craft/guides/how-to-play.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hustlenix.github.io/Infinite-Colour-Craft/guides/color-mixing-guide.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hustlenix.github.io/Infinite-Colour-Craft/guides/daily-challenges-and-quests.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+</urlset>

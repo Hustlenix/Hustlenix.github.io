@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Why RGB light and physical pigments mix differently, with practical examples of additive and subtractive color mixing.">
+<meta name="google-adsense-account" content="ca-pub-4961171087196512">
+<link rel="canonical" href="https://hustlenix.github.io/guides/pigment-mixing-vs-rgb.html">
+<link rel="stylesheet" href="../styles.css"><title>Pigment Mixing vs RGB — Hustlenix</title>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4961171087196512" crossorigin="anonymous"></script>
+</head><body><div class="site">
+<header class="topbar"><a class="brand" href="../">HUSTLENIX</a><nav class="nav"><a href="../">Home</a><a href="../#learn">Learn</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></nav></header>
+<main class="article">
+<p class="eyebrow">Color mixing</p>
+<h1>Why paint and screens disagree about color</h1>
+<p class="meta">Published September 2026 · Practical explanation</p>
+<p>If you have ever mixed yellow and blue paint to get green, then tried a similar operation with RGB values and received something dull or unexpected, you have encountered two different color systems. The screen is producing light. Paint is filtering light. Those processes are not the same, so their mixing rules should not be expected to match.</p>
+
+<h2>Additive mixing: combining light</h2>
+<p>A display creates color by emitting red, green, and blue light. Add more channels and the result becomes brighter. Red light plus green light produces yellow light; combine red, green, and blue at high intensity and the result approaches white. This is called <strong>additive mixing</strong> because light is being added.</p>
+<p>RGB is excellent for screens because the hardware itself is built around light-emitting subpixels. It is also convenient computationally: colors can be stored as three channel values and blended mathematically.</p>
+
+<h2>Subtractive mixing: pigments remove wavelengths</h2>
+<p>Paint works differently. White light hits the painted surface. Pigments absorb some wavelengths and reflect others back toward your eyes. When pigments are mixed, their absorption behaviors combine. More pigment mixing usually means less light is reflected overall, so mixtures tend to become darker or duller rather than brighter.</p>
+<p>This is called <strong>subtractive mixing</strong>. Printing commonly models it with cyan, magenta, yellow, and black inks. Traditional art education often introduces a red-yellow-blue wheel because it is intuitive for common paint-mixing exercises, even though real pigment behavior is more complex than any three-primary model.</p>
+
+<h2>So why does yellow + blue often make green paint?</h2>
+<p>A yellow pigment reflects much of the yellow-to-red region and absorbs more of the blue region. A blue pigment reflects more blue and absorbs other regions. When the two are mixed, the overlap of wavelengths that can still escape the mixture may sit around green. The exact result depends on the pigments involved: some yellow-blue pairs produce clean greens, others create olive or grey-green mixtures.</p>
+<p>This variability is important. “Blue + yellow = green” is a useful beginner rule, not a universal physical equation.</p>
+
+<h2>Why averaging RGB values can look wrong</h2>
+<p>Imagine averaging a bright digital blue with a bright digital yellow. Numerically mixing the channels does not recreate the absorption behavior of paint. Depending on the blend method and color space, the result may move toward a greyish middle rather than the vivid green a painter expects.</p>
+<p>That does not mean RGB is broken. It means the operation answered a different question: “What color lies between these light values under this interpolation method?” rather than “What would these pigments do when physically combined?”</p>
+
+<div class="note"><strong>Key idea:</strong> a color model is a tool. Judge it by whether it models the thing you are trying to do, not by whether one model can imitate every medium.</div>
+
+<h2>Where RYB-style mixing fits</h2>
+<p>RYB—red, yellow, blue—is a traditional painter-oriented framework. It is useful pedagogically because its expected mixtures align with many classroom paint experiences: red and yellow trend orange, yellow and blue trend green, and blue and red trend violet.</p>
+<p>Infinite Colour Craft uses a perceptual RYB-style conversion for its game mechanic. Screen colors are converted into a painter-friendly domain, blended there, then converted back for display. The result is an approximation designed to feel understandable to someone thinking in paint rather than emitted light.</p>
+<p>It is not a spectral simulator. Real paints depend on pigment chemistry, concentration, binder, surface, lighting, and scattering. A browser game cannot infer all of that from a hex code. The purpose is to preserve useful artistic intuition while keeping the system fast enough to run interactively.</p>
+
+<h2>Three different questions, three different tools</h2>
+<div class="table-wrap"><table>
+<tr><th>Question</th><th>Useful model</th><th>Why</th></tr>
+<tr><td>What should a screen pixel display?</td><td>RGB</td><td>Matches emitted light from display hardware.</td></tr>
+<tr><td>How should printing inks combine?</td><td>CMYK / subtractive models</td><td>Designed around ink absorption and print workflows.</td></tr>
+<tr><td>How can a beginner reason about familiar paint mixtures?</td><td>RYB-style artist model</td><td>Maps well to traditional painting intuition.</td></tr>
+</table></div>
+
+<h2>What digital artists should actually do</h2>
+<p>You usually do not need to choose one color model for an entire painting. Use RGB-based tools for the technical image, because your software and display operate that way. Use painterly intuition when choosing relationships: warm against cool, muted against saturated, light against dark, and mixture directions that make sense for the material you are trying to imitate.</p>
+<p>If you are painting a physical-looking surface digitally, you can also use layer blend modes, texture, and manually chosen intermediate colors rather than relying on a single mathematical interpolation.</p>
+
+<h2>A quick experiment</h2>
+<ol>
+<li>Choose a bright blue and bright yellow in a digital editor.</li>
+<li>Place them side by side so you know the source colors.</li>
+<li>Create one middle swatch by averaging or using a standard gradient.</li>
+<li>Create a second middle swatch manually, aiming for the green you would expect from paint.</li>
+<li>Compare value and saturation, not just hue.</li>
+</ol>
+<p>The difference teaches an important lesson: “between two colors” is not a single objective answer. It depends on the mixing model and the visual goal.</p>
+
+<h2>Why this matters beyond one game</h2>
+<p>Understanding additive and subtractive mixing helps with photography, UI design, printing, painting, lighting, and even choosing colors for a brand. It prevents a common mistake: assuming a color relationship that works on a glowing display will behave the same way when printed or physically mixed.</p>
+<p>The practical takeaway is simple: know whether you are combining <strong>light</strong>, <strong>ink/pigment</strong>, or merely <strong>numbers representing colors</strong>. Once you know that, unexpected results become much easier to explain.</p>
+
+<p class="small">Next: <a href="./how-to-mix-colors.html">How to mix colors deliberately</a> · <a href="./digital-painting-practice.html">Digital painting exercises</a></p>
+</main>
+<footer><div>© 2026 Hustlenix</div><div><a href="../privacy.html">Privacy</a> · <a href="../contact.html">Contact</a></div></footer>
+</div></body></html>

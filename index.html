@@ -1,58 +1,108 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Hustlenix — home of Infinite Colour Craft, a free gamified color alchemy studio and paint engine for the browser. Mix pigments, complete daily challenges, and read color guides."
-    />
-    <meta name="google-adsense-account" content="ca-pub-4961171087196512" />
-    <title>Hustlenix — Infinite Colour Craft</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4961171087196512"
-     crossorigin="anonymous"></script>
-    <style>
-      body { margin: 0; background: #f3f3ef; color: #111; font-family: Arial, Helvetica, sans-serif; line-height: 1.65; }
-      .wrap { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; text-align: center; }
-      .card { border: 3px solid #000; box-shadow: 6px 6px 0 0 #000; background: #fff; padding: 32px 28px; }
-      .card h1 { margin: 0 0 8px; font-style: italic; }
-      .play { display: inline-block; margin-top: 16px; background: #ffd700; color: #000; font-weight: 900; text-transform: uppercase; text-decoration: none; border: 2px solid #000; box-shadow: 3px 3px 0 0 #000; padding: 12px 28px; }
-      .sections { text-align: left; margin-top: 28px; display: grid; gap: 16px; }
-      .box { background: #fff; border: 3px solid #000; box-shadow: 4px 4px 0 0 #000; padding: 20px 22px; }
-      .box h2 { margin: 0 0 8px; font-size: 18px; }
-      .box p { margin: 0 0 8px; font-size: 15px; }
-      footer { margin-top: 28px; font-size: 14px; }
-      footer a { color: #111; }
-    </style>
-  </head>
-  <body>
-    <div class="wrap">
-      <div class="card">
-        <h1>🎨 Infinite Colour Craft</h1>
-        <p>Mix paints, discover 150+ colors, and paint expressive digital artwork — free in your browser, no downloads.</p>
-        <a class="play" href="https://hustlenix.github.io/Infinite-Colour-Craft/">Play now</a>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Hustlenix is an independent creative-coding lab publishing free browser projects and practical guides about color mixing, digital painting, and creative technology.">
+  <meta name="google-adsense-account" content="ca-pub-4961171087196512">
+  <link rel="canonical" href="https://hustlenix.github.io/">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Hustlenix — Creative Coding, Color & Browser Experiments</title>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4961171087196512" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="site">
+  <header class="topbar">
+    <a class="brand" href="./">HUSTLENIX</a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="./">Home</a>
+      <a href="#learn">Learn</a>
+      <a href="./about.html">About</a>
+      <a href="./contact.html">Contact</a>
+      <a href="./privacy.html">Privacy</a>
+    </nav>
+  </header>
 
-      <div class="sections">
-        <div class="box">
-          <h2>What is this?</h2>
-          <p><strong>Infinite Colour Craft</strong> by Hustlenix is a color alchemy game and paint studio. You combine pigments two at a time to unlock new colors, work through quests and a daily challenge with streaks, save palettes, and paint in a full studio with sound synthesized live from your brush strokes. An on-device neural network even guesses your doodles in the AI Lab.</p>
-        </div>
-        <div class="box">
-          <h2>📖 Guides</h2>
-          <p><a href="https://hustlenix.github.io/Infinite-Colour-Craft/guides/how-to-play.html">How to Play</a> — the loop, controls, and beginner mistakes.<br />
-          <a href="https://hustlenix.github.io/Infinite-Colour-Craft/guides/color-mixing-guide.html">Color Mixing Guide</a> — RYB pigment logic, categories, and rarities.<br />
-          <a href="https://hustlenix.github.io/Infinite-Colour-Craft/guides/daily-challenges-and-quests.html">Daily Challenges &amp; Quests</a> — streaks, rewards, and a 10-minute routine.</p>
-        </div>
-        <div class="box">
-          <h2>Why colors?</h2>
-          <p>Most digital color tools hand you a picker. This one makes color the game itself: every shade is earned by understanding how pigments combine, which turns an afternoon of play into a genuine intuition for hue, saturation, and lightness. Artists use it to warm up; everyone else just gets hooked discovering what Gold mixed with Cosmic makes.</p>
-        </div>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Creative coding lab</p>
+      <h1>Learn color by actually using it.</h1>
+      <p class="lede">Hustlenix builds small browser experiments that turn technical ideas into something you can play with. The current flagship is <strong>Infinite Colour Craft</strong>: a paint-mixing game, digital studio, procedural audio toy, and on-device doodle classifier in one tab.</p>
+      <div class="actions">
+        <a class="button" href="https://hustlenix.github.io/Infinite-Colour-Craft/">Play Infinite Colour Craft</a>
+        <a class="button alt" href="#learn">Read the learning guides</a>
       </div>
+    </section>
 
-      <footer>
-        <a href="./">Home</a> · <a href="./about.html">About</a> · <a href="./contact.html">Contact</a> · <a href="./privacy.html">Privacy Policy</a>
-      </footer>
-    </div>
-  </body>
+    <section class="grid" aria-label="Project overview">
+      <article class="card span-7 tint-blue">
+        <p class="kicker">What makes the project different</p>
+        <h2>It treats paint like paint, not light.</h2>
+        <p>Computer screens normally combine red, green, and blue light. Physical paint behaves differently because pigments absorb light rather than emit it. Infinite Colour Craft uses a perceptual red-yellow-blue mixing model so familiar combinations behave more like the paint box people expect: yellow with blue trends toward green, and mixes are mapped back to recognizable named colors.</p>
+        <p>The point is not to replace professional color science. It is to make the difference between <em>additive</em> light mixing and <em>subtractive</em> pigment mixing visible and interactive.</p>
+      </article>
+      <article class="card span-5 tint-yellow">
+        <p class="kicker">Built in the browser</p>
+        <h2>No install, no cloud AI required.</h2>
+        <p>The app uses React, TypeScript, Canvas 2D, Web Audio, and an on-device neural network. Brush sounds are synthesized at runtime, drawings stay in the browser, and the doodle model performs inference locally.</p>
+      </article>
+
+      <article class="card span-4">
+        <h3>150+ named colors</h3>
+        <p>Discover pigments by mixing instead of scrolling through a conventional color picker.</p>
+      </article>
+      <article class="card span-4">
+        <h3>11 painting tools</h3>
+        <p>Brush, pen, marker, spray, chisel, smudge, rainbow, stamp, fill, picker, and eraser tools make discovered colors useful.</p>
+      </article>
+      <article class="card span-4">
+        <h3>Local doodle AI</h3>
+        <p>A small convolutional network recognizes ten doodle classes without uploading the drawing to a server.</p>
+      </article>
+    </section>
+
+    <section id="learn">
+      <p class="eyebrow">Learning hub</p>
+      <h2>Useful color guides, not filler</h2>
+      <p>These articles explain the ideas behind the project in plain language and give you exercises you can use in any drawing or painting workflow.</p>
+
+      <div class="grid">
+        <article class="card span-6 tint-pink">
+          <p class="kicker">Foundation</p>
+          <h3><a href="./guides/color-theory-for-beginners.html">Color theory for beginners: hue, saturation, value and temperature</a></h3>
+          <p>A practical mental model for understanding why colors feel bright, dull, warm, cool, heavy, or light.</p>
+        </article>
+        <article class="card span-6 tint-green">
+          <p class="kicker">Mixing</p>
+          <h3><a href="./guides/pigment-mixing-vs-rgb.html">Pigment mixing vs RGB: why blue + yellow can become green</a></h3>
+          <p>Understand additive and subtractive mixing, why screens and paint disagree, and when each model is useful.</p>
+        </article>
+        <article class="card span-6 tint-yellow">
+          <p class="kicker">Practice</p>
+          <h3><a href="./guides/how-to-mix-colors.html">How to mix colors deliberately instead of guessing</a></h3>
+          <p>A repeatable five-step method for moving a color toward the hue, saturation, and lightness you actually want.</p>
+        </article>
+        <article class="card span-6 tint-blue">
+          <p class="kicker">Painting</p>
+          <h3><a href="./guides/digital-painting-practice.html">Four digital painting exercises that build real color intuition</a></h3>
+          <p>Short exercises for value control, limited palettes, warm/cool contrast, and edge awareness.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Existing game guides">
+      <article class="card span-12">
+        <p class="kicker">Game manual</p>
+        <h2>Already playing?</h2>
+        <p>The project also has dedicated gameplay documentation: <a href="https://hustlenix.github.io/Infinite-Colour-Craft/guides/how-to-play.html">How to Play</a>, <a href="https://hustlenix.github.io/Infinite-Colour-Craft/guides/color-mixing-guide.html">Color Mixing Guide</a>, and <a href="https://hustlenix.github.io/Infinite-Colour-Craft/guides/daily-challenges-and-quests.html">Daily Challenges &amp; Quests</a>.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div>© 2026 Hustlenix. Independent browser experiments and learning resources.</div>
+    <div><a href="./about.html">About</a> · <a href="./contact.html">Contact</a> · <a href="./privacy.html">Privacy</a></div>
+  </footer>
+</div>
+</body>
 </html>

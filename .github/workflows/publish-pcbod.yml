@@ -1,0 +1,70 @@
+name: Publish PCBOD to user GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-pcbod.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout user Pages repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Checkout PCBOD source
+        uses: actions/checkout@v5
+        with:
+          repository: Hustlenix/PCBOD
+          ref: main
+          path: .pcbod-src
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Install PCBOD dependencies
+        working-directory: .pcbod-src
+        run: npm install --no-audit --no-fund
+
+      - name: Validate PCBOD
+        working-directory: .pcbod-src
+        run: |
+          npm run typecheck
+          npm run lint
+
+      - name: Build PCBOD for /PCBOD
+        working-directory: .pcbod-src
+        env:
+          PCBOD_BASE_PATH: /PCBOD
+        run: npm run build
+
+      - name: Copy static export into live user site
+        shell: bash
+        run: |
+          rm -rf PCBOD
+          mkdir -p PCBOD
+          cp -a .pcbod-src/out/. PCBOD/
+          touch PCBOD/.nojekyll
+          rm -rf .pcbod-src
+
+      - name: Commit generated PCBOD site
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A PCBOD
+          if git diff --cached --quiet; then
+            echo "PCBOD export is already current."
+            exit 0
+          fi
+          git commit -m "Publish PCBOD static site"
+          git push

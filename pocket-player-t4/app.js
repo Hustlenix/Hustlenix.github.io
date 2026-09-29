@@ -266,6 +266,9 @@ const cinematicSection = document.querySelector('[data-explode-section]');
 const phaseKicker = document.querySelector('[data-phase-kicker]');
 const phaseTitle = document.querySelector('[data-phase-title]');
 const phaseCopy = document.querySelector('[data-phase-copy]');
+const cinematicPercent = document.querySelector('[data-cinematic-percent]');
+const railProgress = document.querySelector('[data-rail-progress]');
+const railPhases = [...document.querySelectorAll('[data-rail-phase]')];
 
 const cinClamp = (value, min = 0, max = 1) => Math.max(min, Math.min(max, value));
 const cinSmooth = (value) => {
@@ -305,6 +308,7 @@ const setCinematicPhase = (phase) => {
 
   const data = phases[phase];
   if (!data) return;
+  railPhases.forEach((node) => node.classList.toggle('active', node.dataset.railPhase === phase));
 
   if (phaseKicker) phaseKicker.textContent = data.kicker;
   if (phaseTitle) phaseTitle.textContent = data.title;
@@ -403,6 +407,8 @@ const updateCinematicHero = () => {
     cinematicSection.style.setProperty('--blast', '0');
     cinematicSection.style.setProperty('--labels', '1');
     cinematicSection.style.setProperty('--copy-opacity', '1');
+    if (cinematicPercent) cinematicPercent.textContent = '100%';
+    if (railProgress) railProgress.style.transform = 'scaleY(1)';
     renderCinematicGeometry(.72, 0, 1, 1, 1);
     setCinematicPhase('mapped');
     return;
@@ -431,6 +437,8 @@ const updateCinematicHero = () => {
   cinematicSection.style.setProperty('--blast', blast.toFixed(4));
   cinematicSection.style.setProperty('--labels', labels.toFixed(4));
   cinematicSection.style.setProperty('--copy-opacity', copyOpacity.toFixed(4));
+  if (cinematicPercent) cinematicPercent.textContent = String(Math.round(progress * 100)).padStart(2, '0') + '%';
+  if (railProgress) railProgress.style.transform = 'scaleY(' + progress.toFixed(4) + ')';
   renderCinematicGeometry(explode, blast, labels, progress, copyOpacity);
 
   if (progress < .12) setCinematicPhase('sealed');
@@ -449,4 +457,24 @@ if (cinematicSection) {
   window.addEventListener('scroll', requestCinematicUpdate, { passive: true });
   window.addEventListener('resize', requestCinematicUpdate);
   updateCinematicHero();
+}
+
+
+if (cinematicSection && !reducedMotion && window.matchMedia('(pointer:fine)').matches) {
+  const stage = cinematicSection.querySelector('[data-explode-stage]');
+  const scene = cinematicSection.querySelector('[data-explode-scene]');
+  stage?.addEventListener('pointermove', (event) => {
+    const rect = stage.getBoundingClientRect();
+    const progress = cinClamp((-cinematicSection.getBoundingClientRect().top) / Math.max(1, cinematicSection.offsetHeight - window.innerHeight));
+    if (progress < .58 || !scene) return;
+    const x = ((event.clientX - rect.left) / rect.width - .5);
+    const y = ((event.clientY - rect.top) / rect.height - .5);
+    scene.style.setProperty('--cin-hover-x', x.toFixed(3));
+    scene.style.setProperty('--cin-hover-y', y.toFixed(3));
+    scene.style.filter = 'drop-shadow(' + (-x * 10).toFixed(1) + 'px ' + (30 - y * 8).toFixed(1) + 'px 46px rgba(0,0,0,.13))';
+  });
+  stage?.addEventListener('pointerleave', () => {
+    if (!scene) return;
+    scene.style.filter = '';
+  });
 }

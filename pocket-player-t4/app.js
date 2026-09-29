@@ -259,3 +259,121 @@ const animatePlayer = (now) => {
 };
 renderPlayer();
 requestAnimationFrame(animatePlayer);
+
+
+/* Scroll-driven cinematic hardware disassembly */
+const cinematicSection = document.querySelector('[data-explode-section]');
+const phaseKicker = document.querySelector('[data-phase-kicker]');
+const phaseTitle = document.querySelector('[data-phase-title]');
+const phaseCopy = document.querySelector('[data-phase-copy]');
+
+const cinClamp = (value, min = 0, max = 1) => Math.max(min, Math.min(max, value));
+const cinSmooth = (value) => {
+  const t = cinClamp(value);
+  return t * t * (3 - 2 * t);
+};
+
+let cinematicFramePending = false;
+let lastPhase = '';
+
+const setCinematicPhase = (phase) => {
+  if (phase === lastPhase) return;
+  lastPhase = phase;
+
+  const phases = {
+    sealed: {
+      kicker: '01 / SEALED',
+      title: 'THE PLAYER',
+      copy: 'A self-contained music player. Scroll to open the system.'
+    },
+    ignition: {
+      kicker: '02 / DISASSEMBLY',
+      title: 'OPEN IT UP',
+      copy: 'The enclosure breaks away and the functional layers start separating.'
+    },
+    exploded: {
+      kicker: '03 / EXPLODED VIEW',
+      title: 'THE HARDWARE',
+      copy: 'Display, controls, audio, compute, storage and power become separate systems.'
+    },
+    mapped: {
+      kicker: '04 / SYSTEM MAP',
+      title: 'INSIDE NIGHTSHIFT',
+      copy: 'Every visible layer has a job. The final device only counts when all of them work together.'
+    }
+  };
+
+  const data = phases[phase];
+  if (!data) return;
+
+  if (phaseKicker) phaseKicker.textContent = data.kicker;
+  if (phaseTitle) phaseTitle.textContent = data.title;
+  if (phaseCopy) phaseCopy.textContent = data.copy;
+
+  const phaseBox = phaseTitle?.parentElement;
+  if (phaseBox && !reducedMotion) {
+    phaseBox.animate(
+      [
+        { opacity: .35, transform: 'translateY(8px)' },
+        { opacity: 1, transform: 'translateY(0)' }
+      ],
+      { duration: 320, easing: 'cubic-bezier(.2,.8,.2,1)' }
+    );
+  }
+};
+
+const updateCinematicHero = () => {
+  cinematicFramePending = false;
+  if (!cinematicSection) return;
+
+  if (reducedMotion) {
+    cinematicSection.style.setProperty('--cin-p', '1');
+    cinematicSection.style.setProperty('--explode', '.72');
+    cinematicSection.style.setProperty('--blast', '0');
+    cinematicSection.style.setProperty('--labels', '1');
+    cinematicSection.style.setProperty('--copy-opacity', '1');
+    setCinematicPhase('mapped');
+    return;
+  }
+
+  const rect = cinematicSection.getBoundingClientRect();
+  const travel = Math.max(1, cinematicSection.offsetHeight - window.innerHeight);
+  const progress = cinClamp((-rect.top) / travel);
+
+  // Leave the first frame completely assembled, then accelerate the separation.
+  const explode = cinSmooth((progress - .14) / .46);
+
+  // A short flash/ring impulse during the initial shell break-away.
+  const blastWindow = cinClamp((progress - .105) / .27);
+  const blast = Math.pow(Math.sin(blastWindow * Math.PI), 2) * (progress < .43 ? 1 : 0);
+
+  // Labels arrive after the movement has mostly resolved.
+  const labels = cinSmooth((progress - .50) / .24);
+
+  // Product story leaves the stage while the physical object becomes the focus.
+  const copyFade = cinSmooth((progress - .055) / .27);
+  const copyOpacity = 1 - copyFade * .965;
+
+  cinematicSection.style.setProperty('--cin-p', progress.toFixed(4));
+  cinematicSection.style.setProperty('--explode', explode.toFixed(4));
+  cinematicSection.style.setProperty('--blast', blast.toFixed(4));
+  cinematicSection.style.setProperty('--labels', labels.toFixed(4));
+  cinematicSection.style.setProperty('--copy-opacity', copyOpacity.toFixed(4));
+
+  if (progress < .12) setCinematicPhase('sealed');
+  else if (progress < .34) setCinematicPhase('ignition');
+  else if (progress < .66) setCinematicPhase('exploded');
+  else setCinematicPhase('mapped');
+};
+
+const requestCinematicUpdate = () => {
+  if (cinematicFramePending) return;
+  cinematicFramePending = true;
+  requestAnimationFrame(updateCinematicHero);
+};
+
+if (cinematicSection) {
+  window.addEventListener('scroll', requestCinematicUpdate, { passive: true });
+  window.addEventListener('resize', requestCinematicUpdate);
+  updateCinematicHero();
+}

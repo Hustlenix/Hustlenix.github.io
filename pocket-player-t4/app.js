@@ -605,10 +605,10 @@ const updateLowerCinematics = () => {
     const p = sectionProgress(interfaceSection);
     const lp = localProgress(p, .02, .62);
     interfaceSection.style.setProperty('--interface-o', (.20 + lp * .80).toFixed(3));
-    interfaceSection.style.setProperty('--interface-left', ((1 - lp) * -48).toFixed(1) + 'px');
-    interfaceSection.style.setProperty('--interface-right', ((1 - lp) * 62).toFixed(1) + 'px');
-    interfaceSection.style.setProperty('--interface-ry', ((1 - lp) * -6).toFixed(2) + 'deg');
-    interfaceSection.style.setProperty('--interface-scale', (.965 + lp * .035).toFixed(4));
+    interfaceSection.style.setProperty('--interface-left', ((1 - lp) * -26).toFixed(1) + 'px');
+    interfaceSection.style.setProperty('--interface-right', ((1 - lp) * 26).toFixed(1) + 'px');
+    interfaceSection.style.setProperty('--interface-ry', ((1 - lp) * -2.25).toFixed(2) + 'deg');
+    interfaceSection.style.setProperty('--interface-scale', (.985 + lp * .015).toFixed(4));
   }
 
   const buildSection = document.querySelector('[data-cine-section="build"]');

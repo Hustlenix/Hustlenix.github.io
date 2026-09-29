@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0d10" />
+  <meta name="description" content="A 90-day internet experiment: fund a Framework Laptop 16 using supporter contributions and limited sponsor ad space." />
+  <meta property="og:title" content="Build My Framework 16 — 90 Day Internet Experiment" />
+  <meta property="og:description" content="Can the internet fund a Framework Laptop 16 in 90 days? Support the experiment or sponsor a permanent spot on the laptop." />
+  <meta property="og:type" content="website" />
+  <title>Build My Framework 16</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="nav shell">
+    <a class="brand" href="#top" aria-label="Build My Framework 16 home">
+      <span class="brand-mark">F16</span>
+      <span>BUILD MY FRAMEWORK</span>
+    </a>
+    <nav>
+      <a href="#experiment">Experiment</a>
+      <a href="#sponsors">Sponsor</a>
+      <a href="#support">Support</a>
+    </nav>
+    <a class="btn btn-small btn-outline" href="#support">Support</a>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="eyebrow"><span class="live-dot"></span> 90-DAY INTERNET EXPERIMENT</div>
+      <h1>CAN THE INTERNET<br><span>BUILD MY LAPTOP?</span></h1>
+      <p class="hero-copy">
+        I’m trying to fund a Framework Laptop 16 using only internet support and limited ad space sold directly on the laptop.
+        Every rupee moves the build forward. Every sponsor becomes part of the final machine.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#support">Support with UPI <span>↗</span></a>
+        <a class="btn btn-dark" href="#sponsors">Buy ad space <span>→</span></a>
+      </div>
+
+      <div class="campaign-card">
+        <div class="campaign-topline">
+          <span>CAMPAIGN PROGRESS</span>
+          <strong id="percentFunded">0%</strong>
+        </div>
+        <div class="progress-track" aria-label="Campaign progress">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="money-row">
+          <div>
+            <span>RAISED</span>
+            <strong id="raisedAmount">₹0</strong>
+          </div>
+          <div>
+            <span>TARGET</span>
+            <strong id="targetAmount">₹3,00,000</strong>
+          </div>
+          <div>
+            <span>DAY</span>
+            <strong><span id="dayNumber">1</span>/90</strong>
+          </div>
+          <div>
+            <span>TIME LEFT</span>
+            <strong id="daysLeft">89 days</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ticker" aria-label="Campaign summary">
+      <div class="ticker-track">
+        <span>90 DAYS</span><i>×</i><span>ONE FRAMEWORK 16</span><i>×</i><span>LIMITED AD SPACE</span><i>×</i><span>BUILT BY THE INTERNET</span><i>×</i>
+        <span>90 DAYS</span><i>×</i><span>ONE FRAMEWORK 16</span><i>×</i><span>LIMITED AD SPACE</span><i>×</i><span>BUILT BY THE INTERNET</span><i>×</i>
+      </div>
+    </section>
+
+    <section id="experiment" class="section shell">
+      <div class="section-heading">
+        <span class="kicker">01 / THE EXPERIMENT</span>
+        <h2>NO CROWDFUNDING PLATFORM.<br>JUST <em>THE INTERNET.</em></h2>
+      </div>
+
+      <div class="steps-grid">
+        <article class="step-card">
+          <span class="step-num">01</span>
+          <h3>You support</h3>
+          <p>Anyone in India can support the experiment using UPI. Small amounts count. The running total is published on this page.</p>
+        </article>
+        <article class="step-card">
+          <span class="step-num">02</span>
+          <h3>Brands sponsor</h3>
+          <p>Businesses can buy one of a limited number of physical ad spaces on the finished laptop. Larger spaces cost more.</p>
+        </article>
+        <article class="step-card">
+          <span class="step-num">03</span>
+          <h3>The laptop gets built</h3>
+          <p>When the target is reached, the Framework 16 gets ordered and sponsor artwork is printed and applied to the agreed placements.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="laptop-section shell">
+      <div class="laptop-copy">
+        <span class="kicker">02 / THE CANVAS</span>
+        <h2>THE LAPTOP<br>IS THE <em>BILLBOARD.</em></h2>
+        <p>
+          This isn’t an infinite ad page. There is one physical laptop and a finite amount of space.
+          Once a slot is sold, it’s gone.
+        </p>
+        <div class="stat-pair">
+          <div><strong id="spotsSold">0</strong><span>SPOTS SOLD</span></div>
+          <div><strong id="spotsAvailable">10</strong><span>SPOTS LEFT</span></div>
+        </div>
+      </div>
+
+      <div class="laptop-wrap">
+        <div class="laptop-lid" aria-label="Laptop sponsor placement mockup">
+          <button class="slot center" data-slot="founding"><small>01</small><strong>FOUNDING<br>SPONSOR</strong><span>AVAILABLE</span></button>
+          <button class="slot top-left" data-slot="power"><small>02</small><strong>POWER</strong><span>AVAILABLE</span></button>
+          <button class="slot top-right" data-slot="memory"><small>03</small><strong>MEMORY</strong><span>AVAILABLE</span></button>
+          <button class="slot bottom-left" data-slot="storage"><small>04</small><strong>STORAGE</strong><span>AVAILABLE</span></button>
+          <button class="slot bottom-right" data-slot="graphics"><small>05</small><strong>GRAPHICS</strong><span>AVAILABLE</span></button>
+          <div class="framework-wordmark">FRAMEWORK 16 // AD-SUPPORTED BUILD</div>
+        </div>
+        <div class="laptop-base"></div>
+      </div>
+    </section>
+
+    <section id="sponsors" class="section shell">
+      <div class="section-heading row">
+        <div>
+          <span class="kicker">03 / SPONSOR INVENTORY</span>
+          <h2>BUY A PIECE OF<br>THE <em>STORY.</em></h2>
+        </div>
+        <p class="side-copy">Sponsor prices are launch placeholders until the final Framework configuration is locked. Each package can be connected to its own Razorpay payment link.</p>
+      </div>
+
+      <div id="sponsorGrid" class="sponsor-grid"></div>
+
+      <div class="disclosure">
+        <strong>FOR BUSINESSES</strong>
+        <p>Sponsorship is advertising, not a charitable donation. Final artwork, placement period, deliverables and payment terms should be agreed before purchase.</p>
+      </div>
+    </section>
+
+    <section id="support" class="support-section">
+      <div class="shell support-grid">
+        <div>
+          <span class="kicker">04 / SUPPORT</span>
+          <h2>HELP BUILD<br><em>ONE PIECE.</em></h2>
+          <p>You don’t need to fund the whole laptop. ₹10, ₹50 or ₹100 still moves the counter.</p>
+          <div class="quick-amounts" id="quickAmounts">
+            <button data-amount="10">₹10</button>
+            <button data-amount="50">₹50</button>
+            <button data-amount="100">₹100</button>
+            <button data-amount="500">₹500</button>
+          </div>
+        </div>
+
+        <div class="pay-card">
+          <div class="pay-card-head">
+            <span>UPI SUPPORT</span>
+            <span class="status-pill">INDIA</span>
+          </div>
+          <div class="qr-placeholder" id="qrPlaceholder">
+            <div class="qr-art" aria-hidden="true"></div>
+            <span>UPI QR WILL APPEAR HERE</span>
+          </div>
+          <div class="selected-amount">Selected: <strong id="selectedAmount">₹100</strong></div>
+          <button class="btn btn-primary full" id="payUpiBtn">Open UPI app <span>↗</span></button>
+          <button class="copy-upi" id="copyUpiBtn">Copy UPI ID</button>
+          <p class="fineprint" id="paymentStatus">Payment details are not public yet. Add the campaign UPI ID in <code>app.js</code> to activate.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq section shell">
+      <span class="kicker">05 / TRANSPARENCY</span>
+      <div class="faq-grid">
+        <article><h3>Where does the money go?</h3><p>Campaign funds are intended for the Framework Laptop 16 build and directly related project costs. The target and progress should be updated publicly.</p></article>
+        <article><h3>What does a sponsor get?</h3><p>A physical branded placement plus the campaign deliverables stated in that sponsor package. No guaranteed view count is promised.</p></article>
+        <article><h3>What happens if the goal isn’t reached?</h3><p>Publish the final result honestly and state how collected funds will be handled before accepting payments.</p></article>
+        <article><h3>Who handles payments?</h3><p>Because the creator is under 18, payment accounts, contracts and settlement should be controlled by a parent or guardian where required.</p></article>
+      </div>
+    </section>
+
+    <section class="final-cta shell">
+      <span>DAY <b id="footerDay">1</b> OF 90</span>
+      <h2>LET’S SEE WHAT<br>THE INTERNET CAN DO.</h2>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#support">Support the experiment</a>
+        <a class="btn btn-outline" href="#sponsors">Sponsor the laptop</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell footer">
+    <span>BUILD MY FRAMEWORK 16 // 2026</span>
+    <span>AN INDEPENDENT SOCIAL EXPERIMENT — NOT AFFILIATED WITH FRAMEWORK COMPUTER INC.</span>
+  </footer>
+
+  <dialog id="sponsorDialog">
+    <button class="dialog-close" aria-label="Close">×</button>
+    <span class="kicker">SPONSOR SLOT</span>
+    <h2 id="dialogTitle">Founding Sponsor</h2>
+    <div class="dialog-price" id="dialogPrice">₹74,999</div>
+    <p id="dialogDescription"></p>
+    <ul id="dialogBenefits"></ul>
+    <button class="btn btn-primary full" id="dialogBuy">Continue to Razorpay <span>↗</span></button>
+    <p class="fineprint" id="dialogStatus">Razorpay link not configured yet.</p>
+  </dialog>
+
+  <script src="./app.js"></script>
+</body>
+</html>

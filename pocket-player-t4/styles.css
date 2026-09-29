@@ -1500,3 +1500,237 @@ footer{height:94px;padding:0 var(--pad);display:flex;align-items:center;justify-
   }
   .interface-section.cine-interface .album-mark{height:132px}
 }
+
+
+/* =========================================================
+   LAYOUT SPECIALIST — AUTHORITATIVE FINAL PASS
+   Prevents legacy rules from reintroducing clipping/overflow.
+   ========================================================= */
+html,body{width:100%;max-width:100%}
+body{overflow-x:clip}
+main{width:100%;overflow:clip}
+main>section{min-width:0}
+main>section>*{min-width:0}
+svg{max-width:100%}
+
+:root{
+  --layout-max:1480px;
+  --layout-gutter:clamp(18px,4vw,68px);
+  --layout-block:clamp(84px,10vw,150px)
+}
+
+/* Reliable content bounds */
+.statement,
+.pipeline-section,
+.proof-section,
+.interface-section,
+.experiment-section{
+  width:min(100%,var(--layout-max));
+  max-width:var(--layout-max);
+  margin-inline:auto;
+  padding-inline:var(--layout-gutter)
+}
+.anti-shortcut,
+.architecture,
+.hardware-stack,
+.build-section,
+.finale{
+  padding-inline:max(var(--layout-gutter),calc((100vw - var(--layout-max))/2 + var(--layout-gutter)))
+}
+.section-head,
+.statement-grid,
+.experiment-grid,
+.compare,
+.pipeline,
+.proof-grid,
+.bom-grid,
+.interface-section,
+.build-list,
+.system-map{
+  min-width:0
+}
+.section-head>*,
+.statement-grid>*,
+.experiment-grid>*,
+.compare>*,
+.pipeline>*,
+.proof-grid>*,
+.bom-grid>*,
+.interface-section>*{
+  min-width:0
+}
+
+/* Typography must never create horizontal overflow */
+.section-head h2,
+.statement h2,
+.interface-copy h2,
+.experiment-section h2,
+.finale h2,
+.chapter-copy strong,
+.cinematic-copy h1{
+  max-width:100%;
+  overflow-wrap:normal;
+  text-wrap:balance
+}
+
+/* Architecture connector layer: fill the map exactly */
+.architecture .system-map svg{
+  width:100%;
+  height:100%;
+  overflow:visible;
+  pointer-events:none
+}
+.architecture .system-map svg path{
+  vector-effect:non-scaling-stroke
+}
+
+/* Keep every architecture node inside its board at desktop sizes */
+@media (min-width:1051px){
+  .architecture.cine-section .system-map{position:relative}
+  .architecture.cine-section .sys-storage{left:4%;top:13%}
+  .architecture.cine-section .sys-core{left:40.5%;top:23%}
+  .architecture.cine-section .sys-dac{right:4%;top:11%}
+  .architecture.cine-section .sys-speaker{right:4%;top:51%}
+  .architecture.cine-section .sys-ui{left:4%;top:51%}
+  .architecture.cine-section .sys-power{left:40.5%;bottom:5%}
+}
+
+/* Interaction is a true two-column safe-area, not a translated canvas */
+.interface-section.cine-interface{
+  width:min(100%,var(--layout-max));
+  max-width:var(--layout-max);
+  padding-inline:var(--layout-gutter);
+  box-sizing:border-box
+}
+.interface-section.cine-interface .ui-demo{
+  box-sizing:border-box;
+  max-inline-size:100%;
+  transform-origin:center center
+}
+.interface-section.cine-interface .ui-demo>*{
+  max-width:100%
+}
+.interface-section.cine-interface .album-mark{
+  width:100%
+}
+
+/* Chapter decorations can never create page overflow */
+.chapter-slate{overflow:hidden}
+.chapter-trace,
+.chapter-orbit,
+.fab-layers,
+.validation-pulse{max-width:55vw}
+
+/* Short desktop: fit section compositions inside viewport height */
+@media (min-width:1051px) and (max-height:840px){
+  .architecture.cine-section,
+  .interface-section.cine-interface{
+    min-height:auto
+  }
+  .architecture.cine-section .section-head{
+    grid-template-columns:108px minmax(0,1fr)
+  }
+  .architecture.cine-section .section-head h2{
+    font-size:clamp(52px,6.1vw,86px);
+    line-height:.84
+  }
+  .architecture.cine-section .system-map{
+    height:clamp(330px,45vh,400px)
+  }
+  .architecture.cine-section .sys{
+    width:170px;
+    min-height:88px;
+    padding:14px
+  }
+  .architecture.cine-section .sys-core,
+  .architecture.cine-section .sys-power{
+    width:205px
+  }
+  .architecture.cine-section .sys strong{
+    font-size:18px;
+    margin:13px 0 5px
+  }
+
+  .interface-section.cine-interface{
+    grid-template-columns:minmax(0,1fr) minmax(310px,390px);
+  }
+  .interface-section.cine-interface .ui-demo{
+    max-width:390px
+  }
+}
+
+/* Mid-size desktop / small laptop width */
+@media (min-width:1051px) and (max-width:1300px){
+  .architecture.cine-section .section-head h2{
+    font-size:clamp(52px,6vw,82px)
+  }
+  .interface-section.cine-interface{
+    grid-template-columns:minmax(0,1fr) minmax(300px,370px);
+    gap:36px
+  }
+  .interface-section.cine-interface .interface-copy h2{
+    font-size:clamp(52px,6.2vw,82px)
+  }
+}
+
+/* Tablet */
+@media (max-width:1050px){
+  .section-head{grid-template-columns:1fr}
+  .architecture.cine-section .system-map{
+    height:auto;
+    min-height:0;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+    padding:16px
+  }
+  .architecture.cine-section .sys{
+    position:static;
+    width:auto!important;
+    min-height:118px
+  }
+  .architecture.cine-section .system-map svg{display:none}
+  .interface-section.cine-interface{
+    grid-template-columns:1fr;
+    width:min(100%,var(--layout-max));
+    overflow:hidden
+  }
+  .interface-section.cine-interface .ui-demo{
+    justify-self:start;
+    margin-inline:0;
+    width:min(100%,460px)
+  }
+}
+
+/* Phone */
+@media (max-width:600px){
+  :root{--layout-gutter:18px}
+  .architecture.cine-section .system-map{
+    grid-template-columns:1fr;
+    padding:12px
+  }
+  .architecture.cine-section .sys{
+    min-height:104px
+  }
+  .interface-section.cine-interface .ui-demo{
+    width:100%;
+    max-width:100%
+  }
+  .pipeline{
+    grid-template-columns:1fr
+  }
+  .pipe-step,
+  .pipe-step:nth-child(3){
+    margin-right:0!important;
+    border-right:0!important
+  }
+  .pipe-step:after{display:none!important}
+}
+
+/* Cinematic transforms are never allowed to produce horizontal scrollbars */
+.cine-section,
+.cinematic-hero,
+.cinematic-handoff,
+.chapter-slate{
+  contain:layout paint
+}

@@ -36,45 +36,114 @@
   </div>
 
   <main id="main">
-    <section class="hero" id="top">
-      <div class="hero-grid" aria-hidden="true"></div>
-      <div class="hero-copy reveal">
-        <p class="eyebrow">POCKET AUDIO / EMBEDDED SYSTEMS / REV. 0</p>
-        <h1>NO CLOUD.<br>NO PHONE.<br><span>JUST MUSIC.</span></h1>
-        <p class="hero-deck">A pocket music player that reads, decodes, buffers and outputs your music itself. No streaming stack. No companion app. No DFPlayer doing the hard part off-screen.</p>
-        <div class="hero-meta" aria-label="Project targets">
-          <span><b>12H+</b> design runtime</span>
-          <span><b>ESP32-S3</b> audio engine</span>
-          <span><b>2-LAYER</b> mixed-signal PCB target</span>
+    <section class="cinematic-hero" id="top" data-explode-section>
+      <div class="cinematic-sticky">
+        <div class="cinematic-grid" aria-hidden="true"></div>
+
+        <div class="cinematic-copy" data-cinematic-copy>
+          <p class="eyebrow">POCKET AUDIO / EMBEDDED SYSTEMS / REV. 0</p>
+          <h1>NO CLOUD.<br>NO PHONE.<br><span>JUST MUSIC.</span></h1>
+          <p class="hero-deck">A pocket music player that reads, decodes, buffers and outputs your music itself. No streaming stack. No companion app. No DFPlayer doing the hard part off-screen.</p>
+          <div class="hero-meta" aria-label="Project targets">
+            <span><b>12H+</b> design runtime</span>
+            <span><b>ESP32-S3</b> audio engine</span>
+            <span><b>2-LAYER</b> mixed-signal PCB target</span>
+          </div>
+        </div>
+
+        <div class="cinematic-stage" data-explode-stage aria-label="Scroll-controlled exploded concept view of NIGHTSHIFT">
+          <div class="stage-meta">
+            <span>CONCEPT ARCHITECTURE</span>
+            <span>NOT YET FABRICATED</span>
+          </div>
+
+          <div class="blast-core" aria-hidden="true"></div>
+          <div class="blast-ring ring-a" aria-hidden="true"></div>
+          <div class="blast-ring ring-b" aria-hidden="true"></div>
+          <div class="blast-spark spark-a" aria-hidden="true"></div>
+          <div class="blast-spark spark-b" aria-hidden="true"></div>
+          <div class="blast-spark spark-c" aria-hidden="true"></div>
+
+          <div class="exploded-device" data-explode-scene>
+            <div class="exploded-part rear-shell" data-part="rear">
+              <div class="shell-ribs"></div>
+              <span class="part-tag">REAR SHELL</span>
+            </div>
+
+            <div class="exploded-part battery-module" data-part="battery">
+              <div class="battery-print"><b>3.7V</b><span>LI-ION</span><small>FULL-NIGHT POWER TARGET</small></div>
+              <span class="part-tag">BATTERY</span>
+            </div>
+
+            <div class="exploded-part speaker-module" data-part="speaker">
+              <div class="speaker-cone"><i></i></div>
+              <span class="part-tag">SPEAKER</span>
+            </div>
+
+            <div class="exploded-part main-pcb" data-part="pcb">
+              <div class="pcb-traces"></div>
+              <div class="pcb-chip chip-mcu"><small>MCU</small><b>ESP32-S3</b></div>
+              <div class="pcb-chip chip-dac"><small>AUDIO</small><b>DAC / AMP</b></div>
+              <div class="pcb-chip chip-pmic"><small>POWER</small><b>PMIC</b></div>
+              <div class="pcb-slot">microSD</div>
+              <span class="part-tag">MAIN PCB</span>
+            </div>
+
+            <div class="exploded-part display-module" data-part="display">
+              <div class="display-glass">
+                <div class="mini-status"><span>SD / 047</span><span>64%</span></div>
+                <strong>MIDNIGHT<br>PROTOCOL</strong>
+                <div class="mini-progress"><i></i></div>
+              </div>
+              <span class="part-tag">DISPLAY</span>
+            </div>
+
+            <div class="exploded-part control-plate" data-part="controls">
+              <button tabindex="-1" aria-hidden="true">⏮</button>
+              <div class="mini-wheel"><i></i></div>
+              <button tabindex="-1" aria-hidden="true">⏭</button>
+              <button tabindex="-1" aria-hidden="true">−</button>
+              <button class="mini-play" tabindex="-1" aria-hidden="true">▶</button>
+              <button tabindex="-1" aria-hidden="true">+</button>
+              <span class="part-tag">CONTROLS</span>
+            </div>
+
+            <div class="exploded-part storage-card" data-part="storage">
+              <b>microSD</b><span>LOCAL MUSIC</span>
+              <i></i><i></i><i></i><i></i>
+              <span class="part-tag">STORAGE</span>
+            </div>
+
+            <div class="exploded-part audio-jack" data-part="jack">
+              <span></span>
+              <b>3.5</b>
+              <span class="part-tag">HEADPHONE JACK</span>
+            </div>
+
+            <div class="exploded-part front-shell" data-part="front">
+              <div class="front-cutout display-cutout"></div>
+              <div class="front-cutout control-cutout"></div>
+              <div class="shell-mark">NIGHTSHIFT</div>
+              <span class="part-tag">FRONT SHELL</span>
+            </div>
+
+            <div class="component-callout callout-display"><i></i><span><b>DISPLAY</b>Track state, library and system feedback.</span></div>
+            <div class="component-callout callout-pcb"><i></i><span><b>ESP32-S3 CORE</b>Filesystem, decoding, buffers, DSP and UI.</span></div>
+            <div class="component-callout callout-battery"><i></i><span><b>POWER SYSTEM</b>Rechargeable cell, charge path and fuel data.</span></div>
+            <div class="component-callout callout-speaker"><i></i><span><b>SPEAKER PATH</b>Dedicated class-D output for built-in audio.</span></div>
+            <div class="component-callout callout-controls"><i></i><span><b>PHYSICAL INPUT</b>Playback and volume without a phone.</span></div>
+            <div class="component-callout callout-storage"><i></i><span><b>LOCAL STORAGE</b>Your files live on removable microSD.</span></div>
+          </div>
+
+          <div class="cinematic-phase">
+            <span data-phase-kicker>01 / SEALED</span>
+            <strong data-phase-title>THE PLAYER</strong>
+            <p data-phase-copy>A self-contained music player. Scroll to open the system.</p>
+          </div>
+
+          <div class="cinematic-scroll-cue"><span>SCROLL TO DISASSEMBLE</span><i></i></div>
         </div>
       </div>
-
-      <div class="hero-object reveal" aria-label="Interactive concept visualization of the music player">
-        <div class="object-label">INTERACTIVE CONCEPT · NOT FABRICATED</div>
-        <div class="device" data-device role="group" aria-label="Concept music player controls">
-          <div class="device-glare" aria-hidden="true"></div>
-          <div class="device-topline"><span>NIGHTSHIFT</span><span>REV.0</span></div>
-          <div class="display">
-            <div class="display-row small"><span data-track-number>SD / 047</span><span data-volume>VOL 64</span></div>
-            <div class="track" data-track-title aria-live="polite">MIDNIGHT<br>PROTOCOL</div>
-            <div class="progress"><i data-player-progress></i></div>
-            <div class="display-row"><span data-elapsed>02:18</span><span data-remaining>-01:42</span></div>
-          </div>
-          <div class="control-grid">
-            <button type="button" data-action="previous" aria-label="Previous track">⏮</button>
-            <div class="wheel" data-wheel aria-label="Volume control" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="64" tabindex="0"><span></span></div>
-            <button type="button" data-action="next" aria-label="Next track">⏭</button>
-            <button type="button" data-action="volume-down" aria-label="Volume down">−</button>
-            <button type="button" class="play" data-action="play" aria-label="Play or pause" aria-pressed="false">▶</button>
-            <button type="button" data-action="volume-up" aria-label="Volume up">+</button>
-          </div>
-          <div class="device-footer"><span>3.5 MM</span><span data-player-state>PAUSED</span><span>MICROSD</span></div>
-        </div>
-        <div class="object-shadow"></div>
-        <p class="interaction-hint">MOVE / CLICK / ROTATE</p>
-      </div>
-
-      <a class="scroll-cue" href="#premise">SCROLL TO DISASSEMBLE <span>↓</span></a>
     </section>
 
     <section class="statement" id="premise">

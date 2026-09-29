@@ -322,6 +322,77 @@ const setCinematicPhase = (phase) => {
   }
 };
 
+const renderCinematicGeometry = (e, blast, labels, progress, copyOpacity) => {
+  const part = (name) => cinematicSection?.querySelector('[data-part="' + name + '"]');
+  const tx = (baseX, baseY, x, y, z, rx = 0, ry = 0, rz = 0) =>
+    'translate3d(calc(-50% + ' + (baseX + x * e).toFixed(2) + 'px),calc(-50% + ' + (baseY + y * e).toFixed(2) + 'px),' + (z * e).toFixed(2) + 'px) rotateX(' + (rx * e).toFixed(2) + 'deg) rotateY(' + (ry * e).toFixed(2) + 'deg) rotateZ(' + (rz * e).toFixed(2) + 'deg)';
+
+  const transforms = {
+    front: tx(0, 0, -205, -88, 170, 0, -23, -10),
+    rear: tx(0, 0, 220, 98, -170, 0, 22, 11),
+    display: tx(0, -73, -26, -178, 225, -8, 0, 3),
+    controls: tx(0, 118, -142, 185, 190, 0, 0, -13),
+    pcb: tx(0, 0, -28, 18, 45, 0, 4, -2),
+    battery: tx(0, 0, 186, -5, -28, 0, 0, 7),
+    speaker: tx(0, 172, 215, 90, 95, 0, 0, 13),
+    storage: tx(0, 0, 245, -205, 145, 0, 0, 16),
+    jack: tx(0, 0, -246, 35, 105, 0, 0, -18)
+  };
+  Object.entries(transforms).forEach(([name, transform]) => {
+    const el = part(name);
+    if (el) el.style.transform = transform;
+  });
+
+  const scene = cinematicSection?.querySelector('[data-explode-scene]');
+  if (scene) {
+    scene.style.transform = 'translate(-50%,-50%) translateX(' + (-7 * e).toFixed(2) + 'vw) rotateX(' + (2 * e).toFixed(2) + 'deg) rotateY(' + (-4 * e).toFixed(2) + 'deg)';
+  }
+
+  const copy = cinematicSection?.querySelector('[data-cinematic-copy]');
+  if (copy) {
+    copy.style.opacity = copyOpacity.toFixed(3);
+    copy.style.transform = 'translate3d(' + (-36 * e).toFixed(1) + 'px,' + (-20 * e).toFixed(1) + 'px,0) scale(' + (1 - .035 * e).toFixed(4) + ')';
+    copy.style.filter = 'blur(' + (2 * e).toFixed(2) + 'px)';
+  }
+
+  const core = cinematicSection?.querySelector('.blast-core');
+  if (core) {
+    core.style.opacity = blast.toFixed(3);
+    core.style.transform = 'translate(-50%,-50%) scale(' + (.55 + blast * 1.65).toFixed(3) + ')';
+    core.style.filter = 'blur(' + (2 + blast * 9).toFixed(2) + 'px)';
+  }
+  const ringA = cinematicSection?.querySelector('.ring-a');
+  const ringB = cinematicSection?.querySelector('.ring-b');
+  if (ringA) ringA.style.transform = 'translate(-50%,-50%) scale(' + (.55 + blast * 3).toFixed(3) + ')';
+  if (ringB) ringB.style.transform = 'translate(-50%,-50%) scale(' + (.3 + blast * 4.2).toFixed(3) + ')';
+
+  [
+    ['.spark-a', 18, 180],
+    ['.spark-b', 144, 150],
+    ['.spark-c', 272, 200]
+  ].forEach(([selector, angle, distance]) => {
+    const spark = cinematicSection?.querySelector(selector);
+    if (spark) spark.style.transform = 'rotate(' + angle + 'deg) translateX(' + (blast * distance).toFixed(1) + 'px)';
+  });
+
+  cinematicSection?.querySelectorAll('.component-callout').forEach((callout) => {
+    callout.style.opacity = labels.toFixed(3);
+    callout.style.transform = 'translateY(' + ((1 - labels) * 18).toFixed(1) + 'px)';
+  });
+  cinematicSection?.querySelectorAll('.part-tag').forEach((tag) => {
+    tag.style.opacity = (.12 + labels * .88).toFixed(3);
+  });
+
+  const ribs = cinematicSection?.querySelector('.shell-ribs');
+  if (ribs) ribs.style.opacity = (.05 + e * .35).toFixed(3);
+
+  const meta = cinematicSection?.querySelector('.stage-meta');
+  if (meta) meta.style.opacity = (.62 + labels * .38).toFixed(3);
+
+  const cue = cinematicSection?.querySelector('.cinematic-scroll-cue');
+  if (cue) cue.style.opacity = Math.max(0, 1 - progress * 2).toFixed(3);
+};
+
 const updateCinematicHero = () => {
   cinematicFramePending = false;
   if (!cinematicSection) return;
@@ -332,6 +403,7 @@ const updateCinematicHero = () => {
     cinematicSection.style.setProperty('--blast', '0');
     cinematicSection.style.setProperty('--labels', '1');
     cinematicSection.style.setProperty('--copy-opacity', '1');
+    renderCinematicGeometry(.72, 0, 1, 1, 1);
     setCinematicPhase('mapped');
     return;
   }
@@ -359,6 +431,7 @@ const updateCinematicHero = () => {
   cinematicSection.style.setProperty('--blast', blast.toFixed(4));
   cinematicSection.style.setProperty('--labels', labels.toFixed(4));
   cinematicSection.style.setProperty('--copy-opacity', copyOpacity.toFixed(4));
+  renderCinematicGeometry(explode, blast, labels, progress, copyOpacity);
 
   if (progress < .12) setCinematicPhase('sealed');
   else if (progress < .34) setCinematicPhase('ignition');

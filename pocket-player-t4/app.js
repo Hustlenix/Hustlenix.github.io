@@ -349,7 +349,22 @@ const renderCinematicGeometry = (e, blast, labels, progress, copyOpacity) => {
 
   const scene = cinematicSection?.querySelector('[data-explode-scene]');
   if (scene) {
-    scene.style.transform = 'translate(-50%,-50%) translateX(' + (-7 * e).toFixed(2) + 'vw) rotateX(' + (2 * e).toFixed(2) + 'deg) rotateY(' + (-4 * e).toFixed(2) + 'deg)';
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    let fit = 1;
+    if (vw <= 720) fit = .70;
+    else if (vw <= 1120) fit = .82;
+    else if (vh <= 760) fit = .76;
+    else if (vh <= 820) fit = .82;
+    else if (vw <= 1500) fit = .90;
+
+    const scale = 1 - e * (1 - fit);
+    const shiftX = vw > 1120 ? (-4.5 * e) : 0;
+    const shiftY = vh <= 820 ? (-20 * e) : (-8 * e);
+
+    scene.style.transform =
+      'translate(-50%,-50%) translate(' + shiftX.toFixed(2) + 'vw,' + shiftY.toFixed(1) + 'px) ' +
+      'scale(' + scale.toFixed(4) + ') rotateX(' + (2 * e).toFixed(2) + 'deg) rotateY(' + (-4 * e).toFixed(2) + 'deg)';
   }
 
   const copy = cinematicSection?.querySelector('[data-cinematic-copy]');
@@ -409,7 +424,7 @@ const updateCinematicHero = () => {
     cinematicSection.style.setProperty('--copy-opacity', '1');
     if (cinematicPercent) cinematicPercent.textContent = '100%';
     if (railProgress) railProgress.style.transform = 'scaleY(1)';
-    renderCinematicGeometry(.72, 0, 1, 1, 1);
+    renderCinematicGeometry(.72, 0, 1, 1, 0);
     setCinematicPhase('mapped');
     return;
   }
@@ -430,7 +445,7 @@ const updateCinematicHero = () => {
 
   // Product story leaves the stage while the physical object becomes the focus.
   const copyFade = cinSmooth((progress - .055) / .27);
-  const copyOpacity = 1 - copyFade * .965;
+  const copyOpacity = Math.max(0, 1 - copyFade);
 
   cinematicSection.style.setProperty('--cin-p', progress.toFixed(4));
   cinematicSection.style.setProperty('--explode', explode.toFixed(4));

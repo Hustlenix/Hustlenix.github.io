@@ -19,7 +19,7 @@ const updateScrollState = () => {
   header?.classList.toggle('scrolled', window.scrollY > 18);
 
   const probe = document.elementFromPoint(Math.min(window.innerWidth - 2, window.innerWidth / 2), Math.min(70, window.innerHeight - 2));
-  const dark = probe?.closest?.('.dark-section');
+  const dark = probe?.closest?.('.dark-section, .chapter-dark, .cinematic-handoff');
   header?.classList.toggle('on-dark', Boolean(dark));
 };
 
@@ -107,7 +107,7 @@ if (device && heroObject && !reducedMotion && window.matchMedia('(pointer:fine)'
 
 const pipeline = document.querySelector('[data-pipeline]');
 const pipeSteps = [...document.querySelectorAll('.pipe-step')];
-if (pipeline && pipeSteps.length && !reducedMotion) {
+if (pipeline && pipeSteps.length && !reducedMotion && !pipeline.closest('.cine-section')) {
   let pipelineTimer = null;
   const pipelineObserver = new IntersectionObserver(([entry]) => {
     if (!entry.isIntersecting) return;
@@ -493,3 +493,166 @@ if (cinematicSection && !reducedMotion && window.matchMedia('(pointer:fine)').ma
     scene.style.filter = '';
   });
 }
+
+
+/* =========================================================
+   LOWER-PAGE SCROLL CINEMATICS
+   ========================================================= */
+const lowerCineSections = [...document.querySelectorAll('[data-cine-section]')];
+const chapterSlates = [...document.querySelectorAll('[data-chapter-slate]')];
+
+const sectionProgress = (element) => {
+  const rect = element.getBoundingClientRect();
+  const vh = window.innerHeight || 1;
+  return cinClamp((vh * .88 - rect.top) / (vh * .88 + Math.max(rect.height, vh * .55) * .52));
+};
+
+const localProgress = (progress, start, length) =>
+  cinSmooth((progress - start) / length);
+
+const updateLowerCinematics = () => {
+  if (reducedMotion) return;
+
+  for (const section of lowerCineSections) {
+    const p = sectionProgress(section);
+    const eased = cinSmooth(p);
+    section.style.setProperty('--cine-y', ((1 - eased) * 28).toFixed(1) + 'px');
+    section.style.setProperty('--cine-scale', (.985 + eased * .015).toFixed(4));
+    section.style.setProperty('--cine-opacity', (.18 + eased * .82).toFixed(3));
+    section.style.setProperty('--cine-line', (.15 + eased * .85).toFixed(3));
+  }
+
+  for (const slate of chapterSlates) {
+    const p = sectionProgress(slate);
+    const reveal = localProgress(p, .03, .56);
+    slate.style.setProperty('--chapter-o', reveal.toFixed(3));
+    slate.style.setProperty('--chapter-y', ((1 - reveal) * 70).toFixed(1) + 'px');
+    slate.style.setProperty('--chapter-scale', (.95 + reveal * .05).toFixed(4));
+    slate.style.setProperty('--chapter-clip', ((1 - reveal) * 100).toFixed(1) + '%');
+    slate.style.setProperty('--trace-x', (-110 + p * 235).toFixed(1) + '%');
+    slate.style.setProperty('--orbit-rot', (p * 130).toFixed(1) + 'deg');
+
+    const fabLayers = [...slate.querySelectorAll('.fab-layers i')];
+    fabLayers.forEach((layer, index) => {
+      const spread = localProgress(p, .10 + index * .025, .42);
+      const y = (index - 2) * 16 * (1 - spread);
+      const z = (index - 2) * 20 * spread;
+      layer.style.setProperty('--fab-y', y.toFixed(1) + 'px');
+      layer.style.setProperty('--fab-z', z.toFixed(1) + 'px');
+      layer.style.opacity = (.16 + spread * .84).toFixed(3);
+    });
+
+    const pulse = slate.querySelector('.validation-pulse');
+    if (pulse) {
+      const pulseP = localProgress(p, .10, .58);
+      pulse.style.setProperty('--pulse-scale', (.42 + pulseP * .75).toFixed(3));
+      pulse.style.setProperty('--pulse-o', (.08 + pulseP * .72).toFixed(3));
+    }
+  }
+
+  const pipelineSection = document.querySelector('[data-cine-section="pipeline"]');
+  if (pipelineSection && pipeSteps.length) {
+    const p = sectionProgress(pipelineSection);
+    const active = Math.min(pipeSteps.length - 1, Math.max(0, Math.floor(p * pipeSteps.length)));
+    pipeSteps.forEach((step, index) => {
+      step.classList.toggle('signal-active', index === active && p > .05 && p < .98);
+      step.classList.toggle('signal-past', index < active);
+    });
+  }
+
+  const architectureSection = document.querySelector('[data-cine-section="architecture"]');
+  if (architectureSection) {
+    const systems = [...architectureSection.querySelectorAll('.sys')];
+    const p = sectionProgress(architectureSection);
+    const active = Math.min(systems.length - 1, Math.max(0, Math.floor(p * systems.length)));
+    systems.forEach((system, index) => {
+      system.classList.toggle('system-focus', index === active && p > .05 && p < .98);
+      system.classList.toggle('system-past', index < active);
+    });
+    const map = architectureSection.querySelector('.system-map');
+    if (map) {
+      map.style.setProperty('--map-rx', ((1 - cinSmooth(p)) * 3.2).toFixed(2) + 'deg');
+      map.style.setProperty('--map-scale', (.975 + cinSmooth(p) * .025).toFixed(4));
+    }
+  }
+
+  const proofSection = document.querySelector('[data-cine-section="proof"]');
+  if (proofSection) {
+    const p = sectionProgress(proofSection);
+    [...proofSection.querySelectorAll('.proof-grid article')].forEach((tile, index) => {
+      const lp = localProgress(p, index * .07, .48);
+      tile.style.opacity = (.22 + lp * .78).toFixed(3);
+      tile.style.transform = 'translateY(' + ((1 - lp) * 48).toFixed(1) + 'px) scale(' + (.975 + lp * .025).toFixed(4) + ')';
+    });
+  }
+
+  const stackSection = document.querySelector('[data-cine-section="stack"]');
+  if (stackSection) {
+    const p = sectionProgress(stackSection);
+    [...stackSection.querySelectorAll('.bom-grid>div')].forEach((part, index) => {
+      const lp = localProgress(p, index * .045, .44);
+      const side = index % 2 === 0 ? -1 : 1;
+      part.style.setProperty('--part-o', (.18 + lp * .82).toFixed(3));
+      part.style.setProperty('--part-x', ((1 - lp) * side * 26).toFixed(1) + 'px');
+      part.style.setProperty('--part-y', ((1 - lp) * 64).toFixed(1) + 'px');
+      part.style.setProperty('--part-rx', ((1 - lp) * 6).toFixed(2) + 'deg');
+      part.style.setProperty('--part-scale', (.965 + lp * .035).toFixed(4));
+    });
+  }
+
+  const interfaceSection = document.querySelector('[data-cine-section="interface"]');
+  if (interfaceSection) {
+    const p = sectionProgress(interfaceSection);
+    const lp = localProgress(p, .02, .62);
+    interfaceSection.style.setProperty('--interface-o', (.20 + lp * .80).toFixed(3));
+    interfaceSection.style.setProperty('--interface-left', ((1 - lp) * -48).toFixed(1) + 'px');
+    interfaceSection.style.setProperty('--interface-right', ((1 - lp) * 62).toFixed(1) + 'px');
+    interfaceSection.style.setProperty('--interface-ry', ((1 - lp) * -6).toFixed(2) + 'deg');
+    interfaceSection.style.setProperty('--interface-scale', (.965 + lp * .035).toFixed(4));
+  }
+
+  const buildSection = document.querySelector('[data-cine-section="build"]');
+  if (buildSection) {
+    const rows = [...buildSection.querySelectorAll('.build-row')];
+    const p = sectionProgress(buildSection);
+    const active = Math.min(rows.length - 1, Math.max(0, Math.floor(p * rows.length)));
+    rows.forEach((row, index) => {
+      row.classList.toggle('build-current', index === active && p > .04 && p < .99);
+      row.classList.toggle('build-past', index < active);
+    });
+  }
+
+  const experimentSection = document.querySelector('[data-cine-section="experiment"]');
+  if (experimentSection) {
+    const p = sectionProgress(experimentSection);
+    const lp = localProgress(p, .04, .62);
+    experimentSection.style.setProperty('--exp-y', ((1 - lp) * 42).toFixed(1) + 'px');
+    experimentSection.style.setProperty('--exp-o', (.20 + lp * .80).toFixed(3));
+    experimentSection.style.setProperty('--boundary-scale', (.08 + lp * .92).toFixed(3));
+  }
+
+  const finaleSection = document.querySelector('[data-cine-section="finale"]');
+  if (finaleSection) {
+    const p = sectionProgress(finaleSection);
+    const lp = localProgress(p, .02, .66);
+    finaleSection.style.setProperty('--final-clip', ((1 - lp) * 100).toFixed(1) + '%');
+    finaleSection.style.setProperty('--final-y', ((1 - lp) * 60).toFixed(1) + 'px');
+    finaleSection.style.setProperty('--final-small-y', ((1 - lp) * 28).toFixed(1) + 'px');
+    finaleSection.style.setProperty('--final-o', (.10 + lp * .90).toFixed(3));
+    finaleSection.style.setProperty('--final-glow', (.55 + lp * .65).toFixed(3));
+  }
+};
+
+let lowerCinePending = false;
+const requestLowerCinematics = () => {
+  if (lowerCinePending) return;
+  lowerCinePending = true;
+  requestAnimationFrame(() => {
+    lowerCinePending = false;
+    updateLowerCinematics();
+  });
+};
+
+window.addEventListener('scroll', requestLowerCinematics, { passive: true });
+window.addEventListener('resize', requestLowerCinematics);
+updateLowerCinematics();

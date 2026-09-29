@@ -54,7 +54,16 @@
         <div class="cinematic-stage" data-explode-stage aria-label="Scroll-controlled exploded concept view of NIGHTSHIFT">
           <div class="stage-meta">
             <span>CONCEPT ARCHITECTURE</span>
+            <span data-cinematic-percent>00%</span>
             <span>NOT YET FABRICATED</span>
+          </div>
+
+          <div class="phase-rail" aria-hidden="true">
+            <i data-rail-progress></i>
+            <span data-rail-phase="sealed"><b>01</b>SEALED</span>
+            <span data-rail-phase="ignition"><b>02</b>OPEN</span>
+            <span data-rail-phase="exploded"><b>03</b>PARTS</span>
+            <span data-rail-phase="mapped"><b>04</b>MAP</span>
           </div>
 
           <div class="blast-core" aria-hidden="true"></div>
@@ -127,12 +136,12 @@
               <span class="part-tag">FRONT SHELL</span>
             </div>
 
-            <div class="component-callout callout-display"><i></i><span><b>DISPLAY</b>Track state, library and system feedback.</span></div>
-            <div class="component-callout callout-pcb"><i></i><span><b>ESP32-S3 CORE</b>Filesystem, decoding, buffers, DSP and UI.</span></div>
-            <div class="component-callout callout-battery"><i></i><span><b>POWER SYSTEM</b>Rechargeable cell, charge path and fuel data.</span></div>
-            <div class="component-callout callout-speaker"><i></i><span><b>SPEAKER PATH</b>Dedicated class-D output for built-in audio.</span></div>
-            <div class="component-callout callout-controls"><i></i><span><b>PHYSICAL INPUT</b>Playback and volume without a phone.</span></div>
-            <div class="component-callout callout-storage"><i></i><span><b>LOCAL STORAGE</b>Your files live on removable microSD.</span></div>
+            <div class="component-callout callout-display"><em>01</em><i></i><span><b>DISPLAY</b>Track state, library and system feedback.</span></div>
+            <div class="component-callout callout-pcb"><em>02</em><i></i><span><b>ESP32-S3 CORE</b>Filesystem, decoding, buffers, DSP and UI.</span></div>
+            <div class="component-callout callout-battery"><em>03</em><i></i><span><b>POWER SYSTEM</b>Rechargeable cell, charge path and fuel data.</span></div>
+            <div class="component-callout callout-speaker"><em>04</em><i></i><span><b>SPEAKER PATH</b>Dedicated class-D output for built-in audio.</span></div>
+            <div class="component-callout callout-controls"><em>05</em><i></i><span><b>PHYSICAL INPUT</b>Playback and volume without a phone.</span></div>
+            <div class="component-callout callout-storage"><em>06</em><i></i><span><b>LOCAL STORAGE</b>Your files live on removable microSD.</span></div>
           </div>
 
           <div class="cinematic-phase">
@@ -143,6 +152,16 @@
 
           <div class="cinematic-scroll-cue"><span>SCROLL TO DISASSEMBLE</span><i></i></div>
         </div>
+      </div>
+    </section>
+
+    <section class="cinematic-handoff" aria-label="Transition from product view to engineering">
+      <div>
+        <span>THE OBJECT IS ONLY THE OUTSIDE.</span>
+        <strong>NOW FOLLOW THE SIGNAL.</strong>
+      </div>
+      <div class="handoff-path" aria-hidden="true">
+        <i></i><b>SD</b><i></i><b>PCM</b><i></i><b>I²S</b><i></i><b>AIR</b>
       </div>
     </section>
 

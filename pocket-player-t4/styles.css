@@ -933,3 +933,384 @@ footer{height:94px;padding:0 var(--pad);display:flex;align-items:center;justify-
   .cinematic-phase strong{font-size:34px}
   .component-callout{display:none}
 }
+
+
+/* =========================================================
+   LOWER-PAGE CINEMATIC SYSTEM
+   ========================================================= */
+.cine-section{
+  --cine-y:28px;
+  --cine-scale:.985;
+  --cine-opacity:.18;
+  position:relative;
+  isolation:isolate
+}
+.cine-section>.section-index,
+.cine-section>.section-head,
+.cine-section>.statement-grid,
+.cine-section>.experiment-grid{
+  transform:translateY(var(--cine-y)) scale(var(--cine-scale));
+  opacity:var(--cine-opacity);
+  transition:transform .12s linear,opacity .12s linear;
+  will-change:transform,opacity
+}
+.cine-section:before{
+  content:"";
+  position:absolute;
+  left:0;right:0;top:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(10,10,10,.16),transparent);
+  transform:scaleX(var(--cine-line,.15));
+  opacity:.5;
+  transform-origin:center
+}
+.dark-section.cine-section:before{
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent)
+}
+
+/* Chapter slates */
+.chapter-slate{
+  --chapter-o:0;
+  --chapter-y:70px;
+  --chapter-scale:.95;
+  --chapter-clip:100%;
+  min-height:92svh;
+  position:relative;
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:minmax(90px,.24fr) minmax(0,1fr);
+  align-items:center;
+  gap:clamp(20px,5vw,90px);
+  padding:clamp(92px,11vw,160px) max(var(--pad),calc((100vw - var(--max))/2 + 68px));
+  isolation:isolate
+}
+.chapter-dark{background:#090909;color:#f2f0e9}
+.chapter-light{background:#efede6;color:#0a0a0a}
+.chapter-number{
+  align-self:start;
+  margin-top:1.2rem;
+  font:900 clamp(64px,9vw,146px)/.8 Arial,Helvetica,sans-serif;
+  letter-spacing:-.09em;
+  opacity:.09;
+  transform:translateY(var(--chapter-y)) scale(var(--chapter-scale));
+  transition:transform .1s linear
+}
+.chapter-copy{
+  position:relative;
+  z-index:3;
+  transform:translateY(var(--chapter-y)) scale(var(--chapter-scale));
+  opacity:var(--chapter-o);
+  transition:transform .1s linear,opacity .1s linear
+}
+.chapter-copy>span{
+  display:block;
+  margin-bottom:24px;
+  color:var(--orange);
+  font:850 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.15em
+}
+.chapter-copy strong{
+  display:block;
+  max-width:1080px;
+  font:950 clamp(66px,10.2vw,168px)/.78 Arial,Helvetica,sans-serif;
+  letter-spacing:-.082em;
+  clip-path:inset(var(--chapter-clip) 0 0 0);
+  transition:clip-path .1s linear
+}
+.chapter-copy p{
+  max-width:570px;
+  margin:34px 0 0;
+  color:currentColor;
+  opacity:.54;
+  font-size:clamp(16px,1.5vw,22px);
+  line-height:1.35;
+  letter-spacing:-.018em
+}
+.chapter-slate:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.42;
+  background:
+    radial-gradient(circle at 78% 48%,rgba(255,90,31,.12),transparent 24%),
+    linear-gradient(90deg,transparent 0 49.94%,rgba(128,128,128,.08) 50%,transparent 50.06%)
+}
+.chapter-dark:after{background:
+  radial-gradient(circle at 78% 48%,rgba(185,255,102,.07),transparent 25%),
+  linear-gradient(90deg,transparent 0 49.94%,rgba(255,255,255,.055) 50%,transparent 50.06%)}
+
+/* SIGNAL slate */
+.chapter-trace{
+  position:absolute;
+  right:7vw;top:16%;bottom:16%;
+  width:min(32vw,470px);
+  z-index:1
+}
+.chapter-trace i{
+  position:absolute;
+  left:0;right:0;height:1px;
+  background:rgba(185,255,102,.15);
+  overflow:hidden
+}
+.chapter-trace i:after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,var(--green),transparent);
+  transform:translateX(var(--trace-x,-110%));
+  box-shadow:0 0 20px rgba(185,255,102,.25)
+}
+.chapter-trace i:nth-child(1){top:10%}
+.chapter-trace i:nth-child(2){top:38%;left:12%}
+.chapter-trace i:nth-child(3){top:66%;left:26%}
+.chapter-trace i:nth-child(4){top:92%;left:42%}
+
+/* SYSTEM slate */
+.chapter-orbit{
+  position:absolute;right:4vw;top:50%;
+  width:min(42vw,620px);aspect-ratio:1;
+  transform:translateY(-50%) rotate(var(--orbit-rot,0deg));
+  opacity:var(--chapter-o)
+}
+.chapter-orbit:before{
+  content:"";
+  position:absolute;inset:43%;
+  border-radius:50%;background:var(--orange);
+  box-shadow:0 0 60px rgba(255,90,31,.2)
+}
+.chapter-orbit b{
+  position:absolute;inset:10%;
+  border:1px solid rgba(10,10,10,.12);
+  border-radius:50%
+}
+.chapter-orbit b:nth-child(2){inset:25%;border-style:dashed}
+.chapter-orbit b:nth-child(3){inset:38%;border-color:rgba(255,90,31,.35)}
+
+/* FABRICATION slate */
+.fab-layers{
+  position:absolute;
+  right:6vw;top:50%;
+  width:min(38vw,520px);height:420px;
+  transform:translateY(-50%);
+  perspective:900px
+}
+.fab-layers i{
+  position:absolute;
+  left:10%;right:10%;height:66px;
+  border:1px solid rgba(185,255,102,.22);
+  background:rgba(185,255,102,.025);
+  transform:
+    translateY(var(--fab-y,0px))
+    translateZ(var(--fab-z,0px))
+    rotateX(66deg);
+  box-shadow:0 0 0 1px rgba(255,255,255,.02)
+}
+.fab-layers i:nth-child(1){top:24px}
+.fab-layers i:nth-child(2){top:92px;left:15%;right:5%}
+.fab-layers i:nth-child(3){top:160px;left:5%;right:15%}
+.fab-layers i:nth-child(4){top:228px;left:18%;right:2%}
+.fab-layers i:nth-child(5){top:296px;left:3%;right:20%}
+
+/* VALIDATION slate */
+.validation-pulse{
+  position:absolute;right:8vw;top:50%;
+  width:min(34vw,480px);aspect-ratio:1;
+  transform:translateY(-50%)
+}
+.validation-pulse i,.validation-pulse b{
+  position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(255,90,31,.28);
+  transform:scale(var(--pulse-scale,.4));
+  opacity:var(--pulse-o,0)
+}
+.validation-pulse b{inset:19%;border-color:rgba(10,10,10,.25)}
+.validation-pulse:after{
+  content:"PASS?";
+  position:absolute;inset:42%;
+  display:grid;place-items:center;
+  border-radius:50%;
+  background:#0b0b0b;color:#fff;
+  font:850 8px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.08em
+}
+
+/* Pipeline becomes a scroll-directed shot */
+.pipeline-section{overflow:hidden}
+.pipeline{
+  position:relative;
+  background:linear-gradient(90deg,rgba(255,90,31,.025),transparent 38%);
+}
+.pipe-step{
+  opacity:.36;
+  filter:saturate(.45);
+  transition:
+    opacity .28s var(--ease),
+    transform .28s var(--ease),
+    filter .28s var(--ease),
+    background .28s var(--ease)
+}
+.pipe-step.signal-active{
+  opacity:1;
+  filter:none;
+  transform:translateY(-10px);
+  background:linear-gradient(180deg,rgba(255,90,31,.045),transparent)
+}
+.pipe-step.signal-active h3{color:var(--orange)}
+.pipe-step.signal-past{opacity:.62}
+
+/* Architecture: one subsystem at a time */
+.architecture .system-map{
+  transform:perspective(1200px) rotateX(var(--map-rx,0deg)) scale(var(--map-scale,1));
+  transition:transform .12s linear
+}
+.architecture .sys{
+  opacity:.34;
+  filter:saturate(.45);
+  transition:opacity .28s,filter .28s,transform .28s,border-color .28s,box-shadow .28s
+}
+.architecture .sys.system-focus{
+  opacity:1;
+  filter:none;
+  transform:translateY(-7px) scale(1.035);
+  border-color:var(--green);
+  box-shadow:0 18px 50px rgba(0,0,0,.34),0 0 48px rgba(185,255,102,.08)
+}
+.architecture .sys.system-past{opacity:.62}
+
+/* Proof tiles arrive as shots, not cards */
+.proof-grid article{
+  opacity:var(--tile-o,.28);
+  transform:translateY(var(--tile-y,42px)) scale(var(--tile-scale,.98));
+  transition:transform .14s linear,opacity .14s linear
+}
+
+/* Hardware stack assembles */
+.bom-grid>div{
+  opacity:var(--part-o,.22);
+  transform:
+    translate3d(var(--part-x,0),var(--part-y,50px),0)
+    rotateX(var(--part-rx,4deg))
+    scale(var(--part-scale,.97));
+  transform-origin:center bottom;
+  transition:transform .13s linear,opacity .13s linear,background .3s
+}
+.bom-grid>div:hover{transform:translateY(-2px)!important}
+
+/* Interface shot */
+.cine-interface .interface-copy,
+.cine-interface .ui-demo{
+  opacity:var(--interface-o,.25);
+  transition:transform .12s linear,opacity .12s linear
+}
+.cine-interface .interface-copy{
+  transform:translateX(var(--interface-left,-44px))
+}
+.cine-interface .ui-demo{
+  transform:
+    translateX(var(--interface-right,55px))
+    rotateY(var(--interface-ry,-5deg))
+    scale(var(--interface-scale,.97));
+  transform-origin:left center
+}
+
+/* Build timeline behaves like a film timeline */
+.cine-build .build-row{
+  opacity:.24;
+  transform:translateX(0);
+  transition:opacity .24s,transform .24s,background .24s,padding .24s
+}
+.cine-build .build-row.build-past{opacity:.55}
+.cine-build .build-row.build-current{
+  opacity:1;
+  transform:translateX(14px)
+}
+.cine-build .build-row.build-current:before{transform:scaleX(1)}
+.cine-build .build-row.build-current strong{color:var(--green)}
+.cine-build .build-row.build-current em{color:#f3f1ea}
+
+/* Experiment resolves into a clean split */
+.cine-experiment .experiment-copy{
+  transform:translateY(var(--exp-y,40px));
+  opacity:var(--exp-o,.24);
+  transition:transform .12s linear,opacity .12s linear
+}
+.cine-experiment .boundary{
+  transform:scaleX(var(--boundary-scale,.1));
+  transform-origin:left;
+  transition:transform .12s linear
+}
+
+/* Finale: one clean payoff */
+.cine-finale{
+  overflow:hidden;
+  min-height:100svh
+}
+.cine-finale:after{
+  content:"";
+  position:absolute;
+  left:50%;top:50%;
+  width:min(72vw,980px);aspect-ratio:1;
+  transform:translate(-50%,-50%) scale(var(--final-glow,.55));
+  background:radial-gradient(circle,rgba(185,255,102,.09),transparent 62%);
+  pointer-events:none
+}
+.cine-finale h2{
+  clip-path:inset(var(--final-clip,100%) 0 0 0);
+  transform:translateY(var(--final-y,55px));
+  opacity:var(--final-o,.12);
+  transition:clip-path .12s linear,transform .12s linear,opacity .12s linear
+}
+.cine-finale .eyebrow,
+.cine-finale .finale-copy,
+.cine-finale .finale-actions{
+  opacity:var(--final-o,.12);
+  transform:translateY(var(--final-small-y,24px));
+  transition:opacity .12s linear,transform .12s linear
+}
+
+/* Avoid double entrance systems fighting each other */
+.cine-section .reveal.visible{filter:none}
+
+/* Mobile: keep the cinematic hierarchy, remove expensive spatial effects */
+@media (max-width:900px){
+  .chapter-slate{
+    min-height:74svh;
+    grid-template-columns:1fr;
+    gap:12px;
+    padding:80px 22px
+  }
+  .chapter-number{
+    position:absolute;
+    right:18px;top:58px;
+    font-size:86px
+  }
+  .chapter-copy strong{font-size:clamp(54px,15vw,92px)}
+  .chapter-copy p{max-width:88%}
+  .chapter-trace,.chapter-orbit,.fab-layers,.validation-pulse{
+    opacity:.34;
+    right:-18vw;
+    width:62vw
+  }
+  .architecture .sys.system-focus{transform:none}
+  .cine-build .build-row.build-current{transform:none}
+}
+@media (max-width:600px){
+  .chapter-slate{min-height:68svh;padding:72px 18px}
+  .chapter-copy strong{font-size:clamp(46px,14.5vw,72px)}
+  .chapter-copy p{font-size:15px}
+  .chapter-trace,.chapter-orbit,.fab-layers,.validation-pulse{display:none}
+  .cine-interface .ui-demo{transform:none!important}
+}
+@media (prefers-reduced-motion:reduce){
+  .chapter-copy,.chapter-number,
+  .cine-section>.section-index,.cine-section>.section-head,
+  .cine-section>.statement-grid,.cine-section>.experiment-grid,
+  .proof-grid article,.bom-grid>div,.cine-interface .interface-copy,
+  .cine-interface .ui-demo,.cine-experiment .experiment-copy,
+  .cine-finale h2,.cine-finale .eyebrow,.cine-finale .finale-copy,.cine-finale .finale-actions{
+    opacity:1!important;transform:none!important;clip-path:none!important
+  }
+  .architecture .sys{opacity:1;filter:none}
+  .pipe-step{opacity:1;filter:none}
+  .cine-build .build-row{opacity:1}
+}

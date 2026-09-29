@@ -843,3 +843,93 @@ footer{height:94px;padding:0 var(--pad);display:flex;align-items:center;justify-
   .handoff-path i:after{animation:none;transform:none}
   .phase-rail>i{display:none}
 }
+
+
+/* =========================================================
+   EXPLODED HERO LAYOUT HOTFIX
+   Fixes overlap/clipping on 1366x768-class laptop viewports.
+   ========================================================= */
+.cinematic-stage{overflow:visible}
+.cinematic-phase{
+  left:calc(-1 * clamp(330px,35vw,540px));
+  bottom:34px;
+  width:clamp(280px,31vw,430px);
+  max-width:none;
+  z-index:70;
+  padding:0 0 0 14px
+}
+.cinematic-phase strong{
+  font-size:clamp(34px,4.3vw,62px);
+  line-height:.86;
+  max-width:100%;
+  text-wrap:balance
+}
+.cinematic-phase p{
+  max-width:380px;
+  font-size:12px;
+  margin-top:10px
+}
+.component-callout{
+  max-width:195px;
+  z-index:60
+}
+.component-callout span{
+  padding:6px 8px;
+  border-radius:4px;
+  background:rgba(242,240,233,.82);
+  box-shadow:0 0 0 1px rgba(10,10,10,.04);
+  backdrop-filter:blur(8px)
+}
+.callout-display{left:-44px;top:24px}
+.callout-pcb{left:-64px;top:250px}
+.callout-controls{left:-46px;bottom:56px}
+.callout-storage{right:-22px;top:48px}
+.callout-battery{right:-48px;top:270px}
+.callout-speaker{right:-36px;bottom:48px}
+.exploded-device{transform-origin:50% 50%}
+.cinematic-copy{pointer-events:none}
+.stage-meta{z-index:80}
+
+/* Short desktop / common laptop screens */
+@media (min-width:1121px) and (max-height:820px){
+  .cinematic-sticky{
+    padding-top:82px;
+    padding-bottom:20px;
+  }
+  .cinematic-stage{
+    height:calc(100svh - 104px);
+    min-height:0
+  }
+  .cinematic-copy h1{font-size:clamp(66px,8.8vw,128px)}
+  .cinematic-copy .hero-deck{
+    font-size:clamp(17px,1.55vw,23px);
+    margin:28px 0 30px
+  }
+  .cinematic-copy .hero-meta span{padding-top:11px;padding-bottom:11px}
+  .cinematic-phase{
+    left:calc(-1 * clamp(330px,34vw,500px));
+    bottom:22px;
+    width:clamp(280px,30vw,400px)
+  }
+  .cinematic-phase strong{font-size:clamp(32px,4vw,54px)}
+  .phase-rail{height:250px;right:-8px}
+}
+
+/* Once the layout collapses to one column, keep the caption inside the stage. */
+@media (max-width:1120px){
+  .cinematic-phase{
+    left:0;
+    bottom:18px;
+    width:min(430px,72vw)
+  }
+}
+@media (max-width:720px){
+  .cinematic-phase{
+    left:0;
+    bottom:8px;
+    width:82%;
+    padding-left:10px
+  }
+  .cinematic-phase strong{font-size:34px}
+  .component-callout{display:none}
+}

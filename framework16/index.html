@@ -3,99 +3,87 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#f5f5f2" />
-  <meta name="description" content="A 90-day T4 hardware experiment: fund a Framework Laptop 16 through a finite set of physical sponsor placements and direct UPI support." />
-  <meta property="og:title" content="Project F16 — The Sponsored Laptop" />
-  <meta property="og:description" content="One Framework 16. A finite sponsor surface. Ninety days to fund the build in public." />
+  <meta name="theme-color" content="#f4f4f1" />
+  <meta name="description" content="A 90-day experiment: turn the lid of my Lenovo IdeaPad into proportional sponsor space to fund a maxed-out Framework Laptop 16." />
+  <meta property="og:title" content="Sponsored Laptop — Build the Ultimate Framework 16" />
+  <meta property="og:description" content="Every rectangle on my Lenovo funds one part of the Framework 16. Bigger component cost = bigger physical sponsor space." />
   <meta property="og:type" content="website" />
-  <title>Project F16 — The Sponsored Framework 16</title>
+  <title>Sponsored Laptop — Framework 16 Experiment</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <header class="topbar">
     <div class="shell nav">
-      <a class="brand" href="#top" aria-label="Project F16 home">
-        <span class="brand-mark">F16</span>
-        <span class="brand-copy"><b>Project F16</b><small>90-day hardware build</small></span>
+      <a class="brand" href="#top" aria-label="Sponsored Laptop home">
+        <span class="brand-mark">SL</span>
+        <span class="brand-copy"><b>Sponsored Laptop</b><small>Lenovo → Framework 16</small></span>
       </a>
 
       <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#build">Build</a>
-        <a href="#funding">Funding</a>
+        <a href="#target">Target</a>
+        <a href="#map">Lid map</a>
         <a href="#sponsors">Sponsors</a>
+        <a href="#support">Support</a>
         <a href="#log">Log</a>
       </nav>
 
-      <a class="nav-cta" href="#support">Support the build</a>
+      <a class="nav-cta" href="#sponsors">Buy a spot</a>
     </div>
   </header>
 
   <main id="top">
     <section class="hero shell">
       <div class="hero-copy">
-        <p class="eyebrow"><span class="dot"></span> T4 HARDWARE PROJECT · DAY <span id="heroDay">1</span>/90</p>
-        <h1>One laptop.<br><span>Funded by the surface it lives on.</span></h1>
+        <p class="eyebrow"><span class="dot"></span> 90-DAY HARDWARE EXPERIMENT · DAY <span id="heroDay">1</span>/90</p>
+        <h1>My Lenovo lid is paying for my next laptop.</h1>
         <p class="hero-lede">
-          I’m trying to build a fully upgraded Framework Laptop 16 in public.
-          The lid is split into a finite set of sponsor placements. Companies can buy a piece of it;
-          everyone else can help through UPI. Every rupee is tracked against the same build.
+          I’m turning the cover of my current Lenovo IdeaPad into a finite sponsor map.
+          Every rectangle funds one real part of a maxed-out Framework Laptop 16.
+          <strong>Bigger component cost = bigger physical ad space.</strong>
         </p>
 
         <div class="hero-actions">
-          <a class="button button-dark" href="#sponsors">See sponsor inventory</a>
-          <a class="button button-ghost" href="#support">Support with UPI</a>
+          <a class="button button-dark" href="#map">Explore the lid</a>
+          <a class="button button-ghost" href="#sponsors">See every part</a>
         </div>
 
-        <div class="hero-note">
-          <span>Independent project.</span>
-          <span>Not affiliated with Framework Computer Inc.</span>
+        <div class="hero-rule">
+          <span><b id="heroComponentCount">11</b> sponsor zones</span>
+          <span><b id="heroTotalUsd">$7,801</b> hardware plan</span>
+          <span><b id="heroTargetInr">₹7.49L</b> planning target</span>
         </div>
       </div>
 
-      <div class="hero-object" aria-label="Framework 16 sponsor placement concept">
-        <div class="object-meta">
-          <span>SPONSOR SURFACE / REV. 01</span>
-          <span>10 PLACEMENTS</span>
+      <div class="hero-visual" id="map">
+        <div class="model-topline">
+          <span>LENOVO IDEAPAD · COVER MAP</span>
+          <span>AREA = COST SHARE</span>
         </div>
 
-        <div class="device">
-          <div class="device-lid">
-            <span class="device-camera"></span>
+        <div class="ideapad-scene" id="ideapadScene">
+          <div class="ideapad-shadow" aria-hidden="true"></div>
 
-            <button class="lid-slot lid-slot-power" data-slot="power" aria-label="Power sponsor placement">
-              <small>02</small><b>POWER</b><span>OPEN</span>
-            </button>
-
-            <button class="lid-slot lid-slot-memory" data-slot="memory" aria-label="Memory sponsor placement">
-              <small>03</small><b>MEMORY</b><span>OPEN</span>
-            </button>
-
-            <button class="lid-slot lid-slot-founding" data-slot="founding" aria-label="Founding sponsor placement">
-              <small>01 / PRIMARY</small>
-              <b>YOUR BRAND<br>HERE</b>
-              <span>FOUNDING SPONSOR</span>
-            </button>
-
-            <button class="lid-slot lid-slot-storage" data-slot="storage" aria-label="Storage sponsor placement">
-              <small>04</small><b>STORAGE</b><span>OPEN</span>
-            </button>
-
-            <button class="lid-slot lid-slot-graphics" data-slot="graphics" aria-label="Graphics sponsor placement">
-              <small>05</small><b>GRAPHICS</b><span>OPEN</span>
-            </button>
-
-            <div class="lid-rail" aria-hidden="true">
-              <span>06</span><span>07</span><span>08</span><span>09</span><span>10</span>
+          <div class="ideapad-model" id="ideapadModel">
+            <div class="ideapad-base" aria-hidden="true">
+              <div class="base-deck"></div>
+              <div class="base-edge"></div>
             </div>
 
-            <span class="device-caption">FRAMEWORK 16 · PHYSICAL AD INVENTORY</span>
+            <div class="ideapad-hinge" aria-hidden="true"></div>
+
+            <div class="ideapad-lid">
+              <div class="lid-metal"></div>
+              <span class="idea-wordmark">ideapad</span>
+              <span class="lenovo-tab">Lenovo</span>
+
+              <div class="sponsor-map" id="lidSponsorMap" aria-label="Proportional Framework component sponsor map"></div>
+            </div>
           </div>
-          <div class="device-edge"></div>
         </div>
 
-        <div class="object-caption">
-          <span>Interactive mockup — click a marked area</span>
-          <span>Final artwork applied only after approval</span>
+        <div class="model-footer">
+          <span>Move your cursor to rotate · tap a zone for details</span>
+          <button class="map-toggle" id="mapToggle" type="button" aria-pressed="true">Hide labels</button>
         </div>
       </div>
     </section>
@@ -106,22 +94,18 @@
           <span class="label">Raised</span>
           <strong id="raisedAmount">₹0</strong>
         </div>
-
         <div>
-          <span class="label">Target</span>
-          <strong id="targetAmount">₹3,00,000</strong>
+          <span class="label">Planning target</span>
+          <strong id="targetAmount">₹7,48,896</strong>
         </div>
-
         <div>
           <span class="label">Progress</span>
           <strong id="percentFunded">0%</strong>
         </div>
-
         <div>
-          <span class="label">Sponsor spots</span>
-          <strong><span id="spotsSold">0</span>/10 sold</strong>
+          <span class="label">Sponsor zones</span>
+          <strong><span id="spotsSold">0</span>/<span id="spotsTotal">11</span> sold</strong>
         </div>
-
         <div>
           <span class="label">Time left</span>
           <strong id="daysLeft">89 days</strong>
@@ -132,111 +116,79 @@
       </div>
     </section>
 
-    <section id="build" class="section shell">
+    <section id="target" class="section shell">
       <div class="section-head split-head">
         <div>
-          <p class="section-index">01 — THE BUILD</p>
-          <h2>The machine comes first.</h2>
+          <p class="section-index">01 — THE TARGET</p>
+          <h2>The strongest Framework 16 build I can spec.</h2>
         </div>
-        <p class="section-summary">
-          The point is not to make a donation page with a laptop on it. The hardware is the project:
-          a modular Framework 16 configured as a long-term build, with each major cost mapped to a visible funding milestone.
-        </p>
+        <div class="section-summary">
+          <p>
+            The sponsor map is derived from a real Framework pricing snapshot, not invented ad tiers.
+            The configuration uses the top Ryzen AI 9 HX 370 platform, RTX 5070 12GB, 96GB RAM and 10TB total storage.
+          </p>
+          <p class="pricing-note">
+            Planning prices use Framework’s US store and a fixed ₹96/USD planning rate.
+            India procurement, tax, import and delivery are not included yet.
+          </p>
+        </div>
       </div>
 
-      <div class="build-layout">
-        <div class="build-diagram">
-          <div class="diagram-title">
-            <span>TARGET ARCHITECTURE</span>
-            <a href="https://frame.work/laptop16" target="_blank" rel="noopener">Framework 16 ↗</a>
-          </div>
+      <div class="target-layout">
+        <div class="component-stack" id="componentStack"></div>
 
-          <div class="architecture">
-            <div class="arch-row">
-              <span class="arch-code">A01</span>
-              <div><b>Framework Laptop 16 DIY platform</b><p>Main chassis, display, input system and modular base.</p></div>
-              <span class="arch-state">CORE</span>
-            </div>
-            <div class="arch-row">
-              <span class="arch-code">A02</span>
-              <div><b>Ryzen AI 300 Series mainboard</b><p>Upgradeable mainboard architecture rather than a fixed soldered platform.</p></div>
-              <span class="arch-state">CPU</span>
-            </div>
-            <div class="arch-row">
-              <span class="arch-code">A03</span>
-              <div><b>Upgradeable graphics module</b><p>Expansion Bay graphics path with independent module replacement.</p></div>
-              <span class="arch-state">GPU</span>
-            </div>
-            <div class="arch-row">
-              <span class="arch-code">A04</span>
-              <div><b>DDR5 SODIMM memory</b><p>Two standard memory slots so RAM remains serviceable and replaceable.</p></div>
-              <span class="arch-state">RAM</span>
-            </div>
-            <div class="arch-row">
-              <span class="arch-code">A05</span>
-              <div><b>M.2 storage + expansion cards</b><p>Standard storage and configurable I/O instead of permanently fixed ports.</p></div>
-              <span class="arch-state">I/O</span>
-            </div>
-          </div>
-        </div>
+        <aside class="target-card">
+          <span class="label">Hardware subtotal</span>
+          <strong id="targetUsd">$7,801</strong>
+          <span class="target-inr" id="targetInr">≈ ₹7,48,896</span>
 
-        <aside class="build-spec">
-          <div>
-            <span class="label">Build target</span>
-            <strong>Max practical configuration</strong>
-            <p>The exact checkout configuration will be locked against the final budget and availability before purchase.</p>
-          </div>
-          <div>
-            <span class="label">Project constraint</span>
-            <strong>90 days</strong>
-            <p>Campaign begins 29 Sep 2026 and closes 27 Dec 2026.</p>
-          </div>
-          <div>
-            <span class="label">Design rule</span>
-            <strong>No fake scarcity</strong>
-            <p>There is one physical lid. When a sponsor placement is sold, that inventory is gone.</p>
-          </div>
+          <div class="target-rule"></div>
+
+          <span class="label">Sponsor rule</span>
+          <p>
+            Each zone’s physical surface area is calculated from:
+          </p>
+          <code>component price ÷ total build price</code>
+
+          <div class="target-rule"></div>
+
+          <a href="https://frame.work/products/laptop16-diy-amd-ai300/body/new" target="_blank" rel="noopener">
+            Framework configurator ↗
+          </a>
         </aside>
       </div>
     </section>
 
-    <section id="funding" class="section section-dark">
+    <section class="section section-dark">
       <div class="shell">
         <div class="section-head split-head">
           <div>
-            <p class="section-index">02 — FUNDING ARCHITECTURE</p>
-            <h2>Two inputs.<br>One hardware budget.</h2>
+            <p class="section-index">02 — HOW THE COVER WORKS</p>
+            <h2>More money buys more laptop.</h2>
           </div>
           <p class="section-summary">
-            Supporters and sponsors use different rails, but both flow into the same published build target.
-            Sponsorship is advertising; UPI support is voluntary project support.
+            A sponsor is not buying a random sticker size. They fund one component.
+            The component’s share of the total build determines its share of the physical Lenovo lid.
           </p>
         </div>
 
-        <div class="flow">
-          <div class="flow-node">
-            <span>01</span>
-            <h3>Supporters</h3>
-            <p>₹10, ₹50, ₹100 or any amount through UPI.</p>
-            <a href="#support">Open support panel →</a>
+        <div class="formula">
+          <div>
+            <span class="formula-number">01</span>
+            <h3>Choose a component</h3>
+            <p>For example: the 8TB primary SSD.</p>
           </div>
-
-          <div class="flow-arrow" aria-hidden="true">→</div>
-
-          <div class="flow-node">
-            <span>02</span>
-            <h3>Businesses</h3>
-            <p>Buy one finite physical placement through a Razorpay sponsor link.</p>
-            <a href="#sponsors">View inventory →</a>
+          <div class="formula-symbol">÷</div>
+          <div>
+            <span class="formula-number">02</span>
+            <h3>Compare its cost</h3>
+            <p>$2,269 out of the $7,801 build.</p>
           </div>
-
-          <div class="flow-arrow" aria-hidden="true">→</div>
-
-          <div class="flow-node flow-node-final">
-            <span>03</span>
-            <h3>Framework 16</h3>
-            <p>Funds are mapped to the same machine and tracked against the public target.</p>
-            <b>₹3,00,000 target</b>
+          <div class="formula-symbol">=</div>
+          <div>
+            <span class="formula-number">03</span>
+            <h3>Get that surface share</h3>
+            <p>About 29% of the sponsor canvas.</p>
           </div>
         </div>
       </div>
@@ -246,18 +198,18 @@
       <div class="section-head split-head">
         <div>
           <p class="section-index">03 — SPONSOR INVENTORY</p>
-          <h2>Buy a real piece<br>of the final machine.</h2>
+          <h2>Fund the part.<br>Own the matching space.</h2>
         </div>
         <p class="section-summary">
-          Pricing scales with visibility and scarcity. Sponsor packages include the physical placement plus the listed campaign deliverables.
-          There is no guaranteed view count.
+          Hover a row and its exact rectangle lights up on the Lenovo cover above.
+          Click any row to see the component, cost, percentage, placement and sponsor deliverables.
         </p>
       </div>
 
       <div class="inventory-head">
-        <span>Placement</span>
-        <span>What it funds</span>
-        <span>Price</span>
+        <span>Framework component</span>
+        <span>Cost share</span>
+        <span>Planning price</span>
         <span>Status</span>
       </div>
 
@@ -265,12 +217,12 @@
 
       <div class="sponsor-foot">
         <div>
-          <span class="label">Business note</span>
-          <p>Final artwork, brand approval, placement period, deliverables and payment terms should be agreed before payment.</p>
+          <span class="label">Pricing source</span>
+          <p>Framework US configurator and Marketplace snapshot, 29 Sep 2026. Prices can change.</p>
         </div>
         <div>
-          <span class="label">Inventory</span>
-          <p><b id="spotsAvailable">10</b> placements remain.</p>
+          <span class="label">Available</span>
+          <p><b id="spotsAvailable">11</b> sponsor zones remain.</p>
         </div>
       </div>
     </section>
@@ -279,10 +231,10 @@
       <div class="shell support-layout">
         <div class="support-copy">
           <p class="section-index">04 — DIRECT SUPPORT</p>
-          <h2>You don’t need to buy an ad.</h2>
+          <h2>Not a business? You can still move the build.</h2>
           <p class="support-lede">
-            If you just want to move the build forward, choose an amount and pay through UPI.
-            The campaign total is manually reconciled against received payments.
+            Sponsor zones are for businesses buying ad space.
+            Regular supporters can contribute any amount by UPI without claiming a lid placement.
           </p>
 
           <div id="quickAmounts" class="amounts">
@@ -293,9 +245,9 @@
           </div>
 
           <div class="support-principles">
-            <span>No subscriptions</span>
-            <span>No hidden tiers</span>
-            <span>No fake urgency</span>
+            <span>Transparent total</span>
+            <span>No subscription</span>
+            <span>No fake donations</span>
           </div>
         </div>
 
@@ -308,7 +260,7 @@
             <span class="country">INDIA</span>
           </div>
 
-          <div class="qr-frame" id="qrPlaceholder">
+          <div class="qr-frame">
             <div class="qr-grid" aria-hidden="true"></div>
             <p>Campaign QR appears here when the dedicated UPI account is connected.</p>
           </div>
@@ -328,12 +280,12 @@
     <section id="log" class="section shell">
       <div class="section-head split-head">
         <div>
-          <p class="section-index">05 — BUILD LOG</p>
-          <h2>Public by default.</h2>
+          <p class="section-index">05 — PUBLIC LOG</p>
+          <h2>The build stays auditable.</h2>
         </div>
         <p class="section-summary">
-          The experiment only works if the numbers and decisions stay visible. This log is where sponsor sales,
-          funding changes and hardware decisions should be recorded as they happen.
+          Real payments, sponsor sales and configuration changes should be logged here.
+          The experiment is less interesting if the numbers cannot be checked.
         </p>
       </div>
 
@@ -341,17 +293,17 @@
         <article>
           <time>29 SEP 2026</time>
           <div>
-            <span class="log-tag">DAY 01</span>
-            <h3>Project opened.</h3>
-            <p>90-day campaign started. Initial funding target set at ₹3,00,000. Sponsor inventory created; no slots sold yet.</p>
+            <span class="log-tag">REV 02</span>
+            <h3>Max-spec target mapped to Lenovo lid.</h3>
+            <p>Framework pricing converted into proportional sponsor zones. Hardware-only planning target updated from ₹3 lakh to the max-spec configuration estimate.</p>
           </div>
         </article>
         <article class="log-next">
           <time>NEXT</time>
           <div>
-            <span class="log-tag">LIVE LOG</span>
-            <h3>First verified payment or sponsor.</h3>
-            <p>This entry should be replaced with the next real campaign event — not a fabricated milestone.</p>
+            <span class="log-tag">LIVE EVENT</span>
+            <h3>First verified sponsor or supporter.</h3>
+            <p>This entry stays empty until a real payment happens.</p>
           </div>
         </article>
       </div>
@@ -360,26 +312,26 @@
     <section class="section trust-section">
       <div class="shell trust-grid">
         <div>
-          <p class="section-index">06 — TRANSPARENCY</p>
-          <h2>Clear rules before money moves.</h2>
+          <p class="section-index">06 — RULES</p>
+          <h2>Minimal idea.<br>Clear contract.</h2>
         </div>
 
         <div class="trust-list">
           <details open>
-            <summary>Where does the money go?</summary>
-            <p>To the Framework 16 build and directly related campaign costs. The public target should be updated when the configuration changes.</p>
+            <summary>Is the Lenovo the laptop being purchased?</summary>
+            <p>No. The Lenovo IdeaPad is the physical sponsor canvas. The campaign target is the future Framework Laptop 16.</p>
           </details>
           <details>
-            <summary>What happens if the target is not reached?</summary>
-            <p>The result should still be published. Before accepting payments, the campaign should state exactly how collected funds will be handled if the build cannot proceed.</p>
+            <summary>Does a sponsor legally own part of the Lenovo?</summary>
+            <p>No. The percentage describes physical advertising surface, not ownership of the laptop.</p>
           </details>
           <details>
-            <summary>What does a sponsor actually buy?</summary>
-            <p>A defined physical placement plus the campaign deliverables stated in that package. Sponsorship is advertising, not a charitable donation.</p>
+            <summary>What if Framework pricing changes?</summary>
+            <p>The component data in this site can be updated and the treemap automatically recomputes every zone from the new prices.</p>
           </details>
           <details>
-            <summary>Who controls payments?</summary>
-            <p>Where legally required, payment accounts and sponsor agreements should be handled or approved by a parent or guardian.</p>
+            <summary>What is not included in the current target?</summary>
+            <p>India procurement, taxes, import duties, forwarding, delivery and other logistics are not included in this hardware-only planning estimate.</p>
           </details>
         </div>
       </div>
@@ -388,20 +340,20 @@
     <section class="final shell">
       <div>
         <p class="eyebrow">DAY <span id="footerDay">1</span>/90</p>
-        <h2>The experiment ends with a machine — or an honest failure.</h2>
+        <h2>Every rectangle has a job: buy one part of the Framework.</h2>
       </div>
       <div class="final-actions">
-        <a class="button button-dark" href="#support">Support the build</a>
-        <a class="button button-ghost" href="#sponsors">Sponsor the lid</a>
+        <a class="button button-dark" href="#sponsors">Choose a component</a>
+        <a class="button button-ghost" href="#support">Support with UPI</a>
       </div>
     </section>
   </main>
 
   <footer class="footer">
     <div class="shell footer-inner">
-      <span>PROJECT F16 · 2026</span>
+      <span>SPONSORED LAPTOP · 2026</span>
       <a href="https://github.com/Hustlenix/Hustlenix.github.io/tree/main/framework16" target="_blank" rel="noopener">SOURCE ↗</a>
-      <span>INDEPENDENT · NOT AFFILIATED WITH FRAMEWORK</span>
+      <span>INDEPENDENT · NOT AFFILIATED WITH LENOVO OR FRAMEWORK</span>
     </div>
   </footer>
 
@@ -409,21 +361,26 @@
     <button class="dialog-close" aria-label="Close sponsor dialog">×</button>
 
     <div class="dialog-kicker">
-      <span>SPONSOR PLACEMENT</span>
+      <span>SPONSOR ZONE</span>
       <span id="dialogSlotCode">01</span>
     </div>
 
-    <h2 id="dialogTitle">Founding / centre spot</h2>
-    <div class="dialog-price" id="dialogPrice">₹74,999</div>
+    <h2 id="dialogTitle">8TB primary SSD</h2>
+    <div class="dialog-pricing">
+      <strong id="dialogPrice">$2,269</strong>
+      <span id="dialogInr">≈ ₹2,17,824</span>
+      <span id="dialogShare">29.1% of lid</span>
+    </div>
+
     <p class="dialog-desc" id="dialogDescription"></p>
 
     <div class="dialog-rule"></div>
 
-    <span class="label">Included</span>
+    <span class="label">Sponsor package</span>
     <ul id="dialogBenefits"></ul>
 
     <button class="button button-dark full" id="dialogBuy">Continue to Razorpay</button>
-    <p class="payment-status" id="dialogStatus">Razorpay link not configured yet.</p>
+    <p class="payment-status" id="dialogStatus">Razorpay sponsor link is not live yet.</p>
   </dialog>
 
   <script src="./app.js"></script>

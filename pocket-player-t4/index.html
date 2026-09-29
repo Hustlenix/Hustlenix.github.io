@@ -10,20 +10,34 @@
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="pointer-glow" aria-hidden="true"></div>
 
   <header class="site-header" data-header>
     <a class="wordmark" href="#top" aria-label="NIGHTSHIFT home">NIGHTSHIFT<span>/T4</span></a>
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav" data-nav aria-label="Primary">
       <a href="#system">System</a>
       <a href="#hardware">Hardware</a>
       <a href="#build">Build</a>
       <a href="#experiment">Experiment</a>
     </nav>
-    <a class="source-link" href="https://github.com/Hustlenix/Hustlenix.github.io/tree/main/pocket-player-t4" target="_blank" rel="noreferrer">SOURCE ↗</a>
+    <div class="header-actions">
+      <a class="source-link" href="https://github.com/Hustlenix/Hustlenix.github.io/tree/main/pocket-player-t4" target="_blank" rel="noreferrer">SOURCE ↗</a>
+      <button class="menu-toggle" type="button" data-menu aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><b class="sr-only">Toggle navigation</b></button>
+    </div>
   </header>
+
+  <div class="mobile-nav" id="mobile-nav" data-mobile-nav aria-hidden="true">
+    <a href="#system">System <span>02</span></a>
+    <a href="#hardware">Hardware <span>04</span></a>
+    <a href="#build">Build <span>08</span></a>
+    <a href="#experiment">Experiment <span>09</span></a>
+    <a href="https://github.com/Hustlenix/Hustlenix.github.io/tree/main/pocket-player-t4" target="_blank" rel="noreferrer">Source <span>↗</span></a>
+  </div>
 
   <main id="main">
     <section class="hero" id="top">
+      <div class="hero-grid" aria-hidden="true"></div>
       <div class="hero-copy reveal">
         <p class="eyebrow">POCKET AUDIO / EMBEDDED SYSTEMS / REV. 0</p>
         <h1>NO CLOUD.<br>NO PHONE.<br><span>JUST MUSIC.</span></h1>
@@ -35,30 +49,32 @@
         </div>
       </div>
 
-      <div class="hero-object reveal" aria-label="Concept visualization of the music player">
-        <div class="object-label">CONCEPT VISUALIZATION · NOT FABRICATED</div>
-        <div class="device" role="img" aria-label="Concept music player with OLED display, rotary control and physical buttons">
+      <div class="hero-object reveal" aria-label="Interactive concept visualization of the music player">
+        <div class="object-label">INTERACTIVE CONCEPT · NOT FABRICATED</div>
+        <div class="device" data-device role="group" aria-label="Concept music player controls">
+          <div class="device-glare" aria-hidden="true"></div>
           <div class="device-topline"><span>NIGHTSHIFT</span><span>REV.0</span></div>
           <div class="display">
-            <div class="display-row small"><span>SD / 047</span><span>78%</span></div>
-            <div class="track">MIDNIGHT<br>PROTOCOL</div>
-            <div class="progress"><i></i></div>
-            <div class="display-row"><span>02:18</span><span>-01:42</span></div>
+            <div class="display-row small"><span data-track-number>SD / 047</span><span data-volume>VOL 64</span></div>
+            <div class="track" data-track-title aria-live="polite">MIDNIGHT<br>PROTOCOL</div>
+            <div class="progress"><i data-player-progress></i></div>
+            <div class="display-row"><span data-elapsed>02:18</span><span data-remaining>-01:42</span></div>
           </div>
           <div class="control-grid">
-            <button aria-label="Previous track">⏮</button>
-            <div class="wheel" aria-hidden="true"><span></span></div>
-            <button aria-label="Next track">⏭</button>
-            <button aria-label="Volume down">−</button>
-            <button class="play" aria-label="Play or pause">▶</button>
-            <button aria-label="Volume up">+</button>
+            <button type="button" data-action="previous" aria-label="Previous track">⏮</button>
+            <div class="wheel" data-wheel aria-label="Volume control" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="64" tabindex="0"><span></span></div>
+            <button type="button" data-action="next" aria-label="Next track">⏭</button>
+            <button type="button" data-action="volume-down" aria-label="Volume down">−</button>
+            <button type="button" class="play" data-action="play" aria-label="Play or pause" aria-pressed="false">▶</button>
+            <button type="button" data-action="volume-up" aria-label="Volume up">+</button>
           </div>
-          <div class="device-footer"><span>3.5 MM</span><span>USB-C</span><span>MICROSD</span></div>
+          <div class="device-footer"><span>3.5 MM</span><span data-player-state>PAUSED</span><span>MICROSD</span></div>
         </div>
         <div class="object-shadow"></div>
+        <p class="interaction-hint">MOVE / CLICK / ROTATE</p>
       </div>
 
-      <a class="scroll-cue" href="#premise">SCROLL TO DISASSEMBLE ↓</a>
+      <a class="scroll-cue" href="#premise">SCROLL TO DISASSEMBLE <span>↓</span></a>
     </section>
 
     <section class="statement" id="premise">
@@ -115,7 +131,7 @@
         <p class="section-index">04 / ARCHITECTURE</p>
         <h2>SIX SYSTEMS.<br>ONE DEVICE.</h2>
       </div>
-      <div class="system-map reveal" role="img" aria-label="Architecture map for NIGHTSHIFT music player">
+      <div class="system-map reveal" data-system-map role="img" aria-label="Architecture map for NIGHTSHIFT music player">
         <div class="sys sys-storage"><small>STORAGE</small><strong>microSD</strong><span>SDMMC / FATFS</span></div>
         <div class="sys sys-core"><small>COMPUTE</small><strong>ESP32-S3</strong><span>decoder · FreeRTOS · UI · DSP</span></div>
         <div class="sys sys-dac"><small>HEADPHONES</small><strong>STEREO DAC</strong><span>I²S → analog → amp</span></div>
@@ -167,14 +183,18 @@
         <h2>PHYSICAL<br>BY DEFAULT.</h2>
         <p>The interface is intentionally tangible. Core playback should never require a phone or touchscreen maze. Buttons and an encoder stay usable in the dark, in a pocket, or without looking.</p>
       </div>
-      <div class="ui-demo reveal" aria-label="Concept display UI">
-        <div class="ui-chrome"><span>NOW PLAYING</span><span>78%</span></div>
-        <div class="album-mark">NS</div>
-        <h3>MIDNIGHT PROTOCOL</h3>
-        <p>TRACK 047 / LOCAL STORAGE</p>
-        <div class="ui-progress"><i></i></div>
-        <div class="ui-time"><span>02:18</span><span>04:00</span></div>
-        <div class="ui-actions"><span>⏮</span><b>▶</b><span>⏭</span></div>
+      <div class="ui-demo reveal" data-ui-demo aria-label="Interactive concept display UI">
+        <div class="ui-chrome"><span>NOW PLAYING</span><span data-ui-volume>VOL 64</span></div>
+        <div class="album-mark" data-album-mark>NS</div>
+        <h3 data-ui-track>MIDNIGHT PROTOCOL</h3>
+        <p><span data-ui-number>TRACK 047</span> / LOCAL STORAGE</p>
+        <div class="ui-progress"><i data-ui-progress></i></div>
+        <div class="ui-time"><span data-ui-elapsed>02:18</span><span data-ui-duration>04:00</span></div>
+        <div class="ui-actions">
+          <button type="button" data-action="previous" aria-label="Previous track">⏮</button>
+          <button type="button" class="ui-play" data-action="play" aria-label="Play or pause" aria-pressed="false">▶</button>
+          <button type="button" data-action="next" aria-label="Next track">⏭</button>
+        </div>
       </div>
     </section>
 

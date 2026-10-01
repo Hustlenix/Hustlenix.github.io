@@ -1,0 +1,40 @@
+name: Publish Chandra authentic portfolio preview
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/publish-chandra-authentic.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout public site
+        uses: actions/checkout@v4
+
+      - name: Download compiled portfolio
+        env:
+          ARTIFACT_URL: "https://sdmntpraustraliaeast.oaiusercontent.com/files/00000000-ba5c-81fa-8781-0b58ade30aa5/raw?se=2026-10-01T16%3A30%3A56Z&sp=r&sv=2026-02-06&sr=b&scid=4ad7c2c8-82ce-50d2-be3b-14727e2a22a5&skoid=27fbae2c-124f-4566-a0d8-1b07a5a41c53&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-01T15%3A21%3A09Z&ske=2026-10-02T15%3A21%3A09Z&sks=b&skv=2026-02-06&sig=afPa0MpwXFo6p7gewhCm9LpVSDTDT3nMU4feQKYHl/U%3D"
+        run: |
+          rm -rf chandra_choodeshwaran
+          mkdir -p chandra_choodeshwaran
+          curl -fL "$ARTIFACT_URL" -o /tmp/chandra-authentic-out.zip
+          unzip -q /tmp/chandra-authentic-out.zip -d chandra_choodeshwaran
+          touch .nojekyll
+
+      - name: Commit authentic portfolio preview
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add chandra_choodeshwaran .nojekyll
+          if git diff --cached --quiet; then
+            echo "No preview changes to publish"
+          else
+            git commit -m "Publish Chandra authentic portfolio preview"
+            git push
+          fi

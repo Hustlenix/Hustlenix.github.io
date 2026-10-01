@@ -19,7 +19,7 @@ jobs:
 
       - name: Download compiled portfolio
         env:
-          ARTIFACT_URL: "https://sdmntpraustraliaeast.oaiusercontent.com/files/00000000-ba5c-81fa-8781-0b58ade30aa5/raw?se=2026-10-01T16%3A30%3A56Z&sp=r&sv=2026-02-06&sr=b&scid=4ad7c2c8-82ce-50d2-be3b-14727e2a22a5&skoid=27fbae2c-124f-4566-a0d8-1b07a5a41c53&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-01T15%3A21%3A09Z&ske=2026-10-02T15%3A21%3A09Z&sks=b&skv=2026-02-06&sig=afPa0MpwXFo6p7gewhCm9LpVSDTDT3nMU4feQKYHl/U%3D"
+          ARTIFACT_URL: "https://sdmntprwestus.oaiusercontent.com/files/00000000-1ecc-8230-9c98-a95afb42f63b/raw?se=2026-10-01T16%3A31%3A01Z&sp=r&sv=2026-02-06&sr=b&scid=4e0680fa-6491-5cbb-9bb5-791d29a8cff2&skoid=27fbae2c-124f-4566-a0d8-1b07a5a41c53&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-01T16%3A20%3A35Z&ske=2026-10-02T16%3A20%3A35Z&sks=b&skv=2026-02-06&sig=9/FdPGPsBV13ilqqfEwz1gU2R9COIhto%2BsuMOm0nenE%3D"
         run: |
           rm -rf chandra_choodeshwaran
           mkdir -p chandra_choodeshwaran

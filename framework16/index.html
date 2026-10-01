@@ -3,16 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#f5f4f0">
-  <meta name="description" content="A 90-day experiment: sell proportional ad space on the back of my Lenovo IdeaPad to fund a maxed practical Framework Laptop 16.">
+  <meta name="theme-color" content="#f6f5f1">
+  <meta name="description" content="Sell proportional ad space on the back of my Lenovo IdeaPad to fund a maxed practical Framework Laptop 16.">
   <title>Sponsored Laptop — Lenovo → Framework 16</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 <header class="topbar">
   <div class="shell nav">
-    <a class="brand" href="#top"><span class="brand-mark">SL</span><span><b>Sponsored Laptop</b><small>Lenovo → Framework 16</small></span></a>
-    <nav class="nav-links">
+    <a class="brand" href="#top" aria-label="Sponsored Laptop home">
+      <span class="brand-mark">SL</span>
+      <span class="brand-text"><b>Sponsored Laptop</b><small>Lenovo lid → Framework 16</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
       <a href="#build">Build</a>
       <a href="#sponsors">Sponsors</a>
       <a href="#support">Support</a>
@@ -26,31 +29,51 @@
   <section class="hero shell">
     <div class="hero-copy">
       <p class="eyebrow"><span class="dot"></span> 90-DAY HARDWARE EXPERIMENT · DAY <span id="heroDay">1</span>/90</p>
-      <h1>The ads go on the <em>back</em> of my Lenovo.</h1>
+      <h1>The ad space is the <em>back of my laptop.</em></h1>
       <p class="lede">
-        I’m selling the physical lid of my current IdeaPad to fund a maxed practical Framework Laptop 16.
-        Every sponsor funds one real component. <strong>The more that component costs, the more lid area the sponsor gets.</strong>
+        This silver surface is the outside of my current Lenovo IdeaPad lid — the side people see when the laptop is open.
+        I’m dividing it into proportional sponsor zones to fund a maxed practical Framework Laptop 16.
       </p>
+      <p class="rule-copy"><strong>More expensive Framework part → larger physical sponsor area.</strong></p>
       <div class="hero-actions">
         <a class="button dark" href="#sponsors">Choose a component</a>
         <a class="button" href="#support">Support with UPI</a>
       </div>
+
       <div class="hero-stats">
-        <span><b id="componentCount">13</b> zones</span>
-        <span><b id="heroTarget">₹7,72,704</b> hardware target</span>
-        <span><b id="heroStorage">10TB</b> storage</span>
-        <span><b>96GB</b> RAM</span>
+        <div><span>Target</span><b id="heroTarget">₹7,72,704</b></div>
+        <div><span>RAM</span><b>96GB</b></div>
+        <div><span>Storage</span><b>10TB</b></div>
+        <div><span>GPU</span><b>RTX 5070 12GB</b></div>
       </div>
     </div>
 
-    <div class="laptop-block">
-      <div class="visual-meta"><span>BACK OF CURRENT LENOVO IDEAPAD</span><span>AREA = COMPONENT COST</span></div>
-      <div class="laptop-stage" id="laptopStage">
-        <img src="./assets/lenovo-rear.svg" alt="Rear view of a silver Lenovo IdeaPad used as the sponsor canvas" class="laptop-render">
-        <div class="lid-map" id="lidMap" aria-label="Proportional sponsor map on the back of the Lenovo lid"></div>
+    <div class="product-panel">
+      <div class="product-meta"><span>REAR / OUTSIDE LID</span><span>LIVE SPONSOR MAP</span></div>
+      <div class="scene" id="scene" aria-label="Interactive 3D rear view of a Lenovo IdeaPad">
+        <div class="ground-shadow" aria-hidden="true"></div>
+
+        <div class="laptop" id="laptop">
+          <div class="base" aria-hidden="true">
+            <div class="base-top">
+              <div class="keyboard"></div>
+              <div class="trackpad"></div>
+            </div>
+            <div class="base-front"></div>
+          </div>
+
+          <div class="hinge" aria-hidden="true"></div>
+
+          <div class="rear-lid">
+            <div class="metal-sheen" aria-hidden="true"></div>
+            <div class="lid-title">SPONSOR CANVAS</div>
+            <div class="lenovo-badge">Lenovo</div>
+            <div class="sponsor-map" id="lidMap"></div>
+          </div>
+        </div>
       </div>
-      <div class="visual-foot">
-        <span>Move cursor to tilt · click any sponsor zone</span>
+      <div class="product-foot">
+        <span>Drag / move to rotate · click a zone</span>
         <button id="labelToggle" type="button" aria-pressed="true">Hide labels</button>
       </div>
     </div>
@@ -59,56 +82,72 @@
   <section class="status">
     <div class="shell status-grid">
       <div><span>Raised</span><strong id="raisedAmount">₹0</strong></div>
-      <div><span>Target</span><strong id="targetAmount">₹7,72,704</strong></div>
+      <div><span>Hardware target</span><strong id="targetAmount">₹7,72,704</strong></div>
       <div><span>Funded</span><strong id="percentFunded">0%</strong></div>
-      <div><span>Sold</span><strong><span id="spotsSold">0</span>/<span id="spotsTotal">13</span></strong></div>
-      <div><span>Left</span><strong id="daysLeft">89 days</strong></div>
+      <div><span>Zones sold</span><strong><span id="spotsSold">0</span>/<span id="spotsTotal">13</span></strong></div>
+      <div><span>Time left</span><strong id="daysLeft">89 days</strong></div>
     </div>
     <div class="fund-line"><i id="progressFill"></i></div>
   </section>
 
   <section id="build" class="section shell">
     <div class="section-head">
-      <div><p class="index">01 · MAXED PRACTICAL BUILD</p><h2>No fake “max spec.” This includes the premium input deck too.</h2></div>
+      <div>
+        <p class="index">01 · TARGET BUILD</p>
+        <h2>Maxed where it actually matters.</h2>
+      </div>
       <p>
-        Ryzen AI 9 HX 370, RTX 5070 12GB, 96GB DDR5, 8TB + 2TB SSDs, 240W power, haptic touchpad,
-        RGB Clear keyboard, RGB Macropad, premium six-card I/O set, Windows 11 Pro and 3-year warranty.
-        The 10TB internal storage limit is used because the additional 16TB Dual M.2 option occupies the Expansion Bay and cannot be used at the same time as the RTX 5070.
+        The target is the highest practical Framework 16 configuration while keeping the RTX 5070 installed:
+        Ryzen AI 9 HX 370, RTX 5070 12GB, 96GB DDR5-5600, 8TB + 2TB internal storage, 240W adapter,
+        haptic touchpad, RGB Clear keyboard, RGB Macropad, Windows 11 Pro, premium I/O and 3-year warranty.
       </p>
+    </div>
+
+    <div class="build-note">
+      <strong>Why 10TB, not “26TB”?</strong>
+      <span>The extra Dual M.2 Expansion Bay storage option would replace the graphics module. This build keeps the RTX 5070, so 10TB is the max internal storage target for this configuration.</span>
     </div>
 
     <div class="build-layout">
       <div class="parts" id="partsList"></div>
       <aside class="target-card">
-        <span>Hardware-only planning target</span>
+        <span class="mini-label">HARDWARE-ONLY TARGET</span>
         <strong id="targetCard">₹7,72,704</strong>
-        <p>Converted at ₹96/USD for planning. India taxes, import, forwarding and delivery are not included.</p>
+        <p>Planning conversion: ₹96/USD. India tax, import, forwarding and delivery are excluded until a legitimate purchase route is locked.</p>
         <hr>
-        <span>Pricing rule</span>
-        <code>lid area = part cost ÷ total part cost</code>
+        <span class="mini-label">SPONSOR FORMULA</span>
+        <code>physical lid area = component cost ÷ total build cost</code>
         <hr>
-        <a href="https://frame.work/products/laptop16-diy-amd-ai300/body/new" target="_blank" rel="noopener">Open Framework configurator ↗</a>
+        <a href="https://frame.work/laptop16?slug=laptop16-diy-amd-ai300&tab=specs" target="_blank" rel="noopener">Framework Laptop 16 specs ↗</a>
       </aside>
     </div>
   </section>
 
-  <section id="sponsors" class="section sponsors shell">
+  <section id="sponsors" class="section shell">
     <div class="section-head">
-      <div><p class="index">02 · SPONSOR INVENTORY</p><h2>Fund a part. Get the matching piece of the lid.</h2></div>
-      <p>Prices below are shown in rupees. Hover a row to locate its exact space on the rear Lenovo cover. Click for the sponsor package.</p>
+      <div>
+        <p class="index">02 · SPONSOR INVENTORY</p>
+        <h2>Every rectangle has a real hardware job.</h2>
+      </div>
+      <p>Hover a component below and the matching rectangle lights up on the rear lid above. Sponsor pricing is shown in rupees.</p>
     </div>
 
-    <div class="inventory-head"><span>Component</span><span>Lid share</span><span>Price</span><span></span></div>
-    <div id="sponsorGrid"></div>
-    <div class="inventory-note"><span><b id="spotsAvailable">13</b> zones available</span><span>Pricing snapshot: 29 Sep 2026 · subject to Framework price changes</span></div>
+    <div class="inventory-head">
+      <span>Framework component</span><span>Lid share</span><span>Price</span><span></span>
+    </div>
+    <div id="sponsorGrid" class="inventory"></div>
+    <div class="inventory-note">
+      <span><b id="spotsAvailable">13</b> zones available</span>
+      <span>Framework pricing snapshot · prices can change</span>
+    </div>
   </section>
 
   <section id="support" class="section support">
     <div class="shell support-layout">
       <div>
         <p class="index">03 · NORMAL SUPPORT</p>
-        <h2>You don’t need to buy ad space.</h2>
-        <p class="support-copy">Regular viewers can contribute any amount by UPI. Those payments move the funding total but do not reserve a sponsor rectangle.</p>
+        <h2>Not a business? That’s fine.</h2>
+        <p class="support-copy">UPI support moves the overall funding bar but does not reserve a physical sponsor zone.</p>
         <div class="amounts" id="quickAmounts">
           <button data-amount="10">₹10</button>
           <button data-amount="50">₹50</button>
@@ -116,6 +155,7 @@
           <button data-amount="500">₹500</button>
         </div>
       </div>
+
       <div class="paybox">
         <div class="payhead"><span>UPI</span><small>INDIA</small></div>
         <div class="qr"><div></div><p>Dedicated campaign QR appears here after the UPI account is connected.</p></div>
@@ -129,18 +169,24 @@
 
   <section id="proof" class="section shell">
     <div class="section-head">
-      <div><p class="index">04 · PROOF</p><h2>The experiment stays public.</h2></div>
-      <p>Verified sponsor sales, UPI totals and configuration changes belong here. No fabricated progress.</p>
+      <div><p class="index">04 · PROOF</p><h2>No fake progress.</h2></div>
+      <p>Payments, sponsor sales and configuration changes get logged here only after they actually happen.</p>
     </div>
     <div class="log">
-      <article><time>29 SEP 2026</time><div><b>REV 03</b><h3>Rear-lid model fixed and target maxed.</h3><p>Moved sponsor inventory to the physical backside of the Lenovo and added premium Framework input upgrades plus the stronger I/O set.</p></div></article>
-      <article class="muted"><time>NEXT</time><div><b>LIVE EVENT</b><h3>First verified payment.</h3><p>This line changes only when a real sponsor or supporter pays.</p></div></article>
+      <article>
+        <time>01 OCT 2026</time>
+        <div><b>REV 04</b><h3>3D model rebuilt.</h3><p>The sponsor map now exists on the rear lid itself. The old image-overlay version was removed.</p></div>
+      </article>
+      <article class="muted">
+        <time>NEXT</time>
+        <div><b>LIVE EVENT</b><h3>First verified payment.</h3><p>This row stays unchanged until a real payment arrives.</p></div>
+      </article>
     </div>
   </section>
 
   <section class="final shell">
-    <div><p class="eyebrow">DAY <span id="footerDay">1</span>/90</p><h2>One Lenovo lid. One maxed Framework target. Thirteen finite sponsor zones.</h2></div>
-    <div><a class="button dark" href="#sponsors">See sponsor zones</a></div>
+    <div><p class="eyebrow">DAY <span id="footerDay">1</span>/90</p><h2>One real lid. Thirteen finite zones. One maxed Framework target.</h2></div>
+    <a class="button dark" href="#sponsors">See sponsor zones</a>
   </section>
 </main>
 

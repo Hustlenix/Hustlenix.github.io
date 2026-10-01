@@ -1,0 +1,40 @@
+name: Publish Chandra preview
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/publish-chandra-preview.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout public site
+        uses: actions/checkout@v4
+
+      - name: Download compiled Chandra site
+        env:
+          ARTIFACT_URL: "https://sdmntpraustraliaeast.oaiusercontent.com/files/00000000-5128-81fa-8633-224882be2832/raw?se=2026-10-01T15%3A54%3A54Z&sp=r&sv=2026-02-06&sr=b&scid=00187253-87f7-57d4-ab5d-eea59450a043&skoid=27fbae2c-124f-4566-a0d8-1b07a5a41c53&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-01T15%3A16%3A33Z&ske=2026-10-02T15%3A16%3A33Z&sks=b&skv=2026-02-06&sig=dodCtgmo35crHMyXdmBnnd4Tn3tr7PNGsvWnKOUCnsc%3D"
+        run: |
+          rm -rf chandra_choodeshwaran
+          mkdir -p chandra_choodeshwaran
+          curl -fL "$ARTIFACT_URL" -o /tmp/chandra-static-out.zip
+          unzip -q /tmp/chandra-static-out.zip -d chandra_choodeshwaran
+          touch .nojekyll
+
+      - name: Commit preview
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add chandra_choodeshwaran .nojekyll
+          if git diff --cached --quiet; then
+            echo "No preview changes to publish"
+          else
+            git commit -m "Publish Chandra compiled preview"
+            git push
+          fi

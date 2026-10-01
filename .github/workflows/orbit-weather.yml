@@ -1,0 +1,62 @@
+name: Refresh ORBIT DONKI snapshot
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+  push:
+    paths:
+      - '.github/workflows/orbit-weather.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: orbit-weather-snapshot
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch NASA CCMC DONKI notifications
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p orbit-nasa/data
+          END_DATE="$(date -u +%F)"
+          START_DATE="$(date -u -d '30 days ago' +%F)"
+          NEW_URL="https://ccmc.gsfc.nasa.gov/DONKI-API/get/notifications?startDate=${START_DATE}&endDate=${END_DATE}&type=all"
+          OLD_URL="https://api.nasa.gov/DONKI/notifications?startDate=${START_DATE}&endDate=${END_DATE}&type=all&api_key=DEMO_KEY"
+          echo "Fetching DONKI snapshot ${START_DATE}..${END_DATE}"
+          if ! curl --fail --silent --show-error --location --retry 3 --connect-timeout 20 --max-time 90 "$NEW_URL" -o /tmp/weather.json; then
+            echo "New CCMC API failed; trying NASA Open APIs gateway"
+            curl --fail --silent --show-error --location --retry 3 --connect-timeout 20 --max-time 90 "$OLD_URL" -o /tmp/weather.json
+          fi
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/weather.json')
+          data=json.loads(p.read_text())
+          if not isinstance(data,list):
+              raise SystemExit('DONKI response is not a list')
+          out=Path('orbit-nasa/data/weather.json')
+          out.write_text(json.dumps(data,separators=(',',':'))+'\n')
+          print(f'Wrote {len(data)} notifications')
+          PY
+
+      - name: Commit snapshot when changed
+        shell: bash
+        run: |
+          if git diff --quiet -- orbit-nasa/data/weather.json; then
+            echo "No DONKI changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add orbit-nasa/data/weather.json
+          git commit -m "chore: refresh ORBIT DONKI snapshot"
+          git push

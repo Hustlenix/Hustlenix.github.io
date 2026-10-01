@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#05070d" />
+  <meta name="description" content="ORBIT — a NASA-powered live space intelligence dashboard for asteroids, space weather, APOD and NASA imagery." />
+  <title>ORBIT — NASA Space Intelligence</title>
+  <link rel="preconnect" href="https://api.nasa.gov" />
+  <link rel="preconnect" href="https://images-assets.nasa.gov" />
+  <style>
+:root{--bg:#05070d;--panel:#0a0f19;--panel2:#0d1421;--line:#202a3a;--text:#f4f7fb;--muted:#8f9bad;--cyan:#60e7ff;--cyan2:#1aa6d9;--red:#ff5c78;--amber:#f9c74f;--green:#56e39f;--radius:18px;--shadow:0 30px 80px rgba(0,0,0,.36)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 70% -20%,#10223f 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}.stars{position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#75d9ff 1px,transparent 1px);background-position:0 0,45px 60px;background-size:100px 100px,170px 170px;mask-image:linear-gradient(to bottom,#000 0,transparent 75%)}button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1520px;margin:auto;padding:0 28px 28px}.topbar{height:82px;display:flex;align-items:center;gap:28px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;z-index:20;background:rgba(5,7,13,.82);backdrop-filter:blur(18px)}.brand{display:flex;align-items:center;gap:11px;color:var(--text);text-decoration:none;min-width:210px}.brand-mark{width:38px;height:38px;border:1px solid rgba(96,231,255,.65);display:grid;place-items:center;border-radius:50%;font-weight:900;color:var(--cyan);box-shadow:inset 0 0 0 6px rgba(96,231,255,.04),0 0 28px rgba(96,231,255,.12)}.brand strong,.brand small{display:block;letter-spacing:.12em}.brand small{font-size:8px;color:var(--muted);margin-top:-2px}.nav{display:flex;gap:4px;flex:1}.nav-btn,.icon-btn,.text-btn{border:0;background:transparent;color:var(--muted)}.nav-btn{padding:9px 12px;border-radius:10px}.nav-btn:hover,.nav-btn.active{color:var(--text);background:#101723}.header-actions{display:flex;align-items:center;gap:10px}.utc-pill{border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:#b7c3d6;font:12px/1 ui-monospace,SFMono-Regular,Menlo,monospace}.pulse{width:7px;height:7px;border-radius:50%;display:inline-block;background:var(--green);box-shadow:0 0 12px var(--green);margin-right:8px}.icon-btn{font-size:18px;padding:8px 10px;border-radius:10px}.icon-btn:hover{background:#111a28;color:white}.view{display:none;padding:42px 0}.view.active{display:block}.grid-panel,.panel{background:linear-gradient(160deg,rgba(16,24,39,.9),rgba(7,11,18,.94));border:1px solid var(--line);box-shadow:var(--shadow);border-radius:var(--radius)}.hero{min-height:460px;display:grid;grid-template-columns:1.15fr .85fr;overflow:hidden;position:relative}.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(96,231,255,.03),transparent 30%),repeating-linear-gradient(0deg,transparent 0 39px,rgba(255,255,255,.018) 40px),repeating-linear-gradient(90deg,transparent 0 39px,rgba(255,255,255,.018) 40px);pointer-events:none}.hero-copy{padding:62px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}.eyebrow{color:var(--cyan);font:700 11px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.18em;text-transform:uppercase}.hero h1,.section-title h1{font-size:clamp(38px,5vw,72px);line-height:.98;letter-spacing:-.055em;margin:16px 0 20px;max-width:850px}.hero h1 em{font-style:normal;color:transparent;-webkit-text-stroke:1px #8deaff}.hero p,.section-title p{color:#aab5c6;max-width:700px;font-size:17px}.hero-actions{display:flex;gap:10px;margin-top:22px}.primary,.secondary{border-radius:11px;padding:11px 15px;font-weight:750;border:1px solid transparent}.primary{background:var(--cyan);color:#041118;box-shadow:0 8px 30px rgba(96,231,255,.12)}.primary:hover{filter:brightness(1.08)}.secondary{background:#111925;color:#d7dfeb;border-color:#263247}.secondary:hover{background:#162131}.orbital-visual{position:relative;min-height:440px}.earth{position:absolute;width:230px;height:230px;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 33% 30%,#3ee6df 0,#1471c3 23%,#082958 51%,#02050a 72%);box-shadow:-25px 18px 50px #000 inset,0 0 100px rgba(74,192,255,.18)}.earth:before,.earth:after,.earth span:before{content:"";position:absolute;border-radius:50%;background:#70c98c;filter:blur(.2px);opacity:.75}.earth:before{width:70px;height:32px;left:28px;top:55px;transform:rotate(18deg)}.earth:after{width:38px;height:70px;right:45px;bottom:45px;transform:rotate(-24deg)}.earth span:before{width:34px;height:24px;left:78px;top:120px}.orbit{position:absolute;border:1px solid rgba(96,231,255,.2);border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-19deg)}.orbit-1{width:390px;height:190px}.orbit-2{width:480px;height:270px;transform:translate(-50%,-50%) rotate(33deg)}.orbit i{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--cyan);box-shadow:0 0 16px var(--cyan);top:50%;left:-5px}.orbit-2 i{top:12%;left:82%}.crosshair{position:absolute;width:500px;height:500px;left:50%;top:50%;transform:translate(-50%,-50%);border:1px dashed rgba(255,255,255,.08);border-radius:50%}.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:14px 0}.metric-card{background:#090e17;border:1px solid var(--line);border-radius:14px;padding:20px}.metric-card span,.metric-card small{display:block;color:var(--muted)}.metric-card strong{display:block;font:800 34px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;margin:10px 0 4px;color:#eaf8ff}.metric-card small{font-size:11px}.dashboard-grid{display:grid;grid-template-columns:1.7fr 1fr;gap:14px}.panel{padding:22px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:14px}.panel-head h2{margin:6px 0 0}.text-btn{color:var(--cyan)}.list-state{color:var(--muted);padding:24px 0}.mini-row{display:grid;grid-template-columns:1.3fr .7fr .8fr;gap:12px;padding:13px 0;border-top:1px solid rgba(255,255,255,.06);align-items:center}.mini-row:first-child{border-top:0}.mini-row strong{font-size:14px}.mini-row span{color:var(--muted);font-size:12px}.mini-row .danger{color:var(--red)}.section-title{display:flex;justify-content:space-between;margin-bottom:26px}.section-title h1{font-size:clamp(34px,4vw,58px);margin-bottom:12px}.controls{display:flex;align-items:end;gap:12px;margin-bottom:16px;box-shadow:none}.controls label,.settings-card label{display:grid;gap:7px;color:var(--muted);font-size:12px}.controls input,.controls select,.settings-card input,.search-panel input{background:#070b12;border:1px solid #263247;border-radius:10px;color:var(--text);padding:10px 12px;outline:0}.controls input:focus,.controls select:focus,.settings-card input:focus,.search-panel input:focus{border-color:#3bbad5;box-shadow:0 0 0 3px rgba(96,231,255,.08)}.spacer{flex:1}.status-text{color:var(--muted);font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace}.toggle{display:flex!important;align-items:center;gap:8px!important;padding-bottom:8px}.toggle input{display:none}.toggle span{width:34px;height:20px;border-radius:999px;background:#1b2635;position:relative;border:1px solid #314158}.toggle span:after{content:"";position:absolute;width:14px;height:14px;left:2px;top:2px;border-radius:50%;background:#7e8ca1;transition:.2s}.toggle input:checked+span{background:#17485a;border-color:#2d8ba8}.toggle input:checked+span:after{left:16px;background:var(--cyan)}.summary-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}.summary-box{background:#090e17;border:1px solid var(--line);padding:14px;border-radius:12px}.summary-box small{display:block;color:var(--muted)}.summary-box strong{font-size:22px}.cards-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.asteroid-card{padding:20px;border-radius:15px;border:1px solid var(--line);background:linear-gradient(145deg,#0a101b,#070b12);position:relative;overflow:hidden}.asteroid-card:before{content:"";position:absolute;width:160px;height:160px;border-radius:50%;right:-70px;top:-70px;background:radial-gradient(circle,rgba(96,231,255,.12),transparent 65%)}.asteroid-top{display:flex;justify-content:space-between;gap:12px}.asteroid-top h3{margin:8px 0 18px;font-size:18px}.badge{border:1px solid #2a3a4c;border-radius:999px;padding:5px 8px;height:max-content;color:#9aacbf;font:10px/1 ui-monospace,SFMono-Regular,Menlo,monospace}.badge.hazard{border-color:rgba(255,92,120,.4);color:#ff8298;background:rgba(255,92,120,.07)}.data-pairs{display:grid;grid-template-columns:1fr 1fr;gap:13px}.data-pairs span{display:block;color:var(--muted);font-size:11px}.data-pairs strong{font-size:14px}.timeline{display:grid;gap:12px}.event-card{display:grid;grid-template-columns:90px 1fr auto;gap:18px;align-items:start;background:#090e17;border:1px solid var(--line);border-radius:14px;padding:18px}.event-type{font:800 13px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--cyan);border:1px solid rgba(96,231,255,.24);padding:8px;border-radius:8px;text-align:center}.event-card h3{margin:0 0 6px;font-size:16px}.event-card p{margin:0;color:#9ba9bb;font-size:13px;white-space:pre-line}.event-card time{color:#657388;font-size:11px;white-space:nowrap}.apod-card{display:grid;grid-template-columns:1.05fr .95fr;min-height:500px;overflow:hidden;padding:0}.apod-media{background:#02040a;min-height:500px;display:grid;place-items:center;overflow:hidden}.apod-media img{width:100%;height:100%;object-fit:cover}.apod-media iframe{width:100%;height:100%;border:0}.apod-copy{padding:36px}.apod-copy h2{font-size:36px;line-height:1.08;margin:12px 0}.apod-copy p{color:#a6b1c1}.apod-copy .credit{font-size:12px;color:#728096}.search-panel{display:flex;gap:10px}.search-panel input{flex:1;font-size:16px}.media-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:14px}.media-card{background:#090e17;border:1px solid var(--line);border-radius:14px;overflow:hidden;min-width:0}.media-card img{width:100%;aspect-ratio:4/3;object-fit:cover;background:#050810}.media-copy{padding:14px}.media-copy h3{font-size:14px;margin:0 0 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.media-copy p{font-size:12px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin:0}.media-copy small{display:block;color:#627086;margin-top:9px}.empty{border:1px dashed #273348;border-radius:14px;color:var(--muted);padding:28px;text-align:center;grid-column:1/-1}footer{display:flex;justify-content:space-between;color:#556275;font-size:10px;letter-spacing:.08em;padding:30px 4px}dialog{border:0;padding:0;background:transparent;color:var(--text);max-width:580px;width:calc(100% - 28px)}dialog::backdrop{background:rgba(0,0,0,.72);backdrop-filter:blur(8px)}.settings-card{background:#0a101a;border:1px solid #263247;border-radius:18px;padding:24px;box-shadow:var(--shadow)}.dialog-head{display:flex;justify-content:space-between}.dialog-head h2{margin:6px 0}.settings-card p{color:#a3afbf}.settings-card code{color:var(--cyan)}.dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}.privacy-note{display:block;color:#67758a;margin-top:14px}#toast{position:fixed;right:22px;bottom:22px;background:#111a27;border:1px solid #30415b;color:#e5edf8;padding:12px 15px;border-radius:11px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);pointer-events:none;transition:.2s;z-index:40;max-width:360px}#toast.show{opacity:1;transform:none}
+@media(max-width:1100px){.nav{overflow:auto}.nav-btn{white-space:nowrap}.hero{grid-template-columns:1fr}.orbital-visual{min-height:360px}.dashboard-grid{grid-template-columns:1fr}.cards-grid{grid-template-columns:repeat(2,1fr)}.media-grid{grid-template-columns:repeat(3,1fr)}.apod-card{grid-template-columns:1fr}.metric-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.shell{padding:0 14px 20px}.topbar{height:auto;min-height:70px;display:grid;grid-template-columns:1fr auto;padding:12px 0}.brand{min-width:0}.nav{grid-column:1/-1;order:3;padding-bottom:2px}.utc-pill{display:none}.hero-copy{padding:30px 24px}.hero{min-height:0}.orbital-visual{min-height:310px}.earth{width:170px;height:170px}.orbit-1{width:290px;height:150px}.orbit-2{width:340px;height:200px}.crosshair{width:360px;height:360px}.hero h1{font-size:43px}.metric-grid{grid-template-columns:1fr 1fr}.controls{align-items:stretch;flex-wrap:wrap}.controls .spacer{display:none}.controls label{flex:1;min-width:140px}.cards-grid,.media-grid{grid-template-columns:1fr 1fr}.event-card{grid-template-columns:72px 1fr}.event-card time{grid-column:2}.search-panel{padding:14px}.section-title{margin-bottom:18px}.view{padding-top:26px}}
+@media(max-width:500px){.hero-actions{flex-direction:column}.metric-grid,.cards-grid,.media-grid,.summary-strip{grid-template-columns:1fr}.hero h1{font-size:38px}.section-title h1{font-size:38px}.orbital-visual{min-height:260px}.earth{width:145px;height:145px}.orbit-1{width:245px;height:120px}.orbit-2{width:280px;height:170px}.crosshair{width:300px;height:300px}.panel{padding:16px}.event-card{grid-template-columns:1fr}.event-card time{grid-column:1}.apod-copy{padding:24px}.apod-copy h2{font-size:28px}footer{flex-direction:column;gap:8px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="#dashboard" aria-label="ORBIT home">
+        <span class="brand-mark">O</span>
+        <span><strong>ORBIT</strong><small>NASA SPACE INTELLIGENCE</small></span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-btn active" data-view="dashboard">Dashboard</button>
+        <button class="nav-btn" data-view="asteroids">Asteroids</button>
+        <button class="nav-btn" data-view="weather">Space weather</button>
+        <button class="nav-btn" data-view="apod">APOD</button>
+        <button class="nav-btn" data-view="media">NASA media</button>
+      </nav>
+      <div class="header-actions">
+        <div class="utc-pill"><span class="pulse"></span><span id="utcClock">UTC --:--:--</span></div>
+        <button id="settingsBtn" class="icon-btn" aria-label="API settings">⚙</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="dashboard" class="view active">
+        <div class="hero grid-panel">
+          <div class="hero-copy">
+            <div class="eyebrow">LIVE DATA // NASA OPEN APIs</div>
+            <h1>See what is happening <em>above Earth</em> right now.</h1>
+            <p>ORBIT turns NASA feeds into a fast mission-control view: near-Earth objects, space-weather alerts, astronomy imagery and searchable mission media.</p>
+            <div class="hero-actions">
+              <button class="primary" data-jump="asteroids">Scan near-Earth objects</button>
+              <button class="secondary" data-jump="weather">Open space weather</button>
+            </div>
+          </div>
+          <div class="orbital-visual" aria-hidden="true">
+            <div class="earth"><span></span></div>
+            <div class="orbit orbit-1"><i></i></div>
+            <div class="orbit orbit-2"><i></i></div>
+            <div class="crosshair"></div>
+          </div>
+        </div>
+
+        <div class="metric-grid">
+          <article class="metric-card"><span>NEOs today</span><strong id="metricNeos">—</strong><small id="metricNeosSub">Awaiting scan</small></article>
+          <article class="metric-card"><span>Potentially hazardous</span><strong id="metricHazard">—</strong><small>NASA classification</small></article>
+          <article class="metric-card"><span>Space-weather notices</span><strong id="metricWeather">—</strong><small>Last 7 days</small></article>
+          <article class="metric-card"><span>API mode</span><strong id="metricKey">DEMO</strong><small id="metricKeySub">Public demo rate limit</small></article>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="panel wide">
+            <div class="panel-head"><div><span class="eyebrow">APPROACH QUEUE</span><h2>Closest objects</h2></div><button class="text-btn" data-jump="asteroids">View all →</button></div>
+            <div id="dashboardAsteroids" class="list-state">Loading NASA asteroid data…</div>
+          </article>
+          <article class="panel">
+            <div class="panel-head"><div><span class="eyebrow">SPACE WEATHER</span><h2>Latest notices</h2></div></div>
+            <div id="dashboardWeather" class="list-state">Loading DONKI feed…</div>
+          </article>
+        </div>
+      </section>
+
+      <section id="asteroids" class="view">
+        <div class="section-title"><div><span class="eyebrow">NEOWS // JPL DATA</span><h1>Near-Earth Object Scanner</h1><p>Inspect close approaches for any date supported by NASA NeoWs.</p></div></div>
+        <div class="controls panel">
+          <label>Date <input id="asteroidDate" type="date" /></label>
+          <button id="scanAsteroids" class="primary">Run scan</button>
+          <button id="todayAsteroids" class="secondary">Today</button>
+          <label class="toggle"><input id="hazardOnly" type="checkbox" /><span></span>Hazardous only</label>
+          <div class="spacer"></div>
+          <span id="asteroidStatus" class="status-text">Ready</span>
+        </div>
+        <div id="asteroidSummary" class="summary-strip"></div>
+        <div id="asteroidGrid" class="cards-grid"></div>
+      </section>
+
+      <section id="weather" class="view">
+        <div class="section-title"><div><span class="eyebrow">DONKI // SPACE WEATHER</span><h1>Space Weather Command</h1><p>Recent NASA notifications covering flares, CMEs, geomagnetic storms and other events.</p></div></div>
+        <div class="controls panel">
+          <label>Lookback <select id="weatherDays"><option value="3">3 days</option><option value="7" selected>7 days</option><option value="14">14 days</option><option value="30">30 days</option></select></label>
+          <label>Type <select id="weatherType"><option value="all">All events</option><option value="FLR">Solar flares</option><option value="CME">CMEs</option><option value="GST">Geomagnetic storms</option><option value="SEP">Solar energetic particles</option><option value="IPS">Interplanetary shocks</option></select></label>
+          <button id="refreshWeather" class="primary">Refresh feed</button>
+          <div class="spacer"></div><span id="weatherStatus" class="status-text">Ready</span>
+        </div>
+        <div id="weatherTimeline" class="timeline"></div>
+      </section>
+
+      <section id="apod" class="view">
+        <div class="section-title"><div><span class="eyebrow">ASTRONOMY PICTURE OF THE DAY</span><h1>Daily Astronomy Briefing</h1><p>Using NASA's current APOD WordPress API.</p></div></div>
+        <div class="controls panel">
+          <label>Date <input id="apodDate" type="date" /></label>
+          <button id="loadApod" class="primary">Load briefing</button>
+          <button id="randomApod" class="secondary">Surprise me</button>
+        </div>
+        <article id="apodCard" class="apod-card panel"><div class="list-state">Loading today's astronomy briefing…</div></article>
+      </section>
+
+      <section id="media" class="view">
+        <div class="section-title"><div><span class="eyebrow">NASA IMAGE & VIDEO LIBRARY</span><h1>Mission Media Search</h1><p>Search NASA's public image archive by mission, object, person or topic.</p></div></div>
+        <form id="mediaForm" class="search-panel panel">
+          <input id="mediaQuery" type="search" value="James Webb" placeholder="Try: Apollo 11, Mars, James Webb…" aria-label="NASA media search" />
+          <button class="primary" type="submit">Search NASA</button>
+        </form>
+        <div id="mediaMeta" class="status-text"></div>
+        <div id="mediaGrid" class="media-grid"></div>
+      </section>
+    </main>
+
+    <footer><span>ORBIT // Independent project using NASA Open APIs</span><span>Data attribution: NASA / JPL / DONKI</span></footer>
+  </div>
+
+  <dialog id="settingsDialog">
+    <form method="dialog" class="settings-card">
+      <div class="dialog-head"><div><span class="eyebrow">CONNECTION</span><h2>NASA API access</h2></div><button class="icon-btn" value="cancel" aria-label="Close">×</button></div>
+      <p>The public demo uses NASA's <code>DEMO_KEY</code>. Paste your own NASA key to increase rate limits. It is saved only in this browser's local storage and is never uploaded to GitHub by ORBIT.</p>
+      <label>NASA API key <input id="apiKeyInput" type="password" autocomplete="off" placeholder="Paste your NASA key" /></label>
+      <div class="dialog-actions"><button id="clearKey" type="button" class="secondary">Use DEMO_KEY</button><button id="saveKey" type="button" class="primary">Save locally</button></div>
+      <small class="privacy-note">Tip: if a key has been posted publicly, rotate it at the provider before using it.</small>
+    </form>
+  </dialog>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script>
+(() => {
+  'use strict';
+
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+  const STORAGE_KEY = 'orbit_nasa_api_key';
+  const CACHE_PREFIX = 'orbit_cache_';
+  const state = { asteroids: [], weather: [], apiKey: localStorage.getItem(STORAGE_KEY) || 'DEMO_KEY' };
+
+  const fmt = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
+  const fmt1 = new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 });
+  const isoDate = d => d.toISOString().slice(0, 10);
+  const today = () => isoDate(new Date());
+  const daysAgo = n => { const d = new Date(); d.setUTCDate(d.getUTCDate() - n); return isoDate(d); };
+  const escapeHTML = s => String(s ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+
+  function toast(message) {
+    const el = $('#toast'); el.textContent = message; el.classList.add('show');
+    clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('show'), 2600);
+  }
+
+  function setApiMode() {
+    const personal = state.apiKey !== 'DEMO_KEY';
+    $('#metricKey').textContent = personal ? 'PERSONAL' : 'DEMO';
+    $('#metricKeySub').textContent = personal ? 'Stored locally in this browser' : 'Public demo rate limit';
+  }
+
+  async function apiFetch(url, cacheKey, ttl = 10 * 60 * 1000) {
+    const cachedRaw = localStorage.getItem(CACHE_PREFIX + cacheKey);
+    if (cachedRaw) {
+      try {
+        const cached = JSON.parse(cachedRaw);
+        if (Date.now() - cached.time < ttl) return cached.data;
+      } catch (_) {}
+    }
+    const response = await fetch(url, { headers: { 'Accept': 'application/json' } });
+    if (!response.ok) {
+      const text = await response.text().catch(() => '');
+      throw new Error(`NASA request failed (${response.status})${text ? ': ' + text.slice(0, 120) : ''}`);
+    }
+    const data = await response.json();
+    try { localStorage.setItem(CACHE_PREFIX + cacheKey, JSON.stringify({ time: Date.now(), data })); } catch (_) {}
+    return data;
+  }
+
+  function activateView(name) {
+    $$('.view').forEach(v => v.classList.toggle('active', v.id === name));
+    $$('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view === name));
+    history.replaceState(null, '', '#' + name);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function navInit() {
+    $$('.nav-btn').forEach(btn => btn.addEventListener('click', () => activateView(btn.dataset.view)));
+    $$('[data-jump]').forEach(btn => btn.addEventListener('click', () => activateView(btn.dataset.jump)));
+    const hash = location.hash.replace('#','');
+    if (['dashboard','asteroids','weather','apod','media'].includes(hash)) activateView(hash);
+  }
+
+  function clockInit() {
+    const update = () => $('#utcClock').textContent = `UTC ${new Date().toISOString().slice(11,19)}`;
+    update(); setInterval(update, 1000);
+  }
+
+  function settingsInit() {
+    const dialog = $('#settingsDialog');
+    $('#settingsBtn').addEventListener('click', () => { $('#apiKeyInput').value = state.apiKey === 'DEMO_KEY' ? '' : state.apiKey; dialog.showModal(); });
+    $('#saveKey').addEventListener('click', () => {
+      const key = $('#apiKeyInput').value.trim();
+      if (!key) return toast('Enter a NASA API key first.');
+      localStorage.setItem(STORAGE_KEY, key); state.apiKey = key; setApiMode(); dialog.close(); clearOrbitCache(); toast('NASA key saved only in this browser.'); refreshAll();
+    });
+    $('#clearKey').addEventListener('click', () => { localStorage.removeItem(STORAGE_KEY); state.apiKey = 'DEMO_KEY'; $('#apiKeyInput').value=''; setApiMode(); dialog.close(); clearOrbitCache(); toast('Switched to NASA DEMO_KEY.'); refreshAll(); });
+    setApiMode();
+  }
+
+  function clearOrbitCache() {
+    Object.keys(localStorage).filter(k => k.startsWith(CACHE_PREFIX)).forEach(k => localStorage.removeItem(k));
+  }
+
+  async function loadAsteroids(date = today(), force = false) {
+    $('#asteroidStatus').textContent = 'Contacting NeoWs…';
+    const key = encodeURIComponent(state.apiKey);
+    const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${date}&end_date=${date}&api_key=${key}`;
+    try {
+      if (force) localStorage.removeItem(CACHE_PREFIX + 'neo_' + date);
+      const data = await apiFetch(url, 'neo_' + date, 8 * 60 * 1000);
+      state.asteroids = data.near_earth_objects?.[date] || [];
+      renderAsteroids(); renderDashboardAsteroids();
+      const hazards = state.asteroids.filter(a => a.is_potentially_hazardous_asteroid).length;
+      $('#metricNeos').textContent = state.asteroids.length;
+      $('#metricHazard').textContent = hazards;
+      $('#metricNeosSub').textContent = date === today() ? 'Close approaches today' : `For ${date}`;
+      $('#asteroidStatus').textContent = `${state.asteroids.length} objects received`;
+    } catch (err) {
+      $('#asteroidStatus').textContent = 'Request failed';
+      $('#asteroidGrid').innerHTML = `<div class="empty">${escapeHTML(err.message)}<br><small>Try your personal NASA API key in Settings if DEMO_KEY is rate-limited.</small></div>`;
+      $('#dashboardAsteroids').textContent = 'NeoWs is temporarily unavailable.';
+    }
+  }
+
+  function asteroidVM(a) {
+    const approach = a.close_approach_data?.[0] || {};
+    const missKm = Number(approach.miss_distance?.kilometers || Infinity);
+    const vel = Number(approach.relative_velocity?.kilometers_per_hour || 0);
+    const min = Number(a.estimated_diameter?.meters?.estimated_diameter_min || 0);
+    const max = Number(a.estimated_diameter?.meters?.estimated_diameter_max || 0);
+    return { raw:a, name:a.name, id:a.id, hazard:!!a.is_potentially_hazardous_asteroid, missKm, vel, min, max, time:approach.close_approach_date_full || approach.close_approach_date || 'Unknown' };
+  }
+
+  function renderAsteroids() {
+    const hazardOnly = $('#hazardOnly')?.checked;
+    let list = state.asteroids.map(asteroidVM).sort((a,b) => a.missKm - b.missKm);
+    if (hazardOnly) list = list.filter(a => a.hazard);
+    const grid = $('#asteroidGrid');
+    if (!list.length) { grid.innerHTML = '<div class="empty">No matching near-Earth objects for this view.</div>'; }
+    else grid.innerHTML = list.map(a => `<article class="asteroid-card">
+      <div class="asteroid-top"><div><span class="eyebrow">JPL ID ${escapeHTML(a.id)}</span><h3>${escapeHTML(a.name)}</h3></div><span class="badge ${a.hazard?'hazard':''}">${a.hazard?'POTENTIALLY HAZARDOUS':'MONITORED'}</span></div>
+      <div class="data-pairs"><div><span>MISS DISTANCE</span><strong>${fmt.format(a.missKm)} km</strong></div><div><span>VELOCITY</span><strong>${fmt.format(a.vel)} km/h</strong></div><div><span>EST. DIAMETER</span><strong>${fmt1.format(a.min)}–${fmt1.format(a.max)} m</strong></div><div><span>APPROACH</span><strong>${escapeHTML(a.time)}</strong></div></div>
+    </article>`).join('');
+    const all = state.asteroids.map(asteroidVM);
+    const closest = all.length ? Math.min(...all.map(a=>a.missKm)) : 0;
+    const fastest = all.length ? Math.max(...all.map(a=>a.vel)) : 0;
+    const hazards = all.filter(a=>a.hazard).length;
+    $('#asteroidSummary').innerHTML = `<div class="summary-box"><small>Objects tracked</small><strong>${all.length}</strong></div><div class="summary-box"><small>Closest approach</small><strong>${closest?fmt.format(closest)+' km':'—'}</strong></div><div class="summary-box"><small>Potentially hazardous</small><strong>${hazards}</strong></div>`;
+  }
+
+  function renderDashboardAsteroids() {
+    const list = state.asteroids.map(asteroidVM).sort((a,b)=>a.missKm-b.missKm).slice(0,5);
+    $('#dashboardAsteroids').innerHTML = list.length ? list.map(a => `<div class="mini-row"><strong>${escapeHTML(a.name)} ${a.hazard?'<span class="danger">●</span>':''}</strong><span>${fmt.format(a.missKm)} km</span><span>${fmt.format(a.vel)} km/h</span></div>`).join('') : '<div class="list-state">No approaches returned.</div>';
+  }
+
+  async function loadWeather(days = 7, type = 'all', force = false) {
+    $('#weatherStatus').textContent = 'Contacting DONKI…';
+    const end = today(), start = daysAgo(days);
+    const key = encodeURIComponent(state.apiKey);
+    const cache = `donki_${start}_${end}_${type}`;
+    if (force) localStorage.removeItem(CACHE_PREFIX + cache);
+    const url = `https://api.nasa.gov/DONKI/notifications?startDate=${start}&endDate=${end}&type=${encodeURIComponent(type)}&api_key=${key}`;
+    try {
+      const data = await apiFetch(url, cache, 10 * 60 * 1000);
+      state.weather = Array.isArray(data) ? data : [];
+      renderWeather(); renderDashboardWeather();
+      $('#metricWeather').textContent = state.weather.length;
+      $('#weatherStatus').textContent = `${state.weather.length} notifications received`;
+    } catch (err) {
+      $('#weatherStatus').textContent = 'Request failed';
+      $('#weatherTimeline').innerHTML = `<div class="empty">${escapeHTML(err.message)}</div>`;
+      $('#dashboardWeather').textContent = 'DONKI is temporarily unavailable.';
+    }
+  }
+
+  function weatherType(n) { return n.messageType || n.type || 'EVENT'; }
+  function renderWeather() {
+    const list = state.weather.slice().reverse();
+    $('#weatherTimeline').innerHTML = list.length ? list.map(n => {
+      const t = weatherType(n); const title = `${t} notification`;
+      const body = (n.messageBody || n.message || 'NASA space-weather notification').replace(/\r/g,'').slice(0,900);
+      return `<article class="event-card"><div class="event-type">${escapeHTML(t)}</div><div><h3>${escapeHTML(title)}</h3><p>${escapeHTML(body)}</p>${n.messageURL?`<a class="text-btn" href="${escapeHTML(n.messageURL)}" target="_blank" rel="noopener">Open NASA notice →</a>`:''}</div><time>${escapeHTML(n.messageIssueTime || '')}</time></article>`;
+    }).join('') : '<div class="empty">No DONKI notifications in this window.</div>';
+  }
+
+  function renderDashboardWeather() {
+    const list = state.weather.slice(-4).reverse();
+    $('#dashboardWeather').innerHTML = list.length ? list.map(n=>`<div class="mini-row" style="grid-template-columns:.45fr 1.55fr"><strong>${escapeHTML(weatherType(n))}</strong><span>${escapeHTML((n.messageIssueTime||'').replace('T',' ').replace('Z',' UTC'))}</span></div>`).join('') : '<div class="list-state">No current notices.</div>';
+  }
+
+  async function loadApod(date = '') {
+    const card = $('#apodCard'); card.innerHTML = '<div class="list-state" style="padding:32px">Loading NASA APOD…</div>';
+    const q = date ? `date=${date}&` : '';
+    const url = `https://science.nasa.gov/wp-json/wp/v2/apod-basic/?${q}api_key=${encodeURIComponent(state.apiKey)}`;
+    try {
+      const data = await apiFetch(url, 'apod_' + (date||today()), 30 * 60 * 1000);
+      const item = Array.isArray(data) ? data[0] : data;
+      if (!item) throw new Error('NASA APOD returned no item.');
+      const mediaUrl = item.hdurl || item.url || '';
+      const isVideo = item.media_type === 'video' || /youtube|vimeo/.test(mediaUrl);
+      const media = isVideo ? `<iframe src="${escapeHTML(mediaUrl)}" title="${escapeHTML(item.title||'NASA APOD')}" allowfullscreen loading="lazy"></iframe>` : `<img src="${escapeHTML(mediaUrl)}" alt="${escapeHTML(item.alt || item.title || 'NASA astronomy image')}" loading="eager" />`;
+      card.innerHTML = `<div class="apod-media">${media}</div><div class="apod-copy"><span class="eyebrow">${escapeHTML(item.date||'NASA APOD')}</span><h2>${escapeHTML(item.title||'Astronomy Picture of the Day')}</h2><p>${escapeHTML(item.explanation||'')}</p><div class="credit">${item.credit?`Credit: ${escapeHTML(item.credit)}`:''}${item.copyright?` · © ${escapeHTML(item.copyright)}`:''}</div>${item.permalink?`<p><a class="text-btn" href="${escapeHTML(item.permalink)}" target="_blank" rel="noopener">Open on NASA →</a></p>`:''}</div>`;
+    } catch (err) { card.innerHTML = `<div class="empty" style="margin:24px">${escapeHTML(err.message)}</div>`; }
+  }
+
+  async function searchMedia(query) {
+    const grid = $('#mediaGrid'); grid.innerHTML = '<div class="list-state">Searching NASA media library…</div>';
+    $('#mediaMeta').textContent = `Query: ${query}`;
+    try {
+      const url = `https://images-api.nasa.gov/search?q=${encodeURIComponent(query)}&media_type=image&page_size=24`;
+      const data = await apiFetch(url, 'media_' + query.toLowerCase().replace(/\W+/g,'_'), 30 * 60 * 1000);
+      const items = data.collection?.items || [];
+      $('#mediaMeta').textContent = `${fmt.format(data.collection?.metadata?.total_hits || items.length)} results in NASA library`;
+      grid.innerHTML = items.length ? items.map(item => {
+        const d = item.data?.[0] || {}; const img = item.links?.find(l => l.render === 'image')?.href || item.links?.[0]?.href || '';
+        return `<article class="media-card">${img?`<img src="${escapeHTML(img)}" alt="${escapeHTML(d.title||query)}" loading="lazy" />`:''}<div class="media-copy"><h3 title="${escapeHTML(d.title||'Untitled')}">${escapeHTML(d.title||'Untitled')}</h3><p>${escapeHTML(d.description||d.description_508||'NASA media asset')}</p><small>${escapeHTML((d.date_created||'').slice(0,10))} · ${escapeHTML(d.center||'NASA')}</small></div></article>`;
+      }).join('') : '<div class="empty">No NASA images matched that search.</div>';
+    } catch (err) { grid.innerHTML = `<div class="empty">${escapeHTML(err.message)}</div>`; }
+  }
+
+  function bindControls() {
+    $('#asteroidDate').value = today();
+    $('#asteroidDate').max = today();
+    $('#apodDate').max = today();
+    $('#scanAsteroids').addEventListener('click', () => loadAsteroids($('#asteroidDate').value || today(), true));
+    $('#todayAsteroids').addEventListener('click', () => { $('#asteroidDate').value=today(); loadAsteroids(today(), true); });
+    $('#hazardOnly').addEventListener('change', renderAsteroids);
+    $('#refreshWeather').addEventListener('click', () => loadWeather(Number($('#weatherDays').value), $('#weatherType').value, true));
+    $('#loadApod').addEventListener('click', () => loadApod($('#apodDate').value));
+    $('#randomApod').addEventListener('click', () => {
+      const start = new Date('2000-01-01T00:00:00Z').getTime(), end = Date.now();
+      const d = new Date(start + Math.random() * (end-start)); $('#apodDate').value=isoDate(d); loadApod($('#apodDate').value);
+    });
+    $('#mediaForm').addEventListener('submit', e => { e.preventDefault(); const q=$('#mediaQuery').value.trim(); if(q) searchMedia(q); });
+  }
+
+  async function refreshAll() {
+    await Promise.allSettled([loadAsteroids($('#asteroidDate')?.value || today()), loadWeather(Number($('#weatherDays')?.value || 7), $('#weatherType')?.value || 'all'), loadApod($('#apodDate')?.value || '')]);
+  }
+
+  async function init() {
+    navInit(); clockInit(); settingsInit(); bindControls();
+    searchMedia($('#mediaQuery').value);
+    refreshAll();
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+})();
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+name: Publish Chandra reactive preview
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/publish-chandra-reactive.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout public site
+        uses: actions/checkout@v4
+
+      - name: Download compiled reactive site
+        env:
+          ARTIFACT_URL: "https://sdmntpraustraliaeast.oaiusercontent.com/files/00000000-d684-81fa-9236-a2f81056bfad/raw?se=2026-10-01T16%3A01%3A57Z&sp=r&sv=2026-02-06&sr=b&scid=757ebe8b-cf18-54ff-b99a-5d1f8c176c3c&skoid=27fbae2c-124f-4566-a0d8-1b07a5a41c53&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-01T13%3A46%3A32Z&ske=2026-10-02T13%3A46%3A32Z&sks=b&skv=2026-02-06&sig=eqXVzvhgEhlJmU42bdQtplVq1fF0uEUjhp0YKSDfvag%3D"
+        run: |
+          rm -rf chandra_choodeshwaran
+          mkdir -p chandra_choodeshwaran
+          curl -fL "$ARTIFACT_URL" -o /tmp/chandra-reactive-out.zip
+          unzip -q /tmp/chandra-reactive-out.zip -d chandra_choodeshwaran
+          touch .nojekyll
+
+      - name: Commit reactive preview
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add chandra_choodeshwaran .nojekyll
+          if git diff --cached --quiet; then
+            echo "No preview changes to publish"
+          else
+            git commit -m "Publish reactive Chandra preview"
+            git push
+          fi

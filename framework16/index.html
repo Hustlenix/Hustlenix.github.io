@@ -3,291 +3,319 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#f5f3ee">
-  <meta name="description" content="A 90-day experiment: sell proportional ad space on the back of my Lenovo IdeaPad to fund a maxed practical Framework Laptop 16.">
+  <meta name="theme-color" content="#f4f2ed">
+  <meta name="description" content="I'm selling proportional ad space on the back of my Lenovo IdeaPad to fund a maxed practical Framework Laptop 16. Watch the 90-day experiment or support it on Gumroad.">
   <meta property="og:title" content="Sponsored Laptop — Lenovo → Framework 16">
-  <meta property="og:description" content="Every sponsor funds one real Framework 16 component. More expensive part = more physical space on my Lenovo lid.">
+  <meta property="og:description" content="One Lenovo lid. Thirteen sponsor zones. Ninety days to fund a maxed practical Framework Laptop 16.">
+  <meta property="og:type" content="website">
   <title>Sponsored Laptop — Lenovo → Framework 16</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <header class="site-header">
     <div class="shell nav">
-      <a class="brand" href="#top">
+      <a class="brand" href="#top" aria-label="Sponsored Laptop home">
         <span class="brand-mark">SL</span>
-        <span>
+        <span class="brand-copy">
           <b>Sponsored Laptop</b>
-          <small>90-day hardware experiment</small>
+          <small>90-day experiment</small>
         </span>
       </a>
 
-      <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#sponsor">Sponsor</a>
-        <a href="#build">Build</a>
-        <a href="#support">Support</a>
-        <a href="#proof">Proof</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#watch">Watch</a>
+        <a href="#lid">The lid</a>
+        <a href="#build">The build</a>
       </nav>
 
-      <a class="nav-cta" href="#sponsor">Buy lid space</a>
+      <a class="nav-pay" href="https://hustlenix.gumroad.com/coffee" target="_blank" rel="noopener">Support ↗</a>
     </div>
-    <div class="page-progress"><i id="pageProgress"></i></div>
+    <div class="scroll-track"><i id="scrollProgress"></i></div>
   </header>
 
   <main id="top">
     <section class="hero shell">
       <div class="hero-copy">
-        <p class="eyebrow"><span></span> DAY <b id="heroDay">1</b> OF 90</p>
-        <h1>My Lenovo is paying for my next laptop.</h1>
-        <p class="lede">
-          I’m selling the <strong>outside lid of my current Lenovo IdeaPad</strong> as finite ad space.
-          Each zone funds one real component of a maxed practical Framework Laptop 16.
+        <p class="eyebrow"><span class="live-dot"></span> DAY <b id="heroDay">1</b> / 90</p>
+        <h1>I’m turning my Lenovo into a billboard for a Framework 16.</h1>
+        <p class="hero-sub">
+          The <strong>outside lid</strong> of my current IdeaPad is split into 13 sponsor zones.
+          Each zone represents one real Framework component. The more expensive the part, the larger the physical ad space.
         </p>
-        <p class="rule">More expensive component = more physical lid area.</p>
 
-        <div class="hero-actions">
-          <a class="button primary" href="#sponsor">Explore the lid</a>
-          <a class="button secondary" href="#support">Just support</a>
+        <div class="hero-cta">
+          <a class="button dark" href="#watch">Watch the experiment</a>
+          <a class="button light" href="https://hustlenix.gumroad.com/coffee" target="_blank" rel="noopener">Support on Gumroad ↗</a>
         </div>
 
-        <div class="progress-card" aria-label="Campaign funding progress">
-          <div class="progress-top">
-            <div>
-              <span>Raised</span>
-              <strong id="raisedAmount">₹0</strong>
-            </div>
-            <div>
-              <span>Target</span>
-              <strong id="targetAmount">₹7,72,704</strong>
-            </div>
+        <div class="campaign-meter">
+          <div class="meter-numbers">
+            <div><span>Raised</span><strong id="raisedAmount">₹0</strong></div>
+            <div><span>Target</span><strong id="targetAmount">₹7,72,704</strong></div>
           </div>
-          <div class="funding-track"><i id="fundingFill"></i></div>
-          <div class="progress-bottom">
+          <div class="meter-track"><i id="fundingFill"></i></div>
+          <div class="meter-meta">
             <span id="fundedPercent">0% funded</span>
             <span><b id="daysLeft">89</b> days left</span>
           </div>
         </div>
       </div>
 
-      <div class="hero-laptop-wrap">
-        <div class="hero-label">
+      <div class="hero-model">
+        <div class="model-kicker">
           <span>REAR / OUTSIDE LID</span>
-          <span>NOT THE SCREEN</span>
+          <span>MOVE TO ROTATE</span>
         </div>
 
-        <div class="mini-scene" id="heroScene" aria-hidden="true">
-          <div class="mini-shadow"></div>
-          <div class="mini-laptop">
-            <div class="mini-base"></div>
-            <div class="mini-lid">
-              <span class="mini-lenovo">Lenovo</span>
-              <div class="mini-grid" id="heroMap"></div>
+        <div class="hero-scene" id="heroScene">
+          <div class="floor-shadow"></div>
+          <div class="hero-laptop" id="heroLaptop">
+            <div class="hero-base">
+              <div class="base-keyboard"></div>
+              <div class="base-trackpad"></div>
+              <div class="base-lip"></div>
+            </div>
+            <div class="hero-hinge"></div>
+            <div class="hero-lid">
+              <div class="metal-light"></div>
+              <span class="lenovo-tab">Lenovo</span>
+              <div class="hero-zone-map" id="heroZoneMap"></div>
             </div>
           </div>
         </div>
 
-        <div class="hero-specs">
-          <span>Ryzen AI 9 HX 370</span>
-          <span>RTX 5070 12GB</span>
-          <span>96GB DDR5</span>
+        <div class="model-footer">
+          <span>96GB RAM</span>
           <span>10TB SSD</span>
+          <span>RTX 5070 12GB</span>
+          <span>₹7.72L target</span>
         </div>
       </div>
     </section>
 
-    <section id="sponsor" class="sponsor-section">
-      <div class="shell section-intro">
-        <p class="section-kicker">01 / SPONSOR THE LID</p>
+    <section class="choice-strip">
+      <div class="shell choice-grid">
+        <a href="#watch" class="choice">
+          <span class="choice-index">01</span>
+          <div>
+            <small>I'M HERE TO</small>
+            <b>Watch the journey</b>
+          </div>
+          <span class="arrow">↓</span>
+        </a>
+        <a href="https://hustlenix.gumroad.com/coffee" target="_blank" rel="noopener" class="choice pay-choice">
+          <span class="choice-index">02</span>
+          <div>
+            <small>I'M HERE TO</small>
+            <b>Support the build</b>
+          </div>
+          <span class="arrow">↗</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="watch" class="watch-section">
+      <div class="shell section-heading">
+        <p>01 / WATCH</p>
         <div>
-          <h2>Pick the Framework part you want to fund.</h2>
-          <p>The rectangle you get on my Lenovo is calculated directly from that part’s share of the full hardware budget.</p>
+          <h2>Follow the experiment, not a fundraiser.</h2>
+          <p>Every real change becomes part of the story: outreach, replies, sponsor sales, stickers, failures, milestones and the final result.</p>
         </div>
       </div>
 
-      <div class="shell sponsor-workspace">
-        <div class="workspace-visual">
-          <div class="workspace-bar">
-            <span>PHYSICAL SPONSOR CANVAS</span>
-            <button id="labelToggle" type="button" aria-pressed="true">Hide labels</button>
-          </div>
-
-          <div class="scene" id="scene">
-            <div class="scene-shadow"></div>
-
-            <div class="laptop" id="laptop">
-              <div class="base">
-                <div class="keyboard"></div>
-                <div class="trackpad"></div>
-              </div>
-              <div class="hinge"></div>
-              <div class="rear-lid">
-                <div class="lid-sheen"></div>
-                <span class="lenovo-badge">Lenovo</span>
-                <div class="lid-map" id="lidMap"></div>
+      <div class="shell watch-grid">
+        <article class="latest-episode">
+          <div class="episode-stage">
+            <div class="episode-day"><span>DAY</span><b id="watchDay">1</b></div>
+            <div class="episode-visual">
+              <div class="episode-lid">
+                <span>90 DAYS</span>
+                <strong>LENOVO<br>→<br>FRAMEWORK 16</strong>
               </div>
             </div>
           </div>
-
-          <div class="workspace-caption">
-            <span>Move pointer to rotate</span>
-            <span><b id="zonesAvailable">13</b> zones available</span>
+          <div class="episode-copy">
+            <span class="tag">LATEST UPDATE</span>
+            <h3>The campaign is live.</h3>
+            <p>The site, rear-lid sponsor map and maxed practical Framework target are ready. The next phase is publishing the first videos and getting the first verified supporter.</p>
+            <div class="episode-actions">
+              <button class="button dark" id="shareButton" type="button">Share the experiment</button>
+              <span id="shareStatus"></span>
+            </div>
           </div>
-        </div>
+        </article>
 
-        <aside class="selection-panel" id="selectionPanel">
-          <div class="selection-head">
-            <span>SELECTED ZONE</span>
-            <span id="selectedCode">01</span>
-          </div>
-
-          <h3 id="selectedName">8TB primary SSD</h3>
-          <p class="selected-detail" id="selectedDetail">SANDISK 850X PCIe 4.0</p>
-
-          <div class="selection-price">
-            <strong id="selectedPrice">₹2,17,824</strong>
-            <span id="selectedShare">28.2% of rear lid</span>
+        <aside class="watch-progress">
+          <div class="watch-progress-head">
+            <span>LIVE STATE</span>
+            <span id="watchPercent">0%</span>
           </div>
 
-          <div class="selection-rule"></div>
+          <dl>
+            <div><dt>Day</dt><dd><span id="watchDayStat">1</span> / 90</dd></div>
+            <div><dt>Raised</dt><dd id="watchRaised">₹0</dd></div>
+            <div><dt>Zones claimed</dt><dd><span id="claimedZones">0</span> / 13</dd></div>
+            <div><dt>Next event</dt><dd>First verified payment</dd></div>
+          </dl>
 
-          <p id="selectedDescription">
-            Funding this zone covers the planning cost of the 8TB primary SSD. Your printed sponsor mark receives the same share of the Lenovo lid as this part takes from the Framework hardware budget.
-          </p>
-
-          <ul class="deliverables">
-            <li>Printed mark on this exact proportional zone</li>
-            <li>Permanent sponsor listing on this campaign page</li>
-            <li>Component-funding milestone credit</li>
-            <li>Final build/reveal inclusion where applicable</li>
-          </ul>
-
-          <button class="button primary full" id="sponsorButton">Sponsor this zone</button>
-          <p class="checkout-note" id="sponsorStatus">Razorpay checkout is not connected yet.</p>
+          <div class="watch-bar"><i id="watchFill"></i></div>
+          <p>No fake sponsor logos. No invented donations. The state above changes only when something actually happens.</p>
         </aside>
       </div>
 
-      <div class="shell inventory" id="inventory"></div>
+      <div class="shell episode-list" id="episodeList"></div>
+    </section>
+
+    <section id="lid" class="lid-section">
+      <div class="shell section-heading">
+        <p>02 / PAY</p>
+        <div>
+          <h2>Choose what part of the Framework you want to fund.</h2>
+          <p>Click a rectangle on the physical rear lid. Its target contribution is calculated from the corresponding component's share of the hardware budget.</p>
+        </div>
+      </div>
+
+      <div class="shell lid-workspace">
+        <div class="lid-visual">
+          <div class="workspace-head">
+            <span>LENOVO IDEAPAD · REAR LID</span>
+            <button id="labelToggle" type="button" aria-pressed="true">Hide labels</button>
+          </div>
+
+          <div class="lid-scene" id="lidScene">
+            <div class="floor-shadow"></div>
+
+            <div class="lid-laptop" id="lidLaptop">
+              <div class="lid-base">
+                <div class="base-keyboard"></div>
+                <div class="base-trackpad"></div>
+                <div class="base-lip"></div>
+              </div>
+
+              <div class="lid-hinge"></div>
+
+              <div class="rear-lid">
+                <div class="metal-light"></div>
+                <span class="lenovo-tab">Lenovo</span>
+                <div class="sponsor-map" id="sponsorMap"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="workspace-foot">
+            <span>Click a zone to inspect it</span>
+            <span><b id="availableZones">13</b> available</span>
+          </div>
+        </div>
+
+        <aside class="zone-panel" id="zonePanel">
+          <div class="zone-panel-top">
+            <span>SELECTED ZONE</span>
+            <span id="zoneCode">01</span>
+          </div>
+
+          <div class="zone-title">
+            <h3 id="zoneName">8TB primary SSD</h3>
+            <p id="zoneDetail">SANDISK 850X PCIe 4.0</p>
+          </div>
+
+          <div class="zone-money">
+            <div><span>Target contribution</span><strong id="zonePrice">₹2,17,824</strong></div>
+            <div><span>Rear-lid share</span><strong id="zoneShare">28.2%</strong></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <p id="zoneDescription">Fund this component and this percentage becomes the target size of your printed sponsor mark on the back of my Lenovo.</p>
+
+          <div class="zone-terms">
+            <span>WHAT THIS MEANS</span>
+            <ul>
+              <li>One physical sponsor zone on the rear lid</li>
+              <li>Placement size follows the component-cost ratio</li>
+              <li>Zone is marked sold only after payment is verified</li>
+              <li>Support and payment happen only through Gumroad</li>
+            </ul>
+          </div>
+
+          <a class="button dark full" id="zonePay" href="https://hustlenix.gumroad.com/coffee" target="_blank" rel="noopener">Continue on Gumroad ↗</a>
+          <p class="zone-note">Use the target amount shown above if you want to claim this exact zone. Payment verification is manual.</p>
+        </aside>
+      </div>
+
+      <div class="shell zone-list" id="zoneList"></div>
     </section>
 
     <section id="build" class="build-section">
-      <div class="shell section-intro">
-        <p class="section-kicker">02 / THE FRAMEWORK</p>
+      <div class="shell section-heading build-heading">
+        <p>03 / BUILD</p>
         <div>
-          <h2>Maxed practical configuration.</h2>
-          <p>High-end where it matters, while keeping the RTX 5070 installed. The hardware target is currently ₹7,72,704 before India import, tax, forwarding, and delivery.</p>
+          <h2>The Framework this is trying to buy.</h2>
+          <p>A maxed practical Laptop 16 configuration that keeps the RTX 5070 installed. The current hardware-only planning target is ₹7,72,704.</p>
         </div>
       </div>
 
-      <div class="shell build-grid">
-        <div class="spec-hero">
-          <span>THE TARGET</span>
-          <strong id="buildTarget">₹7,72,704</strong>
-          <p>Hardware only · planning conversion ₹96/USD</p>
-        </div>
-
-        <div class="spec-grid">
-          <article><span>CPU</span><b>Ryzen AI 9 HX 370</b><p>Top Framework Laptop 16 processor target.</p></article>
-          <article><span>GPU</span><b>RTX 5070 12GB</b><p>Expansion Bay graphics module retained.</p></article>
-          <article><span>Memory</span><b>96GB DDR5-5600</b><p>2 × 48GB SODIMM.</p></article>
-          <article><span>Storage</span><b>10TB internal</b><p>8TB primary + 2TB secondary.</p></article>
-          <article><span>Input</span><b>RGB + Haptic</b><p>RGB Clear keyboard, RGB Macropad, haptic touchpad.</p></article>
-          <article><span>Power / I/O</span><b>240W + premium cards</b><p>High-power adapter and six-card I/O set.</p></article>
-        </div>
+      <div class="shell spec-grid">
+        <article class="spec feature">
+          <span>CPU</span>
+          <strong>Ryzen AI 9 HX 370</strong>
+          <p>Top processor target for the Framework Laptop 16 DIY platform.</p>
+        </article>
+        <article class="spec">
+          <span>GPU</span>
+          <strong>RTX 5070 12GB</strong>
+          <p>Expansion Bay graphics module.</p>
+        </article>
+        <article class="spec">
+          <span>RAM</span>
+          <strong>96GB DDR5-5600</strong>
+          <p>2 × 48GB SODIMM.</p>
+        </article>
+        <article class="spec">
+          <span>STORAGE</span>
+          <strong>10TB internal</strong>
+          <p>8TB primary + 2TB secondary.</p>
+        </article>
+        <article class="spec">
+          <span>INPUT</span>
+          <strong>RGB + Haptic</strong>
+          <p>RGB Clear keyboard, RGB Macropad and haptic touchpad.</p>
+        </article>
+        <article class="spec">
+          <span>POWER / I/O</span>
+          <strong>240W + premium cards</strong>
+          <p>High-power adapter and six-card I/O set.</p>
+        </article>
       </div>
 
-      <div class="shell parts-table" id="partsTable"></div>
+      <div class="shell parts-list" id="partsList"></div>
 
-      <div class="shell build-footnote">
-        <b>Why 10TB, not 26TB?</b>
-        <span>The extra Dual M.2 Expansion Bay storage configuration would replace the GPU module. This target keeps the RTX 5070 installed.</span>
+      <div class="shell build-note">
+        <b>Why 10TB and not the Dual M.2 Expansion Bay storage option?</b>
+        <span>That option would replace the graphics module. This target keeps the RTX 5070 installed.</span>
       </div>
     </section>
 
-    <section id="support" class="support-section">
-      <div class="shell section-intro">
-        <p class="section-kicker">03 / JUST SUPPORT</p>
+    <section class="pay-section">
+      <div class="shell pay-card">
         <div>
-          <h2>You don’t need to buy ad space.</h2>
-          <p>Normal support moves the funding total but never reserves a sponsor rectangle.</p>
+          <p class="section-kicker">ONE PAYMENT ROUTE</p>
+          <h2>Everything goes through Gumroad.</h2>
+          <p>No UPI. No Razorpay. No second checkout. Whether you're supporting the experiment or aiming to claim a lid zone, transactions use the same page.</p>
         </div>
-      </div>
-
-      <div class="shell support-grid">
-        <article class="support-card">
-          <div class="support-card-head">
-            <span>INDIA</span>
-            <b>UPI</b>
-          </div>
-          <p>Choose an amount and open your UPI app directly.</p>
-
-          <div class="amounts" id="quickAmounts">
-            <button data-amount="10">₹10</button>
-            <button data-amount="50">₹50</button>
-            <button data-amount="100">₹100</button>
-            <button data-amount="500">₹500</button>
-          </div>
-
-          <div class="chosen">
-            <span>Selected</span>
-            <strong id="selectedAmount">₹100</strong>
-          </div>
-
-          <button class="button primary full" id="payUpiBtn">Open UPI app</button>
-          <button class="text-button" id="copyUpiBtn">Copy UPI ID</button>
-          <p class="support-status" id="paymentStatus">UPI account not connected yet.</p>
-        </article>
-
-        <article class="support-card gumroad">
-          <div class="support-card-head">
-            <span>WORLDWIDE</span>
-            <b>Gumroad</b>
-          </div>
-          <p>Prefer a normal web checkout? Use the campaign’s “buy me a coffee” page.</p>
-
-          <div class="coffee-mark" aria-hidden="true">☕</div>
-
-          <a class="button primary full" href="https://hustlenix.gumroad.com/coffee" target="_blank" rel="noopener">
-            Support on Gumroad ↗
-          </a>
-          <p class="support-status">Support only — no sponsor zone is reserved.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="proof" class="proof-section">
-      <div class="shell section-intro">
-        <p class="section-kicker">04 / PROOF</p>
-        <div>
-          <h2>The numbers stay public.</h2>
-          <p>Real sponsor sales, support totals and configuration changes get logged here. No invented milestones.</p>
+        <div class="pay-action">
+          <span>hustlenix.gumroad.com/coffee</span>
+          <a class="button dark full" href="https://hustlenix.gumroad.com/coffee" target="_blank" rel="noopener">Open Gumroad ↗</a>
         </div>
-      </div>
-
-      <div class="shell timeline">
-        <article>
-          <time>02 OCT 2026</time>
-          <div>
-            <span>REV 05</span>
-            <h3>Campaign site reworked.</h3>
-            <p>Sponsor selection, rear-lid visualization, build target, UPI and Gumroad support consolidated into one cleaner flow.</p>
-          </div>
-        </article>
-        <article class="pending">
-          <time>NEXT</time>
-          <div>
-            <span>LIVE EVENT</span>
-            <h3>First verified payment.</h3>
-            <p>This entry changes only after a real supporter or sponsor pays.</p>
-          </div>
-        </article>
       </div>
     </section>
 
     <section class="closing shell">
-      <p class="eyebrow"><span></span> DAY <b id="footerDay">1</b> OF 90</p>
-      <h2>One Lenovo lid.<br>One Framework 16 target.</h2>
-      <div class="hero-actions">
-        <a class="button primary" href="#sponsor">Sponsor a component</a>
-        <a class="button secondary" href="https://hustlenix.gumroad.com/coffee" target="_blank" rel="noopener">Buy me a coffee ↗</a>
+      <p class="eyebrow"><span class="live-dot"></span> DAY <b id="footerDay">1</b> / 90</p>
+      <h2>Watch it happen.<br>Or become part of the laptop.</h2>
+      <div class="hero-cta">
+        <a class="button dark" href="#watch">Watch</a>
+        <a class="button light" href="https://hustlenix.gumroad.com/coffee" target="_blank" rel="noopener">Support on Gumroad ↗</a>
       </div>
     </section>
   </main>

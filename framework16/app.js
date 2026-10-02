@@ -1,8 +1,7 @@
-const RATE=96;
 const GUMROAD_URL="https://hustlenix.gumroad.com/coffee";
+const RATE=96;
+
 const campaign={
-  upiId:"YOUR_UPI_ID",
-  upiName:"Sponsored Laptop",
   raised:0,
   start:"2026-09-29T00:00:00+05:30",
   end:"2026-12-27T23:59:59+05:30"
@@ -22,261 +21,316 @@ const parts=[
   {id:"macropad",code:"11",name:"RGB Macropad",detail:"2nd Gen",usd:79},
   {id:"haptic",code:"12",name:"Haptic touchpad",detail:"One-piece matte-glass touchpad",usd:70},
   {id:"bezel",code:"13",name:"Orange bezel",detail:"Color bezel upgrade",usd:20}
-].map(p=>({...p,inr:p.usd*RATE,sold:false,paymentLink:"YOUR_RAZORPAY_PAYMENT_LINK"}));
+].map(part=>({
+  ...part,
+  inr:part.usd*RATE,
+  sold:false,
+  paymentUrl:GUMROAD_URL
+}));
 
-const total=parts.reduce((sum,p)=>sum+p.inr,0);
+const episodes=[
+  {day:"01",title:"The idea",text:"Turn the rear lid of my current Lenovo into finite sponsor inventory for a Framework 16."},
+  {day:"02",title:"The sponsor map",text:"Component prices became proportional physical rectangles instead of arbitrary ad tiers."},
+  {day:"04",title:"The campaign site",text:"The website was rebuilt around two actions only: watch the experiment or pay through Gumroad."}
+];
+
+const total=parts.reduce((sum,part)=>sum+part.inr,0);
 campaign.target=total;
-parts.forEach(p=>p.share=p.inr/total);
+parts.forEach(part=>part.share=part.inr/total);
 
-const rupee=n=>new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",maximumFractionDigits:0}).format(n);
-const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+const money=value=>new Intl.NumberFormat("en-IN",{
+  style:"currency",
+  currency:"INR",
+  maximumFractionDigits:0
+}).format(value);
+
+const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
 
 function splitClosest(items){
   if(items.length<=1)return[items,[]];
-  const sum=items.reduce((s,p)=>s+p.inr,0),half=sum/2;
-  let running=0,best=1,diff=Infinity;
+
+  const sum=items.reduce((total,item)=>total+item.inr,0);
+  const half=sum/2;
+  let running=0;
+  let bestIndex=1;
+  let bestDifference=Infinity;
+
   for(let i=1;i<items.length;i++){
     running+=items[i-1].inr;
-    const d=Math.abs(half-running);
-    if(d<diff){diff=d;best=i}
+    const difference=Math.abs(half-running);
+    if(difference<bestDifference){
+      bestDifference=difference;
+      bestIndex=i;
+    }
   }
-  return[items.slice(0,best),items.slice(best)];
+
+  return[items.slice(0,bestIndex),items.slice(bestIndex)];
 }
 
-function treemap(items,x=0,y=0,w=100,h=100){
+function makeTreemap(items,x=0,y=0,w=100,h=100){
   if(items.length===1)return[{part:items[0],x,y,w,h}];
-  const sum=items.reduce((s,p)=>s+p.inr,0);
+
+  const sum=items.reduce((total,item)=>total+item.inr,0);
   const [a,b]=splitClosest(items);
-  const ratio=a.reduce((s,p)=>s+p.inr,0)/sum;
+  const ratio=a.reduce((total,item)=>total+item.inr,0)/sum;
 
   if(w>=h){
-    const wa=w*ratio;
-    return[...treemap(a,x,y,wa,h),...treemap(b,x+wa,y,w-wa,h)];
+    const firstWidth=w*ratio;
+    return[
+      ...makeTreemap(a,x,y,firstWidth,h),
+      ...makeTreemap(b,x+firstWidth,y,w-firstWidth,h)
+    ];
   }
 
-  const ha=h*ratio;
-  return[...treemap(a,x,y,w,ha),...treemap(b,x,y+ha,w,h-ha)];
+  const firstHeight=h*ratio;
+  return[
+    ...makeTreemap(a,x,y,w,firstHeight),
+    ...makeTreemap(b,x,y+firstHeight,w,h-firstHeight)
+  ];
 }
 
-const rects=treemap([...parts].sort((a,b)=>b.inr-a.inr));
+const rects=makeTreemap([...parts].sort((a,b)=>b.inr-a.inr));
 let selectedId=parts[0].id;
 
-function mapMarkup(mini=false){
-  return rects.map(({part,x,y,w,h})=>{
-    const pct=part.share*100;
-    if(mini){
-      return `<div class="mini-zone ${part.featured?"major":""}" style="left:${x}%;top:${y}%;width:${w}%;height:${h}%"></div>`;
-    }
+function heroMapMarkup(){
+  return rects.map(({part,x,y,w,h})=>`
+    <div class="mini-zone ${part.featured?"major":""}"
+      style="left:${x}%;top:${y}%;width:${w}%;height:${h}%">
+    </div>
+  `).join("");
+}
 
-    return `<button class="zone ${part.featured?"major":""} ${pct<1.5?"tiny":""}" data-zone="${part.id}" style="left:${x}%;top:${y}%;width:${w}%;height:${h}%" aria-label="${part.name}, ${rupee(part.inr)}, ${pct.toFixed(1)} percent of rear lid">
-      <span class="zone-copy">
-        <span class="zone-code">${part.code}</span>
-        <b class="zone-name">${part.name}</b>
-        <span class="zone-meta"><span>${rupee(part.inr)}</span><span>${pct.toFixed(1)}%</span></span>
-      </span>
-    </button>`;
+function sponsorMapMarkup(){
+  return rects.map(({part,x,y,w,h})=>{
+    const share=part.share*100;
+    return `
+      <button
+        class="zone ${part.featured?"major":""} ${share<1.5?"tiny":""}"
+        data-zone="${part.id}"
+        style="left:${x}%;top:${y}%;width:${w}%;height:${h}%"
+        aria-label="${part.name}, ${money(part.inr)}, ${share.toFixed(1)} percent of rear lid">
+        <span class="zone-copy">
+          <span class="zone-code">${part.code}</span>
+          <b class="zone-name">${part.name}</b>
+          <span class="zone-meta">
+            <span>${money(part.inr)}</span>
+            <span>${share.toFixed(1)}%</span>
+          </span>
+        </span>
+      </button>
+    `;
   }).join("");
 }
 
 function renderMaps(){
-  document.querySelector("#lidMap").innerHTML=mapMarkup(false);
-  document.querySelector("#heroMap").innerHTML=mapMarkup(true);
+  document.querySelector("#heroZoneMap").innerHTML=heroMapMarkup();
+  document.querySelector("#sponsorMap").innerHTML=sponsorMapMarkup();
 
   document.querySelectorAll("[data-zone]").forEach(zone=>{
-    zone.addEventListener("click",()=>selectPart(zone.dataset.zone,true));
-    zone.addEventListener("mouseenter",()=>setLinked(zone.dataset.zone,true));
-    zone.addEventListener("mouseleave",()=>setLinked(zone.dataset.zone,false));
-    zone.addEventListener("focus",()=>setLinked(zone.dataset.zone,true));
-    zone.addEventListener("blur",()=>setLinked(zone.dataset.zone,false));
+    zone.addEventListener("click",()=>selectZone(zone.dataset.zone,true));
+    zone.addEventListener("mouseenter",()=>linkZone(zone.dataset.zone,true));
+    zone.addEventListener("mouseleave",()=>linkZone(zone.dataset.zone,false));
+    zone.addEventListener("focus",()=>linkZone(zone.dataset.zone,true));
+    zone.addEventListener("blur",()=>linkZone(zone.dataset.zone,false));
   });
 }
 
-function renderInventory(){
-  document.querySelector("#inventory").innerHTML=parts.map(part=>`
-    <article class="inventory-row" data-row="${part.id}">
-      <span class="inventory-code">${part.code}</span>
-      <div class="inventory-name">
+function renderZoneList(){
+  document.querySelector("#zoneList").innerHTML=parts.map(part=>`
+    <article class="zone-row" data-row="${part.id}">
+      <span class="row-code">${part.code}</span>
+      <div class="row-name">
         <b>${part.name}</b>
         <small>${part.detail}</small>
       </div>
-      <span class="inventory-share">${(part.share*100).toFixed(1)}% of lid</span>
-      <span class="inventory-price">${rupee(part.inr)}</span>
+      <span class="row-share">${(part.share*100).toFixed(1)}% of lid</span>
+      <span class="row-price">${money(part.inr)}</span>
       <button type="button" data-select="${part.id}">Select</button>
     </article>
   `).join("");
 
   document.querySelectorAll("[data-row]").forEach(row=>{
-    row.addEventListener("mouseenter",()=>setLinked(row.dataset.row,true));
-    row.addEventListener("mouseleave",()=>setLinked(row.dataset.row,false));
+    row.addEventListener("mouseenter",()=>linkZone(row.dataset.row,true));
+    row.addEventListener("mouseleave",()=>linkZone(row.dataset.row,false));
   });
 
   document.querySelectorAll("[data-select]").forEach(button=>{
     button.addEventListener("click",()=>{
-      selectPart(button.dataset.select,true);
-      document.querySelector("#sponsor").scrollIntoView({behavior:"smooth",block:"start"});
+      selectZone(button.dataset.select,true);
+      document.querySelector("#lid").scrollIntoView({behavior:"smooth",block:"start"});
     });
   });
 }
 
 function renderParts(){
-  document.querySelector("#partsTable").innerHTML=parts.map(part=>`
+  document.querySelector("#partsList").innerHTML=parts.map(part=>`
     <article class="part-row">
       <span>${part.code}</span>
       <b>${part.name}</b>
-      <span class="part-cost">${rupee(part.inr)}</span>
-      <span class="part-share">${(part.share*100).toFixed(1)}%</span>
+      <span class="cost">${money(part.inr)}</span>
+      <span class="share">${(part.share*100).toFixed(1)}%</span>
     </article>
   `).join("");
 }
 
-function setLinked(id,on){
+function renderEpisodes(){
+  document.querySelector("#episodeList").innerHTML=episodes.map(episode=>`
+    <article class="episode-card">
+      <span>DAY ${episode.day}</span>
+      <h4>${episode.title}</h4>
+      <p>${episode.text}</p>
+    </article>
+  `).join("");
+}
+
+function linkZone(id,on){
   document.querySelector(`[data-zone="${id}"]`)?.classList.toggle("linked",on);
   document.querySelector(`[data-row="${id}"]`)?.classList.toggle("linked",on);
 }
 
-function selectPart(id,animate=false){
-  const part=parts.find(p=>p.id===id);
+function selectZone(id,animate=false){
+  const part=parts.find(item=>item.id===id);
   if(!part)return;
 
   selectedId=id;
 
-  document.querySelectorAll("[data-zone]").forEach(el=>el.classList.toggle("selected",el.dataset.zone===id));
-  document.querySelectorAll("[data-row]").forEach(el=>el.classList.toggle("selected",el.dataset.row===id));
+  document.querySelectorAll("[data-zone]").forEach(element=>{
+    element.classList.toggle("selected",element.dataset.zone===id);
+  });
+  document.querySelectorAll("[data-row]").forEach(element=>{
+    element.classList.toggle("selected",element.dataset.row===id);
+  });
 
-  document.querySelector("#selectedCode").textContent=part.code;
-  document.querySelector("#selectedName").textContent=part.name;
-  document.querySelector("#selectedDetail").textContent=part.detail;
-  document.querySelector("#selectedPrice").textContent=rupee(part.inr);
-  document.querySelector("#selectedShare").textContent=(part.share*100).toFixed(1)+"% of rear lid";
-  document.querySelector("#selectedDescription").textContent=
-    `Funding this zone covers the planning cost of the ${part.name}. Your printed sponsor mark gets the same percentage of my Lenovo rear lid as this component takes from the Framework hardware budget.`;
-
-  const configured=part.paymentLink&&!part.paymentLink.includes("YOUR_");
-  document.querySelector("#sponsorStatus").textContent=configured
-    ?"This opens the configured Razorpay sponsor checkout."
-    :"Razorpay checkout is not connected yet.";
+  document.querySelector("#zoneCode").textContent=part.code;
+  document.querySelector("#zoneName").textContent=part.name;
+  document.querySelector("#zoneDetail").textContent=part.detail;
+  document.querySelector("#zonePrice").textContent=money(part.inr);
+  document.querySelector("#zoneShare").textContent=(part.share*100).toFixed(1)+"%";
+  document.querySelector("#zoneDescription").textContent=
+    `Fund this component and ${(part.share*100).toFixed(1)}% becomes the target size of your printed sponsor mark on the back of my Lenovo.`;
+  document.querySelector("#zonePay").href=GUMROAD_URL;
 
   if(animate&&!matchMedia("(prefers-reduced-motion: reduce)").matches){
-    document.querySelector("#selectionPanel").animate(
+    document.querySelector("#zonePanel").animate(
       [{opacity:.72,transform:"translateY(5px)"},{opacity:1,transform:"none"}],
       {duration:180,easing:"ease-out"}
     );
   }
 }
 
-document.querySelector("#sponsorButton").addEventListener("click",()=>{
-  const part=parts.find(p=>p.id===selectedId);
-  if(part?.paymentLink&&!part.paymentLink.includes("YOUR_")){
-    window.open(part.paymentLink,"_blank","noopener");
-  }else{
-    document.querySelector("#sponsorStatus").textContent="This sponsor checkout has not been connected yet.";
-  }
-});
-
 function updateCampaign(){
-  const now=new Date(),start=new Date(campaign.start),end=new Date(campaign.end);
-  const day=clamp(Math.floor((now-start)/86400000)+1,1,90);
-  const days=Math.max(0,Math.ceil((end-now)/86400000));
-  const pct=clamp(campaign.raised/total*100,0,100);
+  const now=new Date();
+  const start=new Date(campaign.start);
+  const end=new Date(campaign.end);
 
-  document.querySelector("#heroDay").textContent=day;
-  document.querySelector("#footerDay").textContent=day;
-  document.querySelector("#daysLeft").textContent=days;
-  document.querySelector("#raisedAmount").textContent=rupee(campaign.raised);
-  document.querySelector("#targetAmount").textContent=rupee(total);
-  document.querySelector("#buildTarget").textContent=rupee(total);
-  document.querySelector("#fundedPercent").textContent=pct.toFixed(pct>=10?0:1)+"% funded";
-  document.querySelector("#fundingFill").style.width=pct+"%";
-  document.querySelector("#zonesAvailable").textContent=parts.filter(p=>!p.sold).length;
+  const day=clamp(Math.floor((now-start)/86400000)+1,1,90);
+  const daysLeft=Math.max(0,Math.ceil((end-now)/86400000));
+  const percent=clamp(campaign.raised/campaign.target*100,0,100);
+  const sold=parts.filter(part=>part.sold).length;
+
+  ["#heroDay","#watchDay","#watchDayStat","#footerDay"].forEach(selector=>{
+    document.querySelector(selector).textContent=day;
+  });
+
+  document.querySelector("#raisedAmount").textContent=money(campaign.raised);
+  document.querySelector("#targetAmount").textContent=money(campaign.target);
+  document.querySelector("#fundingFill").style.width=percent+"%";
+  document.querySelector("#fundedPercent").textContent=percent.toFixed(percent>=10?0:1)+"% funded";
+  document.querySelector("#daysLeft").textContent=daysLeft;
+
+  document.querySelector("#watchPercent").textContent=percent.toFixed(percent>=10?0:1)+"%";
+  document.querySelector("#watchRaised").textContent=money(campaign.raised);
+  document.querySelector("#watchFill").style.width=percent+"%";
+  document.querySelector("#claimedZones").textContent=sold;
+  document.querySelector("#availableZones").textContent=parts.length-sold;
 }
 
-let amount=100;
-function selectAmount(value){
-  amount=Number(value);
-  document.querySelector("#selectedAmount").textContent=rupee(amount);
-  document.querySelectorAll("#quickAmounts button").forEach(button=>{
-    button.classList.toggle("active",Number(button.dataset.amount)===amount);
+function setupTilt(sceneSelector,laptopVarPrefix){
+  const scene=document.querySelector(sceneSelector);
+  if(!scene||matchMedia("(hover:none)").matches||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+
+  scene.addEventListener("pointermove",event=>{
+    const rect=scene.getBoundingClientRect();
+    const x=clamp((event.clientX-rect.left)/rect.width,0,1);
+    const y=clamp((event.clientY-rect.top)/rect.height,0,1);
+
+    document.documentElement.style.setProperty(`--${laptopVarPrefix}-ry`,(5+(x-.5)*8).toFixed(2)+"deg");
+    document.documentElement.style.setProperty(`--${laptopVarPrefix}-rx`,(-2-(y-.5)*5).toFixed(2)+"deg");
+  });
+
+  scene.addEventListener("pointerleave",()=>{
+    document.documentElement.style.setProperty(`--${laptopVarPrefix}-rx`,"-2deg");
+    document.documentElement.style.setProperty(`--${laptopVarPrefix}-ry`,"5deg");
   });
 }
-document.querySelectorAll("#quickAmounts button").forEach(button=>{
-  button.addEventListener("click",()=>selectAmount(button.dataset.amount));
-});
-
-function upiConfigured(){return campaign.upiId&&!campaign.upiId.includes("YOUR_")}
-function upiLink(){
-  const q=new URLSearchParams({pa:campaign.upiId,pn:campaign.upiName,am:String(amount),cu:"INR",tn:"Sponsored Laptop Framework 16 project"});
-  return"upi://pay?"+q.toString();
-}
-document.querySelector("#payUpiBtn").addEventListener("click",()=>{
-  if(upiConfigured())location.href=upiLink();
-  else document.querySelector("#paymentStatus").textContent="The campaign UPI account has not been connected yet.";
-});
-document.querySelector("#copyUpiBtn").addEventListener("click",async()=>{
-  if(!upiConfigured()){
-    document.querySelector("#paymentStatus").textContent="The campaign UPI account has not been connected yet.";
-    return;
-  }
-  try{
-    await navigator.clipboard.writeText(campaign.upiId);
-    document.querySelector("#paymentStatus").textContent="Copied: "+campaign.upiId;
-  }catch{
-    document.querySelector("#paymentStatus").textContent=campaign.upiId;
-  }
-});
 
 document.querySelector("#labelToggle").addEventListener("click",event=>{
-  const hidden=document.querySelector("#lidMap").classList.toggle("hide");
+  const hidden=document.querySelector("#sponsorMap").classList.toggle("hide");
   event.currentTarget.textContent=hidden?"Show labels":"Hide labels";
   event.currentTarget.setAttribute("aria-pressed",hidden?"false":"true");
 });
 
-function setupTilt(){
-  const scene=document.querySelector("#scene");
-  if(matchMedia("(hover:none)").matches||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+document.querySelector("#shareButton").addEventListener("click",async()=>{
+  const shareData={
+    title:"Sponsored Laptop",
+    text:"I'm trying to fund a Framework 16 by selling proportional ad space on the back of my Lenovo.",
+    url:location.href.split("#")[0]
+  };
 
-  scene.addEventListener("pointermove",event=>{
-    const r=scene.getBoundingClientRect();
-    const x=clamp((event.clientX-r.left)/r.width,0,1);
-    const y=clamp((event.clientY-r.top)/r.height,0,1);
-    document.documentElement.style.setProperty("--ry",(5+(x-.5)*8).toFixed(2)+"deg");
-    document.documentElement.style.setProperty("--rx",(-2-(y-.5)*5).toFixed(2)+"deg");
-  });
-
-  scene.addEventListener("pointerleave",()=>{
-    document.documentElement.style.setProperty("--rx","-2deg");
-    document.documentElement.style.setProperty("--ry","5deg");
-  });
-}
+  try{
+    if(navigator.share){
+      await navigator.share(shareData);
+      document.querySelector("#shareStatus").textContent="Shared.";
+    }else{
+      await navigator.clipboard.writeText(shareData.url);
+      document.querySelector("#shareStatus").textContent="Link copied.";
+    }
+  }catch{
+    document.querySelector("#shareStatus").textContent="";
+  }
+});
 
 function setupScroll(){
-  const progress=document.querySelector("#pageProgress");
+  const progress=document.querySelector("#scrollProgress");
   const links=[...document.querySelectorAll(".nav-links a")];
   const sections=links.map(link=>document.querySelector(link.getAttribute("href"))).filter(Boolean);
-
   let ticking=false;
+
   const update=()=>{
     const max=document.documentElement.scrollHeight-innerHeight;
     progress.style.width=(max?scrollY/max*100:0)+"%";
 
     const probe=scrollY+Math.min(innerHeight*.35,280);
     let active="";
-    sections.forEach(section=>{if(section.offsetTop<=probe)active=section.id});
-    links.forEach(link=>link.classList.toggle("active",link.getAttribute("href")==="#"+active));
+
+    sections.forEach(section=>{
+      if(section.offsetTop<=probe)active=section.id;
+    });
+
+    links.forEach(link=>{
+      link.classList.toggle("active",link.getAttribute("href")==="#"+active);
+    });
+
     ticking=false;
   };
 
   addEventListener("scroll",()=>{
-    if(!ticking){requestAnimationFrame(update);ticking=true}
+    if(!ticking){
+      requestAnimationFrame(update);
+      ticking=true;
+    }
   },{passive:true});
+
   update();
 }
 
 renderMaps();
-renderInventory();
+renderZoneList();
 renderParts();
-selectPart(parts[0].id);
-selectAmount(100);
+renderEpisodes();
+selectZone(parts[0].id);
 updateCampaign();
-setupTilt();
+setupTilt("#heroScene","hero");
+setupTilt("#lidScene","lid");
 setupScroll();
 setInterval(updateCampaign,60000);
